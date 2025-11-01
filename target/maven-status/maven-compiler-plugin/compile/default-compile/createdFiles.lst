@@ -1,9 +1,0 @@
-com/ticketBox/Service/TicketService.class
-com/ticketBox/Entity/User.class
-com/ticketBox/Repository/TicketRepository.class
-com/ticketBox/Controller/TicketController.class
-com/ticketBox/Controller/UserController.class
-com/ticketBox/Service/UserService.class
-com/ticketBox/Entity/Ticket.class
-com/ticketBox/TicketBox/TicketBoxApplication.class
-com/ticketBox/Repository/UserRepository.class
