@@ -1,0 +1,35 @@
+[00:00:02.638] Server  LOG      ✓ Ready in 2.1s
+[00:20:42.505] Server  ERROR    ⨯ ./src/app/layout.jsx:4:1
+Module not found: Can't resolve '@/components/SegmentedNav'
+  2 | import { Geist, Geist_Mono } from 'next/font/google';
+  3 | import ClientLayout from './ClientLayout';
+> 4 | import SegmentedNav from '@/components/SegmentedNav';
+    | ^
+  5 | import ThemeChanger from '../components/Header/themeChanger';
+  6 |
+  7 | const geistSans = Geist({
+
+https://nextjs.org/docs/messages/module-not-found
+[00:20:42.702] Server  LOG      ○ Compiling /_not-found ...
+[00:20:43.721] Server  ERROR    ⨯ ./src/app/layout.jsx:4:1
+Module not found: Can't resolve '@/components/SegmentedNav'
+  2 | import { Geist, Geist_Mono } from 'next/font/google';
+  3 | import ClientLayout from './ClientLayout';
+> 4 | import SegmentedNav from '@/components/SegmentedNav';
+    | ^
+  5 | import ThemeChanger from '../components/Header/themeChanger';
+  6 |
+  7 | const geistSans = Geist({
+
+https://nextjs.org/docs/messages/module-not-found
+[00:20:50.194] Server  ERROR    ⨯ ./src/app/layout.jsx:4:1
+Module not found: Can't resolve '@/components/SegmentedNav'
+  2 | import { Geist, Geist_Mono } from 'next/font/google';
+  3 | import ClientLayout from './ClientLayout';
+> 4 | import SegmentedNav from '@/components/SegmentedNav';
+    | ^
+  5 | import ThemeChanger from '../components/Header/themeChanger';
+  6 |
+  7 | const geistSans = Geist({
+
+https://nextjs.org/docs/messages/module-not-found
