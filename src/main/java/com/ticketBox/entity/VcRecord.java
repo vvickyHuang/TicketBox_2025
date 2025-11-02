@@ -1,55 +1,72 @@
 package com.ticketBox.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
-@Entity
-@Table(name = "vc_record")
+import java.time.LocalDateTime;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@Entity
+@Table(name = "vc_record")
 public class VcRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // 所屬會員（多對一）
+    /** 關聯會員 */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id", nullable = false)
+    @JoinColumn(name = "member_id")
     private Member member;
 
-    // 憑證識別資訊
-    @Column(nullable = false, unique = true)
-    private String cid; // VC 唯一識別碼 (jti 最後一段)
+    /** 活動/場次識別 */
+    @Column(name = "concert_uuid")
+    private String concertUuid;
 
-    @Column(nullable = false)
-    private String vcType; // 模板代碼 (e.g. concert_ticket_vc)
-
-    @Column(nullable = false)
-    private String transactionId; // /api/qrcode/data 回傳的 transactionId
-
-    @Column(nullable = false)
-    private String status; // ACTIVE / REVOKED / EXPIRED
-
-    // 票券資料
-    @Column(nullable = false)
+    /** 區域、排、座位 */
+    @Column(name = "area")
     private String area;
 
-    @Column(nullable = false, length = 3)
+    @Column(name = "line")
     private String line;
 
-    @Column(nullable = false, length = 3)
+    @Column(name = "seat")
     private String seat;
 
-    @Column(nullable = false)
-    private String concertUuid; // 活動代號（uuid）
+    /** Sandbox 交易識別碼（發券後回傳） */
+    @Column(name = "transaction_id")
+    private String transactionId;
 
-    // 系統記錄
-    @Column(nullable = false)
-    private java.time.LocalDateTime createdAt = java.time.LocalDateTime.now();
+    /** 憑證唯一識別碼（Credential ID, 用於撤銷） */
+    @Column(name = "cid")
+    private String cid;
 
-    @Column
-    private java.time.LocalDateTime updatedAt;
+    /** 憑證持有者 / 發證者 DID */
+    @Column(name = "holder_did")
+    private String holderDid;
+
+    @Column(name = "issuer_did")
+    private String issuerDid;
+
+    /** VC 模板代碼（如 CONCERT_TICKET） */
+    @Column(name = "vc_uid")
+    private String vcUid;
+
+    /** 票券狀態（PENDING/ACTIVE/USED/REVOKED/REFUNDED/EXPIRED） */
+    @Column(name = "vc_status")
+    private String vcStatus;
+
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 }

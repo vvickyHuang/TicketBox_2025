@@ -96,10 +96,10 @@ public class DigitalCredentialService {
 
     /** 驗證端：查詢 VP 驗證結果 */
     public ResponseEntity<Map> verifyVpRaw(String transactionId) {
-        String url = VERIFIER_BASE_URL + "/api/oidvp/result/" + transactionId;
-        return call(url, HttpMethod.POST, Map.of("transactionId", transactionId), false);
+        String url = VERIFIER_BASE_URL + "/api/oidvp/result";
+        Map<String, Object> body = Map.of("transactionId", transactionId);
+        return call(url, HttpMethod.POST, body, false);
     }
-
     // =========================================================================
     // JWT 解析（只有成功才用）
     // =========================================================================
