@@ -1,5 +1,33 @@
+spring:
+  application:
+    name: TicketBox
+
+  profiles:
+    active: dev   # 目前啟用設定檔
+
+  datasource:
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 1
+      idle-timeout: 10000
+      max-lifetime: 30000
+      connection-timeout: 10000
+
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+      - org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration
+
 springdoc:
   api-docs:
     enabled: true
   swagger-ui:
     enabled: true
+    path: /swagger-ui.html
+server:
+  port: 8080

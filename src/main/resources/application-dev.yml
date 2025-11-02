@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://ticketbox-daedae309-0c9a.i.aivencloud.com:14165/ticketbox?sslmode=require
+    username: ${DB_USER:avnadmin}
+    password: ${DB_PASS:AVNS_YnS6S0KpekcGhdP9LuR}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
