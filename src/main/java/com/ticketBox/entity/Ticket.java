@@ -2,31 +2,64 @@ package com.ticketBox.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
+@Data
 @Entity
+@NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "Ticket")
 //VP票券
 public class Ticket {
 
+    /** 活動/場次識別 */
     @Id
-    @Column(nullable = false)
-    private String memberId;
+    @Column(name = "concert_id")
+    private String concertId;
 
-    @Column(nullable = false)
-    private String vpTransactionId;
+    @Column(name = "order_uuid")
+    private String orderUuid;
 
-    @Column(nullable = false)
-    private String title;
+    /** 區域、排、座位 */
+    @Column(name = "area")
+    private String area;
 
-    private Double price;
+    @Column(name = "line")
+    private String line;
 
-    private LocalDateTime eventDate;
+    @Column(name = "seat")
+    private String seat;
 
-    private String seatArea;
+    /** 憑證唯一識別碼（Credential ID, 用於撤銷） */
+    @Column(name = "cid")
+    private String cid;
 
-    private String location;
+    /** 票券狀態（PENDING/ACTIVE/USED/REVOKED/REFUNDED/EXPIRED） */
+    @Column(name = "vc_status")
+    private String vcStatus;
+
+    @Column(name = "transaction_id")
+    private String transactionId;
+
+    /** 發行者 DID */
+    @Column(name = "issuer_did")
+    private String issuerDid;
+
+    @Column(name = "payment_status")
+    private String paymentStatus;
+
+    @Column(name = "verify_code")
+    private String verifyCode;
+
+    @Column(name = "verify_Time")
+    private Date verifyTime;
+
+    @Column(name = "email")
+    private String email;
+
+
+
 }
-

@@ -1,16 +1,16 @@
 package com.ticketBox.service;
 
-import com.ticketBox.Enum.TicketStatus;
 import com.ticketBox.Enum.VcUuidInfo;
 import com.ticketBox.dto.*;
-import com.ticketBox.entity.Member;
-import com.ticketBox.entity.VcRecord;
-import com.ticketBox.repository.MemberRepository;
-import com.ticketBox.repository.VcRecordRepository;
+import com.ticketBox.entity.Ticket;
+import com.ticketBox.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.util.*;
 
 /**
@@ -26,122 +26,216 @@ public class TicketService {
     private DigitalCredentialService digitalCredentialService;
 
     @Autowired
-    private VcRecordRepository vcRecordRepository;
+    private TicketRepository ticketRepository;
 
-    @Autowired
-    private MemberRepository memberRepository;
-
-    /**
-     * 1) 購票：向 Sandbox 發行 Ticket VC，回傳 transactionId
-     *    後續由前端在用戶掃描完成後，呼叫 /bind 完成綁定
-     */
-    @Transactional
-    public PurchaseResponse purchaseIssue(PurchaseRequest req) {
-        Member member = findMember(req.getMemberId());
-
-        VcUuidInfo vc = VcUuidInfo.CONCERT_TICKET;
-        List<Map<String, String>> fields = vc.buildFields(
-                member, req.getArea(), req.getLine(), req.getSeat(), req.getConcertUuid()
-        );
-
-        Map<String, Object> issue = digitalCredentialService.issueVcRaw(vc.getVcUid(), fields);
-        if (issue == null || issue.isEmpty()) {
-            return PurchaseResponse.fail("Sandbox 發券失敗或無回應");
-        }
-
-        // transactionId 防呆
-        String txId = Optional.ofNullable(issue.get("transactionId"))
-                .orElse(issue.get("txId"))
-                .map(String::valueOf)
-                .orElse(null);
-        if (txId == null) {
-            return PurchaseResponse.fail("Sandbox 未回傳 transactionId");
-        }
-
-        // 入庫
-        VcRecord rec = new VcRecord();
-        rec.setMember(member);
-        rec.setConcertUuid(req.getConcertUuid());
-        rec.setArea(req.getArea());
-        rec.setLine(req.getLine());
-        rec.setSeat(req.getSeat());
-        rec.setTransactionId(txId);
-        rec.setVcUid(vc.getVcUid());
-        rec.setVcStatus(TicketStatus.PENDING.getValue());
-        vcRecordRepository.save(rec);
-
-        return PurchaseResponse.ok(txId);
-    }
-
-    /**
-     * 2) 換票：賣家確認收款 → 撤銷舊 VC
-     */
-    @Transactional
-    public ExchangeResponse exchangeRevoke(ExchangeRequest req) {
-        VcRecord old = vcRecordRepository.findByCid(req.getSellerTicketCid()).orElse(null);
-        if (old == null) {
-            return ExchangeResponse.fail("查無 sellerTicketCid 對應的票券");
-        }
-        if (!TicketStatus.ACTIVE.getValue().equals(old.getVcStatus())) {
-            return ExchangeResponse.fail("票券狀態非 ACTIVE，無法撤銷，當前：" + old.getVcStatus());
-        }
-        if (!req.isSellerConfirm()) {
-            return ExchangeResponse.fail("賣家尚未確認收款，暫不撤銷");
-        }
-
-        Map<String, Object> revoke = digitalCredentialService.revokeCredential(old.getCid());
-        if (revoke == null || revoke.containsKey("error") || !Boolean.TRUE.equals(revoke.get("revoked"))) {
-            return ExchangeResponse.fail("Sandbox 撤銷失敗：" + revoke);
-        }
-
-        old.setVcStatus(TicketStatus.REVOKED.getValue());
-        vcRecordRepository.save(old);
-        return ExchangeResponse.ok("撤銷完成，買家可按下『綁定』建立新票");
-    }
-
-    /**
-     * 3) 綁定（購票或換票後）
-     */
-    @Transactional
-    public BindResponse bindByTransactionId(BindRequest req) {
-        VcRecord rec = vcRecordRepository.findByTransactionId(req.getTransactionId()).orElse(null);
-        if (rec == null) {
-            return BindResponse.fail("查無 transactionId 對應的暫存記錄");
-        }
-
-        Map<String, Object> credential = digitalCredentialService.getCredentialRaw(req.getTransactionId());
-        if (credential == null || credential.containsKey("error")) {
-            return BindResponse.fail("憑證尚未掃描或查詢失敗：" + credential.get("error"));
-        }
-
-        String cid = String.valueOf(credential.get("cid"));
-        String holderDid = String.valueOf(credential.get("holderDid"));
-        String issuerDid = String.valueOf(credential.get("issuerDid"));
-
-        rec.setCid(cid);
-        rec.setHolderDid(holderDid);
-        rec.setIssuerDid(issuerDid);
-        rec.setVcStatus(TicketStatus.ACTIVE.getValue());
-        vcRecordRepository.save(rec);
-
-        return BindResponse.ok(cid, holderDid, issuerDid);
-    }
-
-    // ----------------- helper -----------------
-
-    private Member findMember(String memberId) {
-        return memberRepository.findByMemberId(memberId)
-                .orElseThrow(() -> new IllegalArgumentException("查無會員：" + memberId));
-    }
 
     @Transactional
-    public boolean verifyTicket(String ticketId) {
-        VcRecord record = vcRecordRepository.findById(ticketId).orElseThrow();
-        Map<String, Object> qr = digitalCredentialService.createVpQrCodeRaw();
-        String txId = (String) qr.get("transactionId");
+    public TicketOrderCreateResponse createOrder(TicketOrderRequest req) {
 
-        // 等使用者掃描
-        Map<String, Object> result = digitalCredentialService.verifyVpRaw(txId);
-        return Boolean.TRUE.equals(result.get("verifyResult"));
+        try {
+
+            String orderId = UUID.randomUUID().toString().replaceAll("-", "");
+
+            for (Ticket t : req.getTicketlist()) {
+                Ticket ticket = new Ticket();
+                ticket.setEmail(t.getEmail());
+                ticket.setOrderUuid(orderId);
+                ticket.setConcertId(t.getConcertId());
+                ticket.setArea(t.getArea());
+                ticket.setLine(t.getLine());
+                ticket.setSeat(t.getSeat());
+                ticket.setVcStatus("PENDING");
+                ticket.setPaymentStatus("PAID");//跳過付款流程，直接假設已付款
+                ticketRepository.save(ticket);
+            }
+
+            return TicketOrderCreateResponse.builder()
+                    .orderId(orderId)
+                    .amount("6000")
+                    .paymentUrl("https://payment.example.com/pay?orderId=" + orderId)
+                    .build();
+
+        }catch (Exception e){
+            return TicketOrderCreateResponse.builder()
+                    .orderId("fail")
+                    .amount("0")
+                    .paymentUrl("")
+                    .build();
+        }
     }
+
+    public TicketCodeResponse sendVerifyCode(TicketCodeRequest req) {
+
+        try {
+            Optional<Ticket> ticket = ticketRepository.findByEmailAndOrderUuidAndVcStatus(req.getOderId(), req.getEmail(),"PENDING");
+
+            if (ticket.isEmpty()) {
+                return TicketCodeResponse.builder()
+                        .message("請確認資訊是否正確")
+                        .build();
+           }
+
+            Date now = new Date();
+            String input = req.getEmail() + req.getOderId() + now;
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] hash = md.digest(input.getBytes(StandardCharsets.UTF_8));
+
+            StringBuilder sb = new StringBuilder();
+            for (byte b : hash) {
+                sb.append(String.format("%02x", b)); // 轉成16進位
+            }
+
+            //更新驗證碼欄位
+            Ticket t = ticket.get();
+            t.setVerifyCode(String.valueOf(sb));
+            t.setVerifyTime(now);
+            ticketRepository.save(t);
+
+            return TicketCodeResponse.builder()
+                    .message(String.valueOf(sb))
+                    .build();
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    //領VC的時候打這支API
+    public TicketOrderVCResponse getVcQrcode(String code) {
+
+        Date now = new Date();
+        ResponseEntity<Map<String,Object>> resp;
+        List<TicketVcDTO> vcList = new ArrayList<>();
+        List<Ticket> ticket = ticketRepository.findFirstByVerifyCodeAndVcStatus(code, "PENDING");
+
+        if (ticket.isEmpty()) {
+            return TicketOrderVCResponse.builder()
+                    .ticketVcDTOList(null)
+                    .message("驗證碼無效")
+                    .build();
+        }
+
+        for (Ticket t : ticket) {
+            //驗證碼有效時間為5分鐘
+            long diff = now.getTime() - t.getVerifyTime().getTime();
+            long diffMinutes = diff / (60 * 500);
+            if (diffMinutes > 10) {
+                return TicketOrderVCResponse.builder()
+                        .ticketVcDTOList(null)
+                        .message("驗證碼無效")
+                        .build();
+            }
+
+            VcUuidInfo vc = VcUuidInfo.CONCERT_TICKET;
+            List<Map<String, String>> fields = vc.buildFields(
+                    t.getOrderUuid(), t.getConcertId(), t.getArea(), t.getLine(), t.getSeat()
+            );
+
+            //呼叫外部 API（發行 VC）
+            resp = digitalCredentialService.issueVcRaw(
+                    vc.getVcUid(), vc.getIssuanceDate(), vc.getExpiredDate(), fields);
+
+            // 若沙盒回傳錯誤，直接透過 resp 回傳給前端
+            if (!resp.getStatusCode().is2xxSuccessful()) {
+                return TicketOrderVCResponse.builder()
+                        .ticketVcDTOList(null)
+                        .message("Sandbox 發券失敗: " + resp.getStatusCode())
+                        .build();
+            }
+
+            Map<String,Object> body = resp.getBody();
+            if (body == null) {
+                return TicketOrderVCResponse.builder()
+                        .ticketVcDTOList(null)
+                        .message("發行端回傳空內容")
+                        .build();
+            }
+            t.setTransactionId(body.get("transactionId").toString());
+            ticketRepository.save(t);
+            vcList.add(TicketVcDTO.builder()
+                    .area(t.getArea())
+                    .line(t.getLine())
+                    .seat(t.getSeat())
+                    .qrcode(body.get("qrCodeUrl").toString())
+                    .deeplink(body.get("deepLink").toString())
+                    .build());
+
+        }
+
+        return TicketOrderVCResponse.builder()
+                .ticketVcDTOList(vcList)
+                .message("請使用數位憑證皮夾 App 掃描 QR Code 完成綁定")
+                .build();
+
+    }
+
+    //查詢 VC 狀態
+    public TicketVCStatusResponse checkVcStatus(String orderId) {
+
+        Ticket ticket = ticketRepository.findFirstByOrderUuid(orderId);
+
+        if (ticket == null||("REVOKED".equals(ticket.getVcStatus()))) {
+            return TicketVCStatusResponse.builder()
+                    .orderId(orderId)
+                    .vcStatus("FAILED")
+                    .message("查無此訂單")
+                    .build();
+        }
+
+        ResponseEntity<Map<String, Object>> resp = digitalCredentialService.getCredentialRaw(ticket.getTransactionId());
+        Map<String, Object> body = resp.getBody();
+
+        //回傳錯誤
+        if (!resp.getStatusCode().is2xxSuccessful()) {
+            // 若是 credential not found → 視為過期並自動取消訂單
+            if (body != null && ("61010".equals(body.get("code")) ||
+                    (body.get("message") != null && body.get("message").toString().contains("credential not found")))) {
+
+                ticket.setVcStatus("EXPIRED");
+                ticketRepository.save(ticket);
+
+                return TicketVCStatusResponse.builder()
+                        .orderId(orderId)
+                        .vcStatus("EXPIRED")
+                        .message("VC 已過期或已撤銷，訂單已自動取消")
+                        .build();
+            }
+
+            return TicketVCStatusResponse.builder()
+                    .orderId(orderId)
+                    .vcStatus("ERROR")
+                    .message("Sandbox 查詢失敗: " + resp.getStatusCode())
+                    .build();
+        }
+
+        // 若 sandbox 回傳成功但 credential 欄位不存在，代表還沒掃描
+        if (body == null || !body.containsKey("credential")) {
+            return TicketVCStatusResponse.builder()
+                    .orderId(orderId)
+                    .vcStatus("PENDING")
+                    .message("尚未掃描 QR Code")
+                    .build();
+        }
+
+        //解析 VC JWT
+        Map<String, Object> credential = digitalCredentialService.parseJwt((String) body.get("credential"));
+        String issuerDid = (String) credential.get("issuerDid");
+        String cid = (String) credential.get("cid");
+
+        // 更新 DB
+        ticket.setIssuerDid(issuerDid);
+        ticket.setCid(cid);
+        ticket.setVcStatus("ACTIVE");
+        ticketRepository.save(ticket);
+
+        return TicketVCStatusResponse.builder()
+                .vcStatus("ACTIVE")
+                .message("VC 綁定完成")
+                .orderId(orderId)
+                .build();
+    }
+
 }
+
+
+

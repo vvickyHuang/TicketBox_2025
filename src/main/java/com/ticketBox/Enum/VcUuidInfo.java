@@ -14,27 +14,17 @@ import java.util.Map;
  */
 public enum VcUuidInfo {
 
-    // === 會員卡 VC ===
-    MEMBER_CARD(
-            "00000000_ticket_box_member",
-            "20251102",
-            "20251202",
-            List.of(
-                    Map.of("ename", "memberId", "content", "")
-            )
-    ),
-
     // === 演唱會票券 VC ===
     CONCERT_TICKET(
-            "00000000_concert_ticket_vc",
-            "20251102",
-            "20251202",
+            "00000000_concert_ticket_bts",
+            "20251105",
+            "20251205",
             List.of(
-                    Map.of("ename", "memberId", "content", ""),
+                    Map.of("ename", "orderUuid", "content", ""),
+                    Map.of("ename", "concertId", "content", ""),
                     Map.of("ename", "area", "content", ""),
                     Map.of("ename", "line", "content", ""),
-                    Map.of("ename", "seat", "content", ""),
-                    Map.of("ename", "uuid", "content", "")
+                    Map.of("ename", "seat", "content", "")
             )
     );
 

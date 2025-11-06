@@ -20,7 +20,6 @@ public class DigitalCredentialService {
     private static final String ISSUER_BASE_URL = "https://issuer-sandbox.wallet.gov.tw";
     private static final String VERIFIER_BASE_URL = "https://verifier-sandbox.wallet.gov.tw";
 
-    // === 固定 Token（請換成你自己的）===
     private static final String ISSUER_TOKEN = "7eubm0mTog8YAr8BrUsVkI6HrsWS4w5V";
     private static final String VERIFIER_TOKEN = "ymR7LRlNBfP6bDXz3SLVMGBZahMJhTMu";
 
@@ -38,19 +37,19 @@ public class DigitalCredentialService {
         return headers;
     }
     // === 通用 API 呼叫 ===
-    private ResponseEntity<Map> call(String url, HttpMethod method, Object body, boolean isIssuer) {
+    private ResponseEntity<Map<String,Object>> call(String url, HttpMethod method, Object body, boolean isIssuer) {
         HttpHeaders headers = buildHeaders(isIssuer);
         HttpEntity<Object> entity = (body == null)
                 ? new HttpEntity<>(headers)
                 : new HttpEntity<>(body, headers);
 
         try {
-            ResponseEntity<Map> resp = restTemplate.exchange(url, method, entity, Map.class);
+            ResponseEntity<Map<String,Object>> resp = restTemplate.exchange(url, method, entity, (Class<Map<String,Object>>)(Class<?>)Map.class);
             System.out.println("✅ Response: " + resp.getStatusCode() + " | " + resp.getBody());
             return resp;
 
         } catch (HttpClientErrorException e) {
-            System.err.println("❌ Sandbox returned " + e.getStatusCode() + ": " + e.getResponseBodyAsString());
+            System.err.println("Sandbox returned " + e.getStatusCode() + ": " + e.getResponseBodyAsString());
             return ResponseEntity.status(e.getStatusCode())
                     .body(Map.of("error", e.getResponseBodyAsString()));
         }
@@ -60,7 +59,7 @@ public class DigitalCredentialService {
     // =========================================================================
 
     /** 發行 VC（產生 QR Code） */
-    public ResponseEntity<Map> issueVcRaw(String vcUid, String iss, String exp, List<Map<String, String>> fields) {
+    public ResponseEntity<Map<String,Object>> issueVcRaw(String vcUid, String iss, String exp, List<Map<String, String>> fields) {
         String url = ISSUER_BASE_URL + "/api/qrcode/data";
 
         Map<String, Object> body = Map.of(
@@ -73,13 +72,13 @@ public class DigitalCredentialService {
     }
 
     /** 查詢 VC 憑證內容 */
-    public ResponseEntity<Map> getCredentialRaw(String transactionId) {
+    public ResponseEntity<Map<String,Object>> getCredentialRaw(String transactionId) {
         String url = ISSUER_BASE_URL + "/api/credential/nonce/" + transactionId;
         return call(url, HttpMethod.GET, null, true);
     }
 
     /** 撤銷 VC 憑證 */
-    public ResponseEntity<Map> revokeVcRaw(String cid, String action) {
+    public ResponseEntity<Map<String,Object>> revokeVcRaw(String cid, String action) {
         String url = ISSUER_BASE_URL + "/api/credential/" + cid + "/" + action;
         return call(url, HttpMethod.PUT, null, true);
     }
@@ -89,13 +88,13 @@ public class DigitalCredentialService {
     // =========================================================================
 
     /** 驗證端：產生授權請求 QR Code */
-    public ResponseEntity<Map> createVpQrCodeRaw() {
+    public ResponseEntity<Map<String,Object>> createVpQrCodeRaw() {
         String url = VERIFIER_BASE_URL + "/api/oidvp/qrcode";
         return call(url, HttpMethod.GET, null, false);
     }
 
     /** 驗證端：查詢 VP 驗證結果 */
-    public ResponseEntity<Map> verifyVpRaw(String transactionId) {
+    public ResponseEntity<Map<String,Object>> verifyVpRaw(String transactionId) {
         String url = VERIFIER_BASE_URL + "/api/oidvp/result";
         Map<String, Object> body = Map.of("transactionId", transactionId);
         return call(url, HttpMethod.POST, body, false);
