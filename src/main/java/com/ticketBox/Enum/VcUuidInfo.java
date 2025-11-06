@@ -1,5 +1,7 @@
 package com.ticketBox.Enum;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +14,7 @@ import java.util.Map;
  * - expiredDate：到期日期（固定）
  * - fields：欄位定義（對應 Sandbox 模板結構）
  */
+@Getter
 public enum VcUuidInfo {
 
     // === 演唱會票券 VC ===
@@ -38,22 +41,6 @@ public enum VcUuidInfo {
         this.issuanceDate = issuanceDate;
         this.expiredDate = expiredDate;
         this.fields = fields;
-    }
-
-    public String getVcUid() {
-        return vcUid;
-    }
-
-    public String getIssuanceDate() {
-        return issuanceDate;
-    }
-
-    public String getExpiredDate() {
-        return expiredDate;
-    }
-
-    public List<Map<String, String>> getFields() {
-        return fields;
     }
 
     /**
