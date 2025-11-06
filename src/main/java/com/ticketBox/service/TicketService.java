@@ -6,6 +6,7 @@ import com.ticketBox.entity.Ticket;
 import com.ticketBox.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -235,6 +236,54 @@ public class TicketService {
                 .build();
     }
 
+    @Async
+    public void pollVerifyVp(String transactionId) {
+        int maxAttempts = 150;
+        int attempt = 0;
+
+        while (attempt < maxAttempts) {
+            try {
+                // 呼叫 verifier
+                ResponseEntity<Map<String, Object>> response = digitalCredentialService.verifyVpRaw(transactionId);
+                Map<String, Object> result = response.getBody();
+
+                if (result != null && "verified".equals(result.get("status"))) {
+                    System.out.println("VP 已驗證成功！");
+                    // 你可以在這裡更新資料庫或發事件通知前端
+                    break;
+                }
+
+                // 等 2 秒再輪詢
+                Thread.sleep(2000);
+                attempt++;
+            } catch (Exception e) {
+                e.printStackTrace();
+                break;
+            }
+        }
+
+        if (attempt == maxAttempts) {
+            System.out.println("超時：未在時間內驗證成功");
+        }
+    }
+
+    public TicketVpResponse sellTicket() {
+        // 1️⃣ 產生 QR code
+        Map<String, Object> body = digitalCredentialService.createVpQrCodeRaw().getBody();
+
+        String qrcodeImage = body.get("qrcode_image").toString();
+        String authUri = body.get("auth_uri").toString();
+        String transactionId = body.get("transaction_id").toString();
+
+        // 啟動非同步輪詢
+        pollVerifyVp(transactionId);
+
+        // 回傳前端用的 DTO
+        return TicketVpResponse.builder()
+                .qrcodeImage(qrcodeImage)
+                .authUri(authUri)
+                .build();
+    }
 }
 
 

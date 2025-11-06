@@ -55,5 +55,11 @@ public class TicketController {
         return ticketService.sendVerifyCode(req);
     }
 
+    @PostMapping("/sellTicket")
+    @Operation (summary = "賣票驗證", description = "賣票驗證")
+    public TicketVpResponse sellTicket() {
+        return ticketService.sellTicket();
+    }
+
 
 }

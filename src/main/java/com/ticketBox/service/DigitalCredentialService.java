@@ -89,15 +89,19 @@ public class DigitalCredentialService {
 
     /** 驗證端：產生授權請求 QR Code */
     public ResponseEntity<Map<String,Object>> createVpQrCodeRaw() {
-        String url = VERIFIER_BASE_URL + "/api/oidvp/qrcode";
+        String url = VERIFIER_BASE_URL + "/api/vp-item/451408/qrcode";
+//        String url = VERIFIER_BASE_URL + "/api/oidvp/qrcode";
+
         return call(url, HttpMethod.GET, null, false);
     }
 
     /** 驗證端：查詢 VP 驗證結果 */
     public ResponseEntity<Map<String,Object>> verifyVpRaw(String transactionId) {
-        String url = VERIFIER_BASE_URL + "/api/oidvp/result";
-        Map<String, Object> body = Map.of("transactionId", transactionId);
-        return call(url, HttpMethod.POST, body, false);
+        String url = VERIFIER_BASE_URL + "/api/vp-item/verifyResult" + "/" + transactionId;
+//        String url = VERIFIER_BASE_URL + "/api/oidvp/result";
+//        Map<String, Object> body = Map.of("transactionId", transactionId);
+//        return call(url, HttpMethod.POST, body, false);
+        return call(url, HttpMethod.GET, null, false);
     }
     // =========================================================================
     // JWT 解析（只有成功才用）
