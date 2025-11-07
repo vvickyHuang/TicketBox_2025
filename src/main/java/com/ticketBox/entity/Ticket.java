@@ -17,6 +17,9 @@ public class Ticket {
 
     /** 活動/場次識別 */
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column(name = "concert_id")
     private String concertId;
 

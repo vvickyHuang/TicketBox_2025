@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 三支 API 的主流程：
@@ -39,12 +40,12 @@ public class TicketService {
 
             for (Ticket t : req.getTicketlist()) {
                 Ticket ticket = new Ticket();
-                ticket.setEmail(t.getEmail());
-                ticket.setOrderUuid(orderId);
                 ticket.setConcertId(t.getConcertId());
                 ticket.setArea(t.getArea());
                 ticket.setLine(t.getLine());
                 ticket.setSeat(t.getSeat());
+                ticket.setEmail(t.getEmail());
+                ticket.setOrderUuid(orderId);
                 ticket.setVcStatus("PENDING");
                 ticket.setPaymentStatus("PAID");//跳過付款流程，直接假設已付款
                 ticketRepository.save(ticket);
@@ -68,32 +69,42 @@ public class TicketService {
     public TicketCodeResponse sendVerifyCode(TicketCodeRequest req) {
 
         try {
-            Optional<Ticket> ticket = ticketRepository.findByEmailAndOrderUuidAndVcStatus(req.getOderId(), req.getEmail(),"PENDING");
+            // 1. 查出該 email + orderUuid 下所有 PENDING 票券
+            List<Ticket> tickets = ticketRepository.findAllByEmailAndOrderUuidAndVcStatus(
+                    req.getEmail(),
+                    req.getOrderId(),
+                    "PENDING"
+            );
 
-            if (ticket.isEmpty()) {
+            if (tickets.isEmpty()) {
                 return TicketCodeResponse.builder()
                         .message("請確認資訊是否正確")
                         .build();
-           }
+            }
 
+
+            // 2. 產生驗證碼（email + orderId + 現在時間）
             Date now = new Date();
-            String input = req.getEmail() + req.getOderId() + now;
+            String input = req.getEmail() + req.getOrderId() + now.getTime(); // 用 getTime() 讓字串更穩定
             MessageDigest md = MessageDigest.getInstance("MD5");
             byte[] hash = md.digest(input.getBytes(StandardCharsets.UTF_8));
 
             StringBuilder sb = new StringBuilder();
             for (byte b : hash) {
-                sb.append(String.format("%02x", b)); // 轉成16進位
+                sb.append(String.format("%02x", b)); // 轉16進位
             }
+            String verifyCode = sb.toString();
 
-            //更新驗證碼欄位
-            Ticket t = ticket.get();
-            t.setVerifyCode(String.valueOf(sb));
-            t.setVerifyTime(now);
-            ticketRepository.save(t);
+            // 3. 將同 email 的所有票更新成同一驗證碼
+            for (Ticket t : tickets) {
+                t.setVerifyCode(verifyCode);
+                t.setVerifyTime(now);
+            }
+            ticketRepository.saveAll(tickets); // 一次更新全部
 
+            // 4. 回傳
             return TicketCodeResponse.builder()
-                    .message(String.valueOf(sb))
+                    .message(verifyCode)
                     .build();
 
         } catch (Exception e) {
