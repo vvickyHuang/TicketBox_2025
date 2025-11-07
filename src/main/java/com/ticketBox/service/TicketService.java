@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * 三支 API 的主流程：
@@ -250,8 +249,8 @@ public class TicketService {
     }
 
 
-    public TicketVpResponse sellTicket(String mode) {
-        // 1️⃣ 產生 QR code
+    public TicketVpResponse ticketTrading(String mode) {
+        // 產生 QR code
         Map<String, Object> body = digitalCredentialService.createVpQrCodeRaw().getBody();
 
         String qrcodeImage = body.get("qrcode_image").toString();

@@ -55,10 +55,10 @@ public class TicketController {
         return ticketService.sendVerifyCode(req);
     }
 
-    @PostMapping("/sellTicket")
-    @Operation (summary = "S1. 賣票或取消賣票驗證", description = "利用VP驗證賣票或取消賣票的請求")
-    public TicketVpResponse sellTicket(@RequestBody String mode) {
-        return ticketService.sellTicket(mode);
+    @PostMapping("/ticketTrading")
+    @Operation(summary = "S1.票券販售或取消", description = "mode 可為 TRADING 或 CANCEL")
+    public TicketVpResponse ticketTrading(@RequestBody String mode ) {
+        return ticketService.ticketTrading(mode);
     }
 
     /**
