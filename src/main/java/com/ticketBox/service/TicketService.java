@@ -6,7 +6,6 @@ import com.ticketBox.entity.Ticket;
 import com.ticketBox.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +25,9 @@ public class TicketService {
 
     @Autowired
     private DigitalCredentialService digitalCredentialService;
+
+    @Autowired
+    private VpAsyncService vpAsyncService;
 
     @Autowired
     private TicketRepository ticketRepository;
@@ -247,38 +249,8 @@ public class TicketService {
                 .build();
     }
 
-    @Async
-    public void pollVerifyVp(String transactionId) {
-        int maxAttempts = 150;
-        int attempt = 0;
 
-        while (attempt < maxAttempts) {
-            try {
-                // 呼叫 verifier
-                ResponseEntity<Map<String, Object>> response = digitalCredentialService.verifyVpRaw(transactionId);
-                Map<String, Object> result = response.getBody();
-
-                if (result != null && "verified".equals(result.get("status"))) {
-                    System.out.println("VP 已驗證成功！");
-                    // 你可以在這裡更新資料庫或發事件通知前端
-                    break;
-                }
-
-                // 等 2 秒再輪詢
-                Thread.sleep(2000);
-                attempt++;
-            } catch (Exception e) {
-                e.printStackTrace();
-                break;
-            }
-        }
-
-        if (attempt == maxAttempts) {
-            System.out.println("超時：未在時間內驗證成功");
-        }
-    }
-
-    public TicketVpResponse sellTicket() {
+    public TicketVpResponse sellTicket(String mode) {
         // 1️⃣ 產生 QR code
         Map<String, Object> body = digitalCredentialService.createVpQrCodeRaw().getBody();
 
@@ -287,7 +259,7 @@ public class TicketService {
         String transactionId = body.get("transaction_id").toString();
 
         // 啟動非同步輪詢
-        pollVerifyVp(transactionId);
+        vpAsyncService.pollVerifyVp(transactionId,mode);
 
         // 回傳前端用的 DTO
         return TicketVpResponse.builder()
@@ -295,6 +267,42 @@ public class TicketService {
                 .authUri(authUri)
                 .build();
     }
+
+
+    public String getVerifyStatus(String orderUuid,String concertId ,String area, String line, String seat) {
+        try {
+            Ticket ticket = ticketRepository.findByOrderUuidAndConcertIdAndAreaAndLineAndSeat(
+                    orderUuid,
+                    concertId,
+                    area,
+                    line,
+                    seat
+            );
+
+            if (ticket == null) {
+                return "找不到該票券";
+            }
+
+            String status = ticket.getVcStatus();
+
+            switch (status) {
+                case "TRADING":
+                    return "票券販售成功";
+                case "ACTIVE":
+                    return "票券持有中";
+                case "REVOKED":
+                    return "票券已撤銷";
+                default:
+                    return "未知狀態：" + status;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "查詢過程發生錯誤：" + e.getMessage();
+        }
+    }
+
+
 }
 
 

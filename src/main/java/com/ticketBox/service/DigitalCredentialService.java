@@ -45,7 +45,7 @@ public class DigitalCredentialService {
 
         try {
             ResponseEntity<Map<String,Object>> resp = restTemplate.exchange(url, method, entity, (Class<Map<String,Object>>)(Class<?>)Map.class);
-            System.out.println("✅ Response: " + resp.getStatusCode() + " | " + resp.getBody());
+            System.out.println("Response: " + resp.getStatusCode() + " | " + resp.getBody());
             return resp;
 
         } catch (HttpClientErrorException e) {
@@ -90,8 +90,6 @@ public class DigitalCredentialService {
     /** 驗證端：產生授權請求 QR Code */
     public ResponseEntity<Map<String,Object>> createVpQrCodeRaw() {
         String url = VERIFIER_BASE_URL + "/api/vp-item/451408/qrcode";
-//        String url = VERIFIER_BASE_URL + "/api/oidvp/qrcode";
-
         return call(url, HttpMethod.GET, null, false);
     }
 
