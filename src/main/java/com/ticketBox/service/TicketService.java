@@ -118,7 +118,7 @@ public class TicketService {
         Date now = new Date();
         ResponseEntity<Map<String,Object>> resp;
         List<TicketVcDTO> vcList = new ArrayList<>();
-        List<Ticket> ticket = ticketRepository.findFirstByVerifyCodeAndVcStatus(code, "PENDING");
+        List<Ticket> ticket = ticketRepository.findAllByVerifyCodeAndVcStatus(code, "PENDING");
 
         if (ticket.isEmpty()) {
             return TicketOrderVCResponse.builder()
@@ -168,7 +168,7 @@ public class TicketService {
                     .area(t.getArea())
                     .line(t.getLine())
                     .seat(t.getSeat())
-                    .qrcode(body.get("qrCodeUrl").toString())
+                    .qrcode(body.get("qrCode").toString())
                     .deeplink(body.get("deepLink").toString())
                     .build());
 
