@@ -22,7 +22,7 @@ public class VpAsyncService {
     private DigitalCredentialService digitalCredentialService;
 
     @Async
-    public void pollVerifyVp(String transactionId,String tradeUuid, String mode) {
+    public void pollVerifyVp(String transactionId, String tradeUuid, String mode) {
         int maxAttempts = 150;
         int attempt = 0;
 
@@ -32,13 +32,11 @@ public class VpAsyncService {
                 ResponseEntity<Map<String, Object>> response = digitalCredentialService.verifyVpRaw(transactionId);
                 int statusCode = response.getStatusCodeValue();
 
-                // ✅ 收到 HTTP 200 代表有結果
                 if (statusCode == 200) {
                     Map<String, Object> body = response.getBody();
                     if (body != null && Boolean.TRUE.equals(body.get("verifyResult"))) {
                         System.out.println("VP 已驗證成功！");
 
-                        // ✅ 解析 claims 並傳給另一個方法
                         List<Map<String, Object>> dataList = (List<Map<String, Object>>) body.get("data");
                         if (dataList != null && !dataList.isEmpty()) {
                             try {
@@ -96,48 +94,58 @@ public class VpAsyncService {
      * 處理 claims 結果（你可以在這裡寫入資料庫、通知前端等）
      */
     private void handleClaimsData(Map<String, String> claimsMap, String tradeUuid, String mode) {
-        try {
-            String orderId = claimsMap.get("orderUuid");
-            String concertId = claimsMap.get("concertId");
-            String area = claimsMap.get("area");
-            String line = claimsMap.get("line");
-            String seat = claimsMap.get("seat");
 
-            Ticket ticket = ticketRepository.findByOrderUuidAndConcertIdAndAreaAndLineAndSeat(orderId, concertId, area, line, seat);
-            if (ticket == null) {
-                throw new IllegalStateException("找不到對應的票券");
-            }
+        String orderId = claimsMap.get("orderUuid");
+        String concertId = claimsMap.get("concertId");
+        String area = claimsMap.get("area");
+        String line = claimsMap.get("line");
+        String seat = claimsMap.get("seat");
 
-            switch (mode) {
-                case "TRADING":
-                    if ("TRADING".equals(ticket.getVcStatus())) {
-                        throw new IllegalStateException("票券正在販售中");
-                    } else if ("ACTIVE".equals(ticket.getVcStatus())) {
-                        ticket.setTradeUuid(tradeUuid);
-                        ticket.setVcStatus("TRADING");
-                        ticketRepository.save(ticket);
-                    } else {
-                        throw new IllegalStateException("無法從狀態 " + ticket.getVcStatus() + " 進入 TRADING");
-                    }
-                    break;
-
-                case "CANCEL":
-                    if ("TRADING".equals(ticket.getVcStatus())) {
-                        ticket.setTradeUuid(tradeUuid);
-                        ticket.setVcStatus("ACTIVE");
-                        ticketRepository.save(ticket);
-                    } else {
-                        throw new IllegalStateException("只有 TRADING 狀態可取消");
-                    }
-                    break;
-                default:
-                    throw new IllegalArgumentException("未知的 mode: " + mode);
-            }
-
-        } catch (Exception e) {
-            System.err.println("handleClaimsData() 發生錯誤：" + e.getMessage());
-            e.printStackTrace();
+        Ticket ticket = ticketRepository.findByOrderUuidAndConcertIdAndAreaAndLineAndSeat(orderId, concertId, area, line, seat);
+        if (ticket == null) {
+            throw new IllegalStateException("找不到對應的票券");
         }
+
+        ResponseEntity<Map<String, Object>> resp = digitalCredentialService.getCredentialRaw(ticket.getTransactionId());
+
+        Map<String, Object> credential = digitalCredentialService.parseJwt((String) resp.getBody().get("credential"));
+        String vcConcertId = (String) credential.get("concertId");
+        String vcArea = (String) credential.get("area");
+        String vcLine = (String) credential.get("line");
+        String vcSeat = (String) credential.get("seat");
+
+        // 驗證 VC 資料是否與票券相符
+        if (!concertId.equals(vcConcertId) || !area.equals(vcArea) || !line.equals(vcLine) || !seat.equals(vcSeat)) {
+            throw new IllegalStateException("VC 資料與票券不符");
+        }
+
+
+        switch (mode) {
+            case "TRADING":
+                if ("TRADING".equals(ticket.getVcStatus())) {
+                    throw new IllegalStateException("票券正在販售中");
+                } else if ("ACTIVE".equals(ticket.getVcStatus())) {
+                    ticket.setTradeUuid(tradeUuid);
+                    ticket.setVcStatus("TRADING");
+                    ticketRepository.save(ticket);
+                } else {
+                    throw new IllegalStateException("無法從狀態 " + ticket.getVcStatus() + " 進入 TRADING");
+                }
+                break;
+
+            case "CANCEL":
+                if ("TRADING".equals(ticket.getVcStatus())) {
+                    ticket.setTradeUuid(tradeUuid);
+                    ticket.setVcStatus("ACTIVE");
+                    ticketRepository.save(ticket);
+                } else {
+                    throw new IllegalStateException("只有 TRADING 狀態可取消");
+                }
+                break;
+            default:
+                throw new IllegalArgumentException("未知的 mode: " + mode);
+        }
+
     }
 
 }
