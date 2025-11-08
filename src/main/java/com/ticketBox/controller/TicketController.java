@@ -57,8 +57,8 @@ public class TicketController {
 
     @PostMapping("/ticketTrading")
     @Operation(summary = "S1.票券販售或取消", description = "mode 可為 TRADING 或 CANCEL")
-    public TicketVpResponse ticketTrading(@RequestBody String mode ) {
-        return ticketService.ticketTrading(mode);
+    public TicketVpResponse ticketTrading(@RequestBody TicketVpRequest req) {
+        return ticketService.ticketTrading(req);
     }
 
     /**

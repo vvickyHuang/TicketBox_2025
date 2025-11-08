@@ -248,10 +248,20 @@ public class TicketService {
                 .build();
     }
 
+    public enum Mode {
+        TRADING, CANCEL
+    }
 
-    public TicketVpResponse ticketTrading(String mode) {
+    public TicketVpResponse ticketTrading(TicketVpRequest req) {
         // 產生 QR code
         Map<String, Object> body = digitalCredentialService.createVpQrCodeRaw().getBody();
+        try{
+            Mode tradeMode = Mode.valueOf(req.getMode().trim().toUpperCase());
+        }catch (Exception e){
+            return TicketVpResponse.builder()
+                    .tradeUuid("模式僅支援 TRADING 或 CANCEL")
+                    .build();
+        }
 
         String qrcodeImage = body.get("qrcode_image").toString();
         String authUri = body.get("auth_uri").toString();
@@ -259,7 +269,7 @@ public class TicketService {
         String tradeUuid = UUID.randomUUID().toString();
 
         // 啟動非同步輪詢
-        vpAsyncService.pollVerifyVp(transactionId,tradeUuid,mode);
+        vpAsyncService.pollVerifyVp(transactionId,tradeUuid,req.getMode());
 
         // 回傳前端用的 DTO
         return TicketVpResponse.builder()
