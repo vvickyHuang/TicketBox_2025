@@ -106,9 +106,6 @@ public class VpAsyncService {
             Ticket ticket = ticketRepository.findByOrderUuidAndConcertIdAndAreaAndLineAndSeat(orderId, concertId, area, line, seat);
             if (ticket == null) {
                 throw new IllegalStateException("找不到對應的票券");
-            }else {
-                ticket.setTradeUuid(tradeUuid);
-                ticketRepository.save(ticket);
             }
 
             switch (mode) {
@@ -116,6 +113,7 @@ public class VpAsyncService {
                     if ("TRADING".equals(ticket.getVcStatus())) {
                         throw new IllegalStateException("票券正在販售中");
                     } else if ("ACTIVE".equals(ticket.getVcStatus())) {
+                        ticket.setTradeUuid(tradeUuid);
                         ticket.setVcStatus("TRADING");
                         ticketRepository.save(ticket);
                     } else {
@@ -125,6 +123,7 @@ public class VpAsyncService {
 
                 case "CANCEL":
                     if ("TRADING".equals(ticket.getVcStatus())) {
+                        ticket.setTradeUuid(tradeUuid);
                         ticket.setVcStatus("ACTIVE");
                         ticketRepository.save(ticket);
                     } else {

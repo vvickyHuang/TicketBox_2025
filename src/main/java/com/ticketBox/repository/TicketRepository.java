@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, String> { // concertId is @Id String
-    Ticket findFirstByOrderUuid(String orderUuid);
+    Ticket findFirstByVcStatusCode(String vcStatusCode);
     List<Ticket> findAllByVerifyCodeAndVcStatus(String verifyCode, String vcStatus);
     //找訂單號碼by mail跟orderUuid跟vcStatus
     List<Ticket> findAllByEmailAndOrderUuidAndVcStatus(String email, String orderUuid, String vcStatus);

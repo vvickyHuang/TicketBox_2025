@@ -4,6 +4,7 @@ import com.ticketBox.Enum.VcUuidInfo;
 import com.ticketBox.dto.*;
 import com.ticketBox.entity.Ticket;
 import com.ticketBox.repository.TicketRepository;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * 三支 API 的主流程：
@@ -36,10 +38,13 @@ public class TicketService {
     public TicketOrderCreateResponse createOrder(TicketOrderRequest req) {
 
         try {
-
-            String orderId = UUID.randomUUID().toString().replaceAll("-", "");
+            String orderId = "";
+            int randomNumber = ThreadLocalRandom.current().nextInt(100, 1000);
+            String letters = RandomStringUtils.randomAlphabetic(3).toUpperCase();
 
             for (Ticket t : req.getTicketlist()) {
+                orderId = t.getConcertId()+letters+randomNumber;
+
                 Ticket ticket = new Ticket();
                 ticket.setConcertId(t.getConcertId());
                 ticket.setArea(t.getArea());
@@ -54,20 +59,19 @@ public class TicketService {
 
             return TicketOrderCreateResponse.builder()
                     .orderId(orderId)
-                    .amount("6000")
                     .paymentUrl("https://payment.example.com/pay?orderId=" + orderId)
                     .build();
 
         }catch (Exception e){
             return TicketOrderCreateResponse.builder()
                     .orderId("fail")
-                    .amount("0")
                     .paymentUrl("")
                     .build();
         }
     }
 
-    public TicketCodeResponse sendVerifyCode(TicketCodeRequest req) {
+    //根據 email + orderId 發送領取VC的驗證碼
+    public TicketCodeResponse getVcVerifyCodeByEmail(TicketCodeRequest req) {
 
         try {
             // 1. 查出該 email + orderUuid 下所有 PENDING 票券
@@ -92,7 +96,7 @@ public class TicketService {
 
             StringBuilder sb = new StringBuilder();
             for (byte b : hash) {
-                sb.append(String.format("%02x", b)); // 轉16進位
+                sb.append(String.format("%02x", b));
             }
             String verifyCode = sb.toString();
 
@@ -101,9 +105,8 @@ public class TicketService {
                 t.setVerifyCode(verifyCode);
                 t.setVerifyTime(now);
             }
-            ticketRepository.saveAll(tickets); // 一次更新全部
+            ticketRepository.saveAll(tickets);
 
-            // 4. 回傳
             return TicketCodeResponse.builder()
                     .message(verifyCode)
                     .build();
@@ -113,12 +116,13 @@ public class TicketService {
         }
     }
 
-    //領VC的時候打這支API
-    public TicketOrderVCResponse getVcQrcode(String code) {
+    //根據驗證碼發行 VC 並回傳綁定資訊
+    public TicketOrderVCResponse getVcQrcodeByEmail(String code) {
 
         Date now = new Date();
         ResponseEntity<Map<String,Object>> resp;
         List<TicketVcDTO> vcList = new ArrayList<>();
+        // 查出所有符合驗證碼且狀態為 PENDING 的票券
         List<Ticket> ticket = ticketRepository.findAllByVerifyCodeAndVcStatus(code, "PENDING");
 
         if (ticket.isEmpty()) {
@@ -129,7 +133,10 @@ public class TicketService {
         }
 
         for (Ticket t : ticket) {
-            //驗證碼有效時間為5分鐘
+            //用現在時間產生亂數四碼
+            String randomTwoDigits = String.format("%02d", ThreadLocalRandom.current().nextInt(10000));
+            String vcStatusCode = t.getOrderUuid()+randomTwoDigits;
+            //驗證碼有效時間
             long diff = now.getTime() - t.getVerifyTime().getTime();
             long diffMinutes = diff / (60 * 500);
             if (diffMinutes > 10) {
@@ -139,6 +146,7 @@ public class TicketService {
                         .build();
             }
 
+            //準備VC欄位資料
             VcUuidInfo vc = VcUuidInfo.CONCERT_TICKET;
             List<Map<String, String>> fields = vc.buildFields(
                     t.getOrderUuid(), t.getConcertId(), t.getArea(), t.getLine(), t.getSeat()
@@ -164,8 +172,10 @@ public class TicketService {
                         .build();
             }
             t.setTransactionId(body.get("transactionId").toString());
+            t.setVcStatusCode(vcStatusCode);
             ticketRepository.save(t);
             vcList.add(TicketVcDTO.builder()
+                    .vcStatusCode(vcStatusCode)
                     .area(t.getArea())
                     .line(t.getLine())
                     .seat(t.getSeat())
@@ -183,13 +193,13 @@ public class TicketService {
     }
 
     //查詢 VC 狀態
-    public TicketVCStatusResponse checkVcStatus(String orderId) {
+    public TicketVCStatusResponse checkVcStatus(String vcStatusCode) {
 
-        Ticket ticket = ticketRepository.findFirstByOrderUuid(orderId);
+        Ticket ticket = ticketRepository.findFirstByVcStatusCode(vcStatusCode);
 
         if (ticket == null||("REVOKED".equals(ticket.getVcStatus()))) {
             return TicketVCStatusResponse.builder()
-                    .orderId(orderId)
+                    .orderId(vcStatusCode)
                     .vcStatus("FAILED")
                     .message("查無此訂單")
                     .build();
@@ -208,14 +218,12 @@ public class TicketService {
                 ticketRepository.save(ticket);
 
                 return TicketVCStatusResponse.builder()
-                        .orderId(orderId)
                         .vcStatus("EXPIRED")
                         .message("VC 已過期或已撤銷，訂單已自動取消")
                         .build();
             }
 
             return TicketVCStatusResponse.builder()
-                    .orderId(orderId)
                     .vcStatus("ERROR")
                     .message("Sandbox 查詢失敗: " + resp.getStatusCode())
                     .build();
@@ -224,7 +232,6 @@ public class TicketService {
         // 若 sandbox 回傳成功但 credential 欄位不存在，代表還沒掃描
         if (body == null || !body.containsKey("credential")) {
             return TicketVCStatusResponse.builder()
-                    .orderId(orderId)
                     .vcStatus("PENDING")
                     .message("尚未掃描 QR Code")
                     .build();
@@ -244,7 +251,6 @@ public class TicketService {
         return TicketVCStatusResponse.builder()
                 .vcStatus("ACTIVE")
                 .message("VC 綁定完成")
-                .orderId(orderId)
                 .build();
     }
 

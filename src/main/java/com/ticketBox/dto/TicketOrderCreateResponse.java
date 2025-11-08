@@ -12,9 +12,6 @@ public class TicketOrderCreateResponse {
     @Schema(description = "訂單編號", example = "orderId")
     private String orderId;
 
-    @Schema(description = "回應訊息", example = "1000")
-    private String amount;
-
     @Schema(description = "paymentUrl", example = "")
     private String paymentUrl;
 }

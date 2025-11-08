@@ -28,12 +28,12 @@ public class TicketController {
      * 2) 確認付款：付款完成後，前端呼叫此 API 確認付款，並取得 VC 綁定資訊（QR Code、Deep Link）
      */
     @GetMapping("/getVcQrcode/{code}")
-    @Operation(summary = "2. 取得VC綁定資訊", description = "付款成功後依訂單編號發行 VC 並回傳綁定資訊")
+    @Operation(summary = "3. 取得VC綁定資訊", description = "付款成功後依訂單編號發行 VC 並回傳綁定資訊")
     public TicketOrderVCResponse getVcQrcode(@PathVariable("code") @Parameter(description = "驗證碼") String code) {
         if (code != null && code.startsWith("{") && code.endsWith("}")) {
             code = code.substring(1, code.length() - 1); // 去掉使用者誤輸入的大括號
         }
-        return ticketService.getVcQrcode(code);
+        return ticketService.getVcQrcodeByEmail(code);
     }
 
 
@@ -50,9 +50,9 @@ public class TicketController {
     }
 
     @PostMapping("/sendVerifyCode")
-    @Operation (summary = "3. 領取VC的驗證碼，效期為五分鐘", description = "發送領取VC的驗證碼至使用者信箱")
+    @Operation (summary = "2. 領取VC的驗證碼，效期為五分鐘", description = "發送領取VC的驗證碼至使用者信箱")
     public TicketCodeResponse sendVerifyCode(@RequestBody TicketCodeRequest req) {
-        return ticketService.sendVerifyCode(req);
+        return ticketService.getVcVerifyCodeByEmail(req);
     }
 
     @PostMapping("/ticketTrading")

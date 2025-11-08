@@ -40,7 +40,7 @@ public class Ticket {
     @Column(name = "cid")
     private String cid;
 
-    /** 票券狀態（PENDING/ACTIVE/USED/REVOKED/REFUNDED/EXPIRED） */
+    /** 票券狀態（PENDING/ACTIVE/USED/REVOKED/EXPIRED） */
     @Column(name = "vc_status")
     private String vcStatus;
 
@@ -63,8 +63,11 @@ public class Ticket {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "tradeUuid")
+    @Column(name = "trade_Uuid")
     private String tradeUuid;
+
+    @Column(name = "vc_Status_Code")
+    private String vcStatusCode;
 
 
 

@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class TicketVcDTO {
 
-    String orderUuid;
+    String vcStatusCode;
     String area;
     String line;
     String seat;
