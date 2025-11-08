@@ -6,10 +6,10 @@ import com.ticketBox.entity.Ticket;
 import com.ticketBox.repository.TicketRepository;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.*;
@@ -53,7 +53,6 @@ public class TicketService {
                 ticket.setEmail(t.getEmail());
                 ticket.setOrderUuid(orderId);
                 ticket.setVcStatus("PENDING");
-                ticket.setPaymentStatus("PAID");//跳過付款流程，直接假設已付款
                 ticketRepository.save(ticket);
             }
 
@@ -90,7 +89,7 @@ public class TicketService {
 
             // 2. 產生驗證碼（email + orderId + 現在時間）
             Date now = new Date();
-            String input = req.getEmail() + req.getOrderId() + now.getTime(); // 用 getTime() 讓字串更穩定
+            String input = req.getEmail() + req.getOrderId() + now.getTime();
             MessageDigest md = MessageDigest.getInstance("MD5");
             byte[] hash = md.digest(input.getBytes(StandardCharsets.UTF_8));
 
@@ -133,7 +132,7 @@ public class TicketService {
         }
 
         for (Ticket t : ticket) {
-            //用現在時間產生亂數四碼
+            //用時間產生亂數2碼
             String randomTwoDigits = String.format("%02d", ThreadLocalRandom.current().nextInt(10000));
             String vcStatusCode = t.getOrderUuid()+randomTwoDigits;
             //驗證碼有效時間
@@ -171,6 +170,7 @@ public class TicketService {
                         .message("發行端回傳空內容")
                         .build();
             }
+
             t.setTransactionId(body.get("transactionId").toString());
             t.setVcStatusCode(vcStatusCode);
             ticketRepository.save(t);
@@ -192,7 +192,7 @@ public class TicketService {
 
     }
 
-    //查詢 VC 狀態
+    //查詢 VC綁定狀態
     public TicketVCStatusResponse checkVcStatus(String vcStatusCode) {
 
         Ticket ticket = ticketRepository.findFirstByVcStatusCode(vcStatusCode);
@@ -213,13 +213,8 @@ public class TicketService {
             // 若是 credential not found → 視為過期並自動取消訂單
             if (body != null && ("61010".equals(body.get("code")) ||
                     (body.get("message") != null && body.get("message").toString().contains("credential not found")))) {
-
-                ticket.setVcStatus("EXPIRED");
-                ticketRepository.save(ticket);
-
                 return TicketVCStatusResponse.builder()
-                        .vcStatus("EXPIRED")
-                        .message("VC 已過期或已撤銷，訂單已自動取消")
+                        .message("VC 已過期或已撤銷")
                         .build();
             }
 
@@ -286,34 +281,86 @@ public class TicketService {
     }
 
 
-    public String getVerifyStatus(String tradeUuid) {
+    public Map<String, String> getVerifyStatus(String tradeUuid) {
+        Map<String, String> response = new HashMap<>();
+
         try {
             Ticket ticket = ticketRepository.findByTradeUuid(tradeUuid);
 
             if (ticket == null) {
-                return "找不到該票券";
+                response.put("message", "找不到該票券");
+                response.put("VcStatusCode", "");
+                return response;
             }
 
             String status = ticket.getVcStatus();
+            String message;
 
             switch (status) {
+                case "PENDING":
+                    message = "尚未領取票券";
+                    break;
                 case "TRADING":
-                    return "票券販售成功";
+                    message = "票券販售中";
+                    break;
                 case "ACTIVE":
-                    return "票券持有中";
+                    message = "票券持有中";
+                    break;
                 case "REVOKED":
-                    return "票券已撤銷";
+                    message = "票券已撤銷";
+                    break;
                 default:
-                    return "其他狀態：" + status;
+                    message = "其他狀態：" + status;
             }
+
+            response.put("message", message);
+            response.put("VcStatusCode", ticket.getVcStatusCode());
+            return response;
 
         } catch (Exception e) {
             e.printStackTrace();
-            return "查詢過程發生錯誤：" + e.getMessage();
+            response.put("message", "查詢過程發生錯誤：" + e.getMessage());
+            response.put("VcStatusCode", "");
+            return response;
         }
     }
 
+    //revoke VC
+    @Transactional
+    public ResponseEntity<Map<String, Object>> revokeVc(String vcStatusCode) {
+        Ticket ticket = ticketRepository.findFirstByVcStatusCode(vcStatusCode);
+        if (ticket == null) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("message", "找不到對應的票券"));
+        }
 
+        String cid = ticket.getCid();
+
+        try {
+            ResponseEntity<Map<String, Object>> resp = digitalCredentialService.revokeVcRaw(cid);
+
+            if (resp.getStatusCode().is2xxSuccessful()) {
+                Map<String, Object> body = resp.getBody();
+
+                if (body != null && "REVOKED".equals(body.get("credentialStatus"))) {
+                    Ticket t = ticketRepository.findByCid(cid);
+                    if (t != null) {
+                        t.setVcStatus("REVOKED");
+                        ticketRepository.save(t);
+                    }
+                }
+            }
+
+            return resp;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("message", "撤銷過程發生錯誤：" + e.getMessage()));
+        }
+    }
 }
 
 

@@ -78,8 +78,8 @@ public class DigitalCredentialService {
     }
 
     /** 撤銷 VC 憑證 */
-    public ResponseEntity<Map<String,Object>> revokeVcRaw(String cid, String action) {
-        String url = ISSUER_BASE_URL + "/api/credential/" + cid + "/" + action;
+    public ResponseEntity<Map<String,Object>> revokeVcRaw(String cid) {
+        String url = ISSUER_BASE_URL + "/api/credential/" + cid + "/" + "revocation";
         return call(url, HttpMethod.PUT, null, true);
     }
 

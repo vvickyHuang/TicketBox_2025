@@ -51,9 +51,6 @@ public class Ticket {
     @Column(name = "issuer_did")
     private String issuerDid;
 
-    @Column(name = "payment_status")
-    private String paymentStatus;
-
     @Column(name = "verify_code")
     private String verifyCode;
 

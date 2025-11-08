@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/tickets")
 public class TicketController {
@@ -68,11 +70,15 @@ public class TicketController {
     @GetMapping("/status")
     @Operation(summary = "S2. 查詢票券驗證狀態", description = "查詢票券驗證狀態")
     public ResponseEntity<?> getTicketStatus(@RequestParam String tradeUuid) {
-        String message = ticketService.getVerifyStatus(tradeUuid);
-        return ResponseEntity.ok().body(
-                java.util.Map.of("message", message)
-        );
+        Map<String, String> result = ticketService.getVerifyStatus(tradeUuid);
+        return ResponseEntity.ok(result);
     }
 
+    //revokeVcRaw
+    @PostMapping("/revokeVc/{vcStatusCode}")
+    @Operation(summary = "S3. 撤銷 VC 憑證", description = "撤銷 VC 憑證")
+    public ResponseEntity<?> revokeVc(@PathVariable("vcStatusCode") @Parameter(description = "vcStatusCode") String vcStatusCode) {
+        return ticketService.revokeVc(vcStatusCode);
+    }
 
 }
