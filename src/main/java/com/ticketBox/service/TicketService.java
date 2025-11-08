@@ -256,27 +256,23 @@ public class TicketService {
         String qrcodeImage = body.get("qrcode_image").toString();
         String authUri = body.get("auth_uri").toString();
         String transactionId = body.get("transaction_id").toString();
+        String tradeUuid = UUID.randomUUID().toString();
 
         // 啟動非同步輪詢
-        vpAsyncService.pollVerifyVp(transactionId,mode);
+        vpAsyncService.pollVerifyVp(transactionId,tradeUuid,mode);
 
         // 回傳前端用的 DTO
         return TicketVpResponse.builder()
+                .tradeUuid(tradeUuid)
                 .qrcodeImage(qrcodeImage)
                 .authUri(authUri)
                 .build();
     }
 
 
-    public String getVerifyStatus(String orderUuid,String concertId ,String area, String line, String seat) {
+    public String getVerifyStatus(String tradeUuid) {
         try {
-            Ticket ticket = ticketRepository.findByOrderUuidAndConcertIdAndAreaAndLineAndSeat(
-                    orderUuid,
-                    concertId,
-                    area,
-                    line,
-                    seat
-            );
+            Ticket ticket = ticketRepository.findByTradeUuid(tradeUuid);
 
             if (ticket == null) {
                 return "找不到該票券";
@@ -292,7 +288,7 @@ public class TicketService {
                 case "REVOKED":
                     return "票券已撤銷";
                 default:
-                    return "未知狀態：" + status;
+                    return "其他狀態：" + status;
             }
 
         } catch (Exception e) {

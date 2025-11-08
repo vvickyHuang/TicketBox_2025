@@ -22,7 +22,7 @@ public class VpAsyncService {
     private DigitalCredentialService digitalCredentialService;
 
     @Async
-    public void pollVerifyVp(String transactionId, String mode) {
+    public void pollVerifyVp(String transactionId,String tradeUuid, String mode) {
         int maxAttempts = 150;
         int attempt = 0;
 
@@ -43,7 +43,7 @@ public class VpAsyncService {
                         if (dataList != null && !dataList.isEmpty()) {
                             try {
                                 Map<String, String> claimsMap = extractClaims(dataList);
-                                handleClaimsData(claimsMap, mode); // <-- 呼叫另一個方法處理資料
+                                handleClaimsData(claimsMap, tradeUuid, mode); // <-- 呼叫另一個方法處理資料
                             } catch (Exception e) {
                                 System.err.println("解析 claims 或處理資料時發生錯誤：" + e.getMessage());
                                 e.printStackTrace();
@@ -95,7 +95,7 @@ public class VpAsyncService {
     /**
      * 處理 claims 結果（你可以在這裡寫入資料庫、通知前端等）
      */
-    private void handleClaimsData(Map<String, String> claimsMap, String mode) {
+    private void handleClaimsData(Map<String, String> claimsMap, String tradeUuid, String mode) {
         try {
             String orderId = claimsMap.get("orderUuid");
             String concertId = claimsMap.get("concertId");
@@ -106,6 +106,9 @@ public class VpAsyncService {
             Ticket ticket = ticketRepository.findByOrderUuidAndConcertIdAndAreaAndLineAndSeat(orderId, concertId, area, line, seat);
             if (ticket == null) {
                 throw new IllegalStateException("找不到對應的票券");
+            }else {
+                ticket.setTradeUuid(tradeUuid);
+                ticketRepository.save(ticket);
             }
 
             switch (mode) {

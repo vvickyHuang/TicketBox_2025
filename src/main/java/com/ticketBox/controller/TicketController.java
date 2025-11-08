@@ -67,8 +67,8 @@ public class TicketController {
      */
     @GetMapping("/status")
     @Operation(summary = "S2. 查詢票券驗證狀態", description = "查詢票券驗證狀態")
-    public ResponseEntity<?> getTicketStatus(@RequestParam String orderUuid,String concertId ,String area, String line, String seat) {
-        String message = ticketService.getVerifyStatus(orderUuid, concertId , area,  line,  seat);
+    public ResponseEntity<?> getTicketStatus(@RequestParam String tradeUuid) {
+        String message = ticketService.getVerifyStatus(tradeUuid);
         return ResponseEntity.ok().body(
                 java.util.Map.of("message", message)
         );

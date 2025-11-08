@@ -63,6 +63,9 @@ public class Ticket {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "tradeUuid")
+    private String tradeUuid;
+
 
 
 }

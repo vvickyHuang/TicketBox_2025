@@ -10,5 +10,6 @@ public class TicketVpResponse {
 
     private String qrcodeImage;
     private String authUri;
+    private String tradeUuid;
 
 }
