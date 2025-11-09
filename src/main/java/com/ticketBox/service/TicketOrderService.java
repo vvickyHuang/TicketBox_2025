@@ -36,6 +36,7 @@ public class TicketOrderService {
                 ticket.setEmail(t.getEmail());
                 ticket.setOrderUuid(orderId);
                 ticket.setVcStatus("PENDING");
+                ticket.setName(t.getName());
                 ticketRepository.save(ticket);
             }
 
