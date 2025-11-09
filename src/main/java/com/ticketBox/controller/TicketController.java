@@ -24,11 +24,11 @@ public class TicketController {
     private VCService vcService;
 
     /**
-     * 1) 購票：發行票VC（回傳 transactionId，前端接著叫 /bind 完成綁定）
+     * 1) 購票：發行票VC，產生訂單並回傳付款網址給前端
      */
     @PostMapping("/createOrder")
     @Operation (summary = "1. 購票", description = "產生訂單，發送付款網址給前端")
-    public TicketOrderCreateResponse createOrder(@RequestBody TicketOrderRequest req) {
+    public TicketOrderCreateResponse createOrder(@RequestBody TicketOrderCreateRequest req) {
         return TicketOrderService.createOrder(req);
     }
 
@@ -83,18 +83,18 @@ public class TicketController {
      */
     @GetMapping("/status")
     @Operation(summary = "S2. 查詢票券驗證狀態", description = "查詢票券驗證狀態")
-    public ResponseEntity<?> getTicketStatus(@RequestParam String tradeUuid) {
-        Map<String, String> result = ticketTradingService.getVerifyStatus(tradeUuid);
+    public ResponseEntity<?> getTicketStatus(@RequestParam String tradeToken) {
+        Map<String, String> result = ticketTradingService.getVerifyStatus(tradeToken);
         return ResponseEntity.ok(result);
     }
 
     /**
      * 7) 撤銷 VC 憑證: 賣家確認收款後，呼叫此 API 撤銷舊 VC 憑證
      */
-    @PostMapping("/revokeVc/{vcStatusCode}")
+    @PostMapping("/revokeVc/{vcBindToken}")
     @Operation(summary = "S3. 撤銷 VC 憑證", description = "撤銷 VC 憑證")
-    public ResponseEntity<?> revokeVc(@PathVariable("vcStatusCode") @Parameter(description = "vcStatusCode") String vcStatusCode) {
-        return ticketTradingService.revokeVc(vcStatusCode);
+    public ResponseEntity<?> revokeVc(@PathVariable("vcBindToken") @Parameter(description = "vcBindToken") String vcBindToken) {
+        return ticketTradingService.revokeVc(vcBindToken);
     }
 
 }

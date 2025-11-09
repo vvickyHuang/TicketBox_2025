@@ -40,7 +40,7 @@ public class TicketTradingService {
 
         if (!modeStr.equals("TRADING") && !modeStr.equals("CANCEL")) {
             return TicketVpResponse.builder()
-                    .tradeUuid("模式僅支援 TRADING 或 CANCEL")
+                    .tradeToken("模式僅支援 TRADING 或 CANCEL")
                     .build();
         }
         Mode tradeMode = Mode.valueOf(modeStr);
@@ -48,28 +48,28 @@ public class TicketTradingService {
         String qrcodeImage = body.get("qrcode_image").toString();
         String authUri = body.get("auth_uri").toString();
         String transactionId = body.get("transaction_id").toString();
-        String tradeUuid = UUID.randomUUID().toString();
+        String tradeToken = UUID.randomUUID().toString();
 
         //非同步輪詢
-        vpAsyncService.pollVerifyVp(transactionId,tradeUuid,req.getMode());
+        vpAsyncService.pollVerifyVp(transactionId,tradeToken,req.getMode());
 
         return TicketVpResponse.builder()
-                .tradeUuid(tradeUuid)
+                .tradeToken(tradeToken)
                 .qrcodeImage(qrcodeImage)
                 .authUri(authUri)
                 .build();
     }
 
 
-    public Map<String, String> getVerifyStatus(String tradeUuid) {
+    public Map<String, String> getVerifyStatus(String tradeToken) {
         Map<String, String> response = new HashMap<>();
 
         try {
-            Ticket ticket = ticketRepository.findByTradeUuid(tradeUuid);
+            Ticket ticket = ticketRepository.findByTradeToken(tradeToken);
 
             if (ticket == null) {
                 response.put("message", "找不到該票券");
-                response.put("VcStatusCode", "");
+                response.put("VcBindToken", "");
                 return response;
             }
 
@@ -94,21 +94,21 @@ public class TicketTradingService {
             }
 
             response.put("message", message);
-            response.put("VcStatusCode", ticket.getVcStatusCode());
+            response.put("VcBindToken", ticket.getVcBindToken());
             return response;
 
         } catch (Exception e) {
             e.printStackTrace();
             response.put("message", "查詢過程發生錯誤：" + e.getMessage());
-            response.put("VcStatusCode", "");
+            response.put("VcBindToken", "");
             return response;
         }
     }
 
     //revoke VC
     @Transactional
-    public ResponseEntity<Map<String, Object>> revokeVc(String vcStatusCode) {
-        Ticket ticket = ticketRepository.findFirstByVcStatusCode(vcStatusCode);
+    public ResponseEntity<Map<String, Object>> revokeVc(String VcBindToken) {
+        Ticket ticket = ticketRepository.findFirstByVcBindToken(VcBindToken);
         if (ticket == null) {
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)

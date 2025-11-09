@@ -51,20 +51,25 @@ public class Ticket {
     @Column(name = "issuer_did")
     private String issuerDid;
 
+    /** 取得VC驗證碼 */
     @Column(name = "verify_code")
     private String verifyCode;
 
+    /** 驗證時間 */
     @Column(name = "verify_Time")
     private Date verifyTime;
 
+    /** 購買者電子郵件 */
     @Column(name = "email")
     private String email;
 
-    @Column(name = "trade_Uuid")
-    private String tradeUuid;
+    /** 交易識別碼 */
+    @Column(name = "trade_Token")
+    private String tradeToken;
 
-    @Column(name = "vc_Status_Code")
-    private String vcStatusCode;
+    /** 取得VC驗證碼 */
+    @Column(name = "vc_Bind_Token")
+    private String vcBindToken;
 
 
 

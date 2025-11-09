@@ -1,9 +1,11 @@
 package com.ticketBox.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-/** 購票請求：由前端帶入基本座位與活動資訊 */
 @Data
+@Schema(description = "VC驗證狀態請求資料")
 public class TicketVCStatusRequest {
+    @Schema(description= "訂單編號")
     private String oderId;
 }

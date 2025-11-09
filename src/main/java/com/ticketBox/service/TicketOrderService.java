@@ -1,7 +1,7 @@
 package com.ticketBox.service;
 
 import com.ticketBox.dto.TicketOrderCreateResponse;
-import com.ticketBox.dto.TicketOrderRequest;
+import com.ticketBox.dto.TicketOrderCreateRequest;
 import com.ticketBox.entity.Ticket;
 import com.ticketBox.repository.TicketRepository;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -18,7 +18,7 @@ public class TicketOrderService {
     private TicketRepository ticketRepository;
 
     @Transactional
-    public TicketOrderCreateResponse createOrder(TicketOrderRequest req) {
+    public TicketOrderCreateResponse createOrder(TicketOrderCreateRequest req) {
 
         try {
             String orderId = "";

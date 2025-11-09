@@ -6,12 +6,12 @@ import lombok.Data;
 
 @Data
 @Builder
-@Schema(description = "會員 VC 綁定回應資料")
+@Schema(description = "會員訂單建立回應資料")
 public class TicketOrderCreateResponse {
 
-    @Schema(description = "訂單編號", example = "orderId")
+    @Schema(description = "訂單編號")
     private String orderId;
 
-    @Schema(description = "paymentUrl", example = "")
+    @Schema(description = "付款連結")
     private String paymentUrl;
 }

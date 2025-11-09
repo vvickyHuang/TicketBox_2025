@@ -1,7 +1,3 @@
-這是一份根據您提供的後端 Java 原始碼、`pom.xml` 和相關設定檔所產生的新版 `README.md` 內容。
-
------
-
 # TicketBox 後端服務
 
 TicketBox 是一個基於 DID/VC（去中心化身份/可驗證憑證）的票券交易與驗證平台。此專案是 Spring Boot 應用程式，負責處理所有票券生命週期、訂單管理以及與數位憑證錢包的互動。
@@ -82,7 +78,7 @@ mvnw.cmd spring-boot:run
 
 ### 3\. (可選) 建置 JAR 檔
 
-如果您想建置可執行的 JAR 檔（如同 GitHub Actions 的做法）：
+如果您想建置可執行的 JAR 檔：
 
 ```bash
 # Linux / macOS

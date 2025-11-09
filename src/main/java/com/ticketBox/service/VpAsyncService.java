@@ -22,7 +22,7 @@ public class VpAsyncService {
     private DigitalCredentialService digitalCredentialService;
 
     @Async
-    public void pollVerifyVp(String transactionId, String tradeUuid, String mode) {
+    public void pollVerifyVp(String transactionId, String tradeToken, String mode) {
         int maxAttempts = 150;
         int attempt = 0;
 
@@ -41,7 +41,7 @@ public class VpAsyncService {
                         if (dataList != null && !dataList.isEmpty()) {
                             try {
                                 Map<String, String> claimsMap = extractClaims(dataList);
-                                handleClaimsData(claimsMap, tradeUuid, mode); // <-- 呼叫另一個方法處理資料
+                                handleClaimsData(claimsMap, tradeToken, mode);
                             } catch (Exception e) {
                                 System.err.println("解析 claims 或處理資料時發生錯誤：" + e.getMessage());
                                 e.printStackTrace();
@@ -93,7 +93,7 @@ public class VpAsyncService {
     /**
      * 處理 claims 結果（你可以在這裡寫入資料庫、通知前端等）
      */
-    private void handleClaimsData(Map<String, String> claimsMap, String tradeUuid, String mode) {
+    private void handleClaimsData(Map<String, String> claimsMap, String tradeToken, String mode) {
 
         String orderId = claimsMap.get("orderUuid");
         String concertId = claimsMap.get("concertId");
@@ -122,7 +122,7 @@ public class VpAsyncService {
                 if ("TRADING".equals(ticket.getVcStatus())) {
                     throw new IllegalStateException("票券正在販售中");
                 } else if ("ACTIVE".equals(ticket.getVcStatus())) {
-                    ticket.setTradeUuid(tradeUuid);
+                    ticket.setTradeToken(tradeToken);
                     ticket.setVcStatus("TRADING");
                     ticketRepository.save(ticket);
                 } else {
@@ -132,7 +132,7 @@ public class VpAsyncService {
 
             case "CANCEL":
                 if ("TRADING".equals(ticket.getVcStatus())) {
-                    ticket.setTradeUuid(tradeUuid);
+                    ticket.setTradeToken(tradeToken);
                     ticket.setVcStatus("ACTIVE");
                     ticketRepository.save(ticket);
                 } else {

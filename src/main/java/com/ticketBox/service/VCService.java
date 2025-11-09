@@ -84,7 +84,7 @@ public class VCService {
                 }
 
                 // 生成亂數與憑證欄位
-                String vcStatusCode = t.getOrderUuid() + String.format("%04d", ThreadLocalRandom.current().nextInt(10000));
+                String vcBindToken = t.getOrderUuid() + String.format("%04d", ThreadLocalRandom.current().nextInt(10000));
                 VcUuidInfo vc = VcUuidInfo.CONCERT_TICKET;
                 List<Map<String, String>> fields = vc.buildFields(t.getOrderUuid(), t.getConcertId(), t.getArea(), t.getLine(), t.getSeat());
 
@@ -101,12 +101,12 @@ public class VCService {
 
                 // 更新資料庫
                 t.setTransactionId(body.get("transactionId").toString());
-                t.setVcStatusCode(vcStatusCode);
+                t.setVcBindToken(vcBindToken);
                 ticketRepository.save(t);
 
                 // 加入結果清單
                 vcList.add(TicketVcDTO.builder()
-                        .vcStatusCode(vcStatusCode)
+                        .vcBindToken(vcBindToken)
                         .area(t.getArea())
                         .line(t.getLine())
                         .seat(t.getSeat())
@@ -130,13 +130,13 @@ public class VCService {
     }
 
     //查詢 VC綁定狀態
-    public TicketVCStatusResponse checkVcStatus(String vcStatusCode) {
+    public TicketVCStatusResponse checkVcStatus(String vcBindToken) {
 
-        Ticket ticket = ticketRepository.findFirstByVcStatusCode(vcStatusCode);
+        Ticket ticket = ticketRepository.findFirstByVcBindToken(vcBindToken);
 
         if (ticket == null||("REVOKED".equals(ticket.getVcStatus()))) {
             return TicketVCStatusResponse.builder()
-                    .orderId(vcStatusCode)
+                    .orderId(vcBindToken)
                     .vcStatus("FAILED")
                     .message("查無此訂單")
                     .build();
