@@ -23,6 +23,11 @@ spring:
       - org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
       - org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration
 
+verification:
+  code-length: 16
+  expire-minutes: 5
+  hash-algorithm: SHA-256
+
 springdoc:
   api-docs:
     enabled: true

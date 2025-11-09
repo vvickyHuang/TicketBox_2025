@@ -96,13 +96,10 @@ public class DigitalCredentialService {
     /** 驗證端：查詢 VP 驗證結果 */
     public ResponseEntity<Map<String,Object>> verifyVpRaw(String transactionId) {
         String url = VERIFIER_BASE_URL + "/api/vp-item/verifyResult" + "/" + transactionId;
-//        String url = VERIFIER_BASE_URL + "/api/oidvp/result";
-//        Map<String, Object> body = Map.of("transactionId", transactionId);
-//        return call(url, HttpMethod.POST, body, false);
         return call(url, HttpMethod.GET, null, false);
     }
     // =========================================================================
-    // JWT 解析（只有成功才用）
+    // JWT 解析
     // =========================================================================
 
     public Map<String, Object> parseJwt(String jwt) {
@@ -112,7 +109,7 @@ public class DigitalCredentialService {
             com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
             Map<String, Object> data = mapper.readValue(payload, Map.class);
 
-            String jti = (String) data.get("jti");
+            String jti = data.get("jti").toString();
             String cid = (jti != null && jti.contains("/"))
                     ? jti.substring(jti.lastIndexOf("/") + 1)
                     : jti;

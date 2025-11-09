@@ -109,7 +109,7 @@ public class VpAsyncService {
         ResponseEntity<Map<String, Object>> resp = digitalCredentialService.getCredentialRaw(ticket.getTransactionId());
 
         Map<String, Object> credential = digitalCredentialService.parseJwt((String) resp.getBody().get("credential"));
-        String cid = (String) credential.get("cid");
+        String cid = credential.get("cid").toString();
 
         // 驗證 VC 資料是否與票券相符
         if (!cid.equals(ticket.getCid())) {
