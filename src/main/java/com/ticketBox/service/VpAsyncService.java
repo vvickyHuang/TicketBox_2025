@@ -109,13 +109,10 @@ public class VpAsyncService {
         ResponseEntity<Map<String, Object>> resp = digitalCredentialService.getCredentialRaw(ticket.getTransactionId());
 
         Map<String, Object> credential = digitalCredentialService.parseJwt((String) resp.getBody().get("credential"));
-        String vcConcertId = (String) credential.get("concertId");
-        String vcArea = (String) credential.get("area");
-        String vcLine = (String) credential.get("line");
-        String vcSeat = (String) credential.get("seat");
+        String cid = (String) credential.get("cid");
 
         // 驗證 VC 資料是否與票券相符
-        if (!concertId.equals(vcConcertId) || !area.equals(vcArea) || !line.equals(vcLine) || !seat.equals(vcSeat)) {
+        if (!cid.equals(ticket.getCid())) {
             throw new IllegalStateException("VC 資料與票券不符");
         }
 
