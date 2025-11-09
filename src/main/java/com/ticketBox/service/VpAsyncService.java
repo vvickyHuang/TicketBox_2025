@@ -100,8 +100,9 @@ public class VpAsyncService {
         String area = claimsMap.get("area");
         String line = claimsMap.get("line");
         String seat = claimsMap.get("seat");
+        String holderName = claimsMap.get("name");
 
-        Ticket ticket = ticketRepository.findByOrderUuidAndConcertIdAndAreaAndLineAndSeat(orderId, concertId, area, line, seat);
+        Ticket ticket = ticketRepository.findByOrderUuidAndConcertIdAndAreaAndLineAndSeatAndName(orderId, concertId, area, line, seat, holderName);
         if (ticket == null) {
             throw new IllegalStateException("找不到對應的票券");
         }

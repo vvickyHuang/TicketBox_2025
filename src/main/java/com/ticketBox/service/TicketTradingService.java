@@ -94,6 +94,7 @@ public class TicketTradingService {
             }
 
             response.put("message", message);
+            //移除VC需要的參數，因為直接跳過交易步驟，所以直接送給前端方便直接revokeVC
             response.put("VcBindToken", ticket.getVcBindToken());
             return response;
 

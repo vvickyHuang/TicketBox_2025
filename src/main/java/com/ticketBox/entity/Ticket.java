@@ -71,6 +71,8 @@ public class Ticket {
     @Column(name = "vc_Bind_Token")
     private String vcBindToken;
 
-
+    /** 票券持有人姓名 */
+    @Column(name = "name")
+    private String name;
 
 }
