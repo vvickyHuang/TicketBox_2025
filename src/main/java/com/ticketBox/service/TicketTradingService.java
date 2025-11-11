@@ -142,6 +142,30 @@ public class TicketTradingService {
                     .body(Map.of("message", "撤銷過程發生錯誤：" + e.getMessage()));
         }
     }
+
+    public List<TicketOrderStatusDTO> getOrderStatus (TicketCodeRequest req){
+
+        List<Ticket> ticketList = ticketRepository.findAllByEmailAndOrderUuid(req.getEmail(),req.getOrderId());
+        List<TicketOrderStatusDTO> orderlist = new ArrayList<>();
+        for(Ticket t: ticketList){
+            TicketOrderStatusDTO dto = new TicketOrderStatusDTO();
+            dto.setConcertId(t.getConcertId());
+            dto.setName(t.getName());
+            dto.setEmail(t.getEmail());
+            dto.setEmail(t.getEmail());
+            dto.setVcStatus(t.getVcStatus());
+            dto.setArea(t.getArea());
+            dto.setLine(t.getLine());
+            dto.setSeat(t.getSeat());
+            dto.setOrderId(t.getOrderUuid());
+            orderlist.add(dto);
+        }
+
+        return orderlist;
+    }
+
+
+
 }
 
 

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -96,5 +97,16 @@ public class TicketController {
     public ResponseEntity<?> revokeVc(@PathVariable("vcBindToken") @Parameter(description = "vcBindToken") String vcBindToken) {
         return ticketTradingService.revokeVc(vcBindToken);
     }
+
+    /**
+     * 查詢訂單所有票券狀態
+     */
+    @PostMapping("/tickets/orderStatus")
+    @Operation(summary = "查詢訂單所有票券狀態", description = "查詢訂單所有票券狀態")
+    public List<TicketOrderStatusDTO> getOrderStatus(@RequestBody TicketCodeRequest req) {
+        return ticketTradingService.getOrderStatus(req);
+    }
+
+
 
 }
