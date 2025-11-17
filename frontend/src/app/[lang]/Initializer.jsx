@@ -39,7 +39,7 @@ export default function Initializer({ children, currentLang }) {
                 <img
                   src="/img/logo.svg"
                   alt="logo"
-                  className="h-[40px] sm:h-[56px] max-w-[120px] object-contain"
+                  className="h-10 sm:h-14 max-w-[120px] object-contain"
                 />
 
                 <div className="flex items-center gap-2  sm:mt-0">

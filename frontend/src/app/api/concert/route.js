@@ -26,7 +26,7 @@ export async function GET(req) {
         date: '2026/01/31 (六) - 2026/02/01 (日)',
         location: '臺中洲際棒球場 (台中市北屯區崇德路三段835號)',
         status: '熱賣中',
-        image: '/aiimg/m116bg.png',
+        image: '/aiimg/mj116bg.png',
       },
       {
         id: 3,
@@ -34,8 +34,7 @@ export async function GET(req) {
         date: '2026/01/31 (六)  ~ 2026/02/01 (日) ',
         location: '臺北大巨蛋',
         status: '熱賣中',
-        image:
-          'https://static.tixcraft.com/images/activity/26_txt_99296655aefed82aac6fef02b5946791.jpg',
+        image: '/aiimg/tomobg.png',
       },
       {
         id: 4,

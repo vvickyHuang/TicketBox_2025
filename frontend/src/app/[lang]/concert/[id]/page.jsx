@@ -107,26 +107,27 @@ export default function Page() {
           }}>
           <Box
             sx={{
-              borderRadius: '24px 24px 0 0',
+              position: 'relative',
               width: '100%',
-              height: 120,
+              paddingTop: '66.67%',
+              borderRadius: '24px 24px 0 0',
               overflow: 'hidden',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: '#f3f3f  3',
+              backgroundColor: '#f3f3f3',
             }}>
             <CardMedia
               component="img"
               image={concertInfo?.image}
               sx={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
                 width: '100%',
                 height: '100%',
-                objectFit: 'cover',
-                display: 'block',
+                objectFit: 'contain',
               }}
             />
           </Box>
+
           <Box sx={{ m: 2 }}>
             <Grid container sx={{ display: 'flex', flexDirection: 'column' }}>
               {info.map((item, index) => (
@@ -354,26 +355,27 @@ export default function Page() {
           }}>
           <Box
             sx={{
-              borderRadius: '24px 24px 0 0',
+              position: 'relative',
               width: '100%',
-              height: 400,
+              paddingTop: '66.67%', // 1024/1536 = 0.6667 → 3:2比例
+              borderRadius: '24px 24px 0 0',
               overflow: 'hidden',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
               backgroundColor: '#f3f3f3',
             }}>
             <CardMedia
               component="img"
               image={concertInfo?.image}
               sx={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
                 width: '100%',
                 height: '100%',
-                objectFit: 'cover',
-                display: 'block',
+                objectFit: 'contain', // 或 cover 視需求
               }}
             />
           </Box>
+
           <Box sx={{ m: 2 }}>
             <Grid container spacing={2} sx={{ m: 2 }}>
               {info.map((item, index) => (

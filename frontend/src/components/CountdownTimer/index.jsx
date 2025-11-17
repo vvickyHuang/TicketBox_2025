@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 
 export default function CountdownTimer({ onTimeChange }) {
   const [secondsLeft, setSecondsLeft] = useState(300); // 5 分鐘倒數
-  console.log(1);
+
   useEffect(() => {
     if (secondsLeft <= 0) {
       if (onTimeChange) onTimeChange('00:00'); // 倒數結束
@@ -30,7 +30,7 @@ export default function CountdownTimer({ onTimeChange }) {
   }, [formattedTime, onTimeChange]);
 
   return (
-    <Typography variant='body1' sx={{ fontWeight: 600, color: '#ff4d4f' }}>
+    <Typography variant="body1" sx={{ fontWeight: 600, color: '#ff4d4f' }}>
       剩餘時間: {formattedTime}
     </Typography>
   );
