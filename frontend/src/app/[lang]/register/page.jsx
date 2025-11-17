@@ -1,14 +1,25 @@
 'use client';
-import { Box, Paper, Avatar, Typography } from '@mui/material';
+import { Box, Paper, Avatar, Typography, Button } from '@mui/material';
 import LoginForm from './sections/LoginForm';
 import { useState } from 'react';
 import QRcode from './sections/QRcode';
+import { useRouter, usePathname } from 'next/navigation';
+import { addSnackbar } from '@/lib/features/snackbarSlice';
+import { useAppDispatch, useAppSelector } from '@/lib/store';
 
 export default function LoginPage() {
-  const [qrCodeBase64, setQrCodeBase64] = useState('a');
-  const [userData, setUserData] = useState({ memberName: 'hihih' });
-  const handleRegister = async (userData, ajaxData) => {
-    console.log(userData, ajaxData);
+  const [qrCodeBase64, setQrCodeBase64] = useState('');
+  const [qrCodeMsg, setQrCodeMsg] = useState('');
+
+  const [userData, setUserData] = useState();
+  const pathname = usePathname();
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+
+  const lang = pathname.split('/')[1] || 'en';
+
+  const handleRegister = async (userData) => {
+    console.log(userData);
     setUserData(userData);
     try {
       const res = await fetch(`/api/register`, {
@@ -16,38 +27,53 @@ export default function LoginPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(userData),
       });
-
-      if (res.ok) {
-        try {
-          const res = await fetch(`/api/vcLogin`, {
+      const result = await res.json();
+      if (res.status === 200) {
+        dispatch(addSnackbar({ message: result.message, severity: 'success' }));
+        if (userData.isBindingVC) {
+          const vcLoginRes = await fetch(`/api/vcLogin`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(ajaxData),
+            body: JSON.stringify(userData),
           });
-          const data = await res.json();
-          setQrCodeBase64(data.data.qrCode);
-          console.log('POSTAPI:', {
-            transactionId: data.data.transactionId,
-            memberId: memberId,
-          });
-
-          if (res.ok) {
-            console.log(res);
-            // router.push(`/${lang}/login`);
-          } else {
-            const data = await res.json();
-            alert(data.error || '失敗');
-          }
-        } catch (error) {
-          alert('失敗');
+          const data = await vcLoginRes.json();
+          setQrCodeBase64(data.qrCode);
+          setQrCodeMsg(data.message);
         }
       } else {
-        const data = await res.json();
-        alert(data.error || '登入失敗');
+        dispatch(addSnackbar({ message: result.message, severity: 'error' }));
+        if (userData.isBindingVC) {
+          const vcLoginRes = await fetch(`/api/vcLogin`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(userData),
+          });
+          const data = await vcLoginRes.json();
+          setQrCodeBase64(data.qrCode);
+          setQrCodeMsg(data.message);
+        }
       }
     } catch (error) {
-      alert('登入失敗');
+      dispatch(addSnackbar({ message: error, severity: 'error' }));
     }
+    // if (res.ok) {
+    // const vcLoginRes = await fetch(`/api/vcLogin`, {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify(userData),
+    // });
+    // const data = await vcLoginRes.json();
+    // setQrCodeBase64(data.qrCode);
+    // setQrCodeMsg(data.message);
+    // console.log('POSTAPI:', {
+    //   transactionId: data.data.transactionId,
+    //   memberId: userData.memberId,
+    // });
+    // }
+    // } catch (error) {
+    //   console.error('Register error:', error);
+    //   alert('登入失敗');
+    // }
   };
   return (
     <Box
@@ -58,26 +84,8 @@ export default function LoginPage() {
         justifyContent: 'center',
         background: 'linear-gradient(135deg, #EEF2FF 0%, #F8FAFC 100%)',
         p: 2,
-      }}>
-      {/* <Paper
-        elevation={6}
-        sx={{
-          display: 'flex',
-          borderRadius: 4,
-          overflow: 'hidden',
-          maxWidth: 960,
-          width: '100%',
-        }}>
-        {qrCodeBase64 ? (
-          <Box sx={{ flex: 1, p: 1 }}>
-            <QRcode qrCodeBase64={qrCodeBase64} />
-          </Box>
-        ) : (
-          <Box sx={{ flex: 1, p: 4 }}>
-            <LoginForm handleRegister={handleRegister} />
-          </Box>
-        )}
-      </Paper> */}
+      }}
+    >
       <Paper
         elevation={6}
         sx={{
@@ -86,37 +94,37 @@ export default function LoginPage() {
           overflow: 'hidden',
           maxWidth: qrCodeBase64 ? 400 : 960,
           width: '100%',
-        }}>
+        }}
+      >
         {qrCodeBase64 ? (
           <Box
             sx={{
               flex: 1,
               p: 1,
-              position: 'relative', // ✅ 這行很重要
-              display: 'inline-block', // 可選，看你想要 Box 大小
-            }}>
+              position: 'relative',
+              display: 'inline-block',
+            }}
+          >
             <Avatar
               sx={{
                 position: 'absolute',
-                top: '12px', // 往上壓
-                left: '50%', // 水平中心點
-                transform: 'translateX(-50%)', // 使真正水平置中
+                top: '12px',
+                left: '50%',
+                transform: 'translateX(-50%)',
                 zIndex: 1,
-              }}>
-              {userData?.memberName?.[0]}
+              }}
+            >
+              {userData?.memberId?.[0]}
             </Avatar>
 
             <QRcode qrCodeBase64={qrCodeBase64} />
 
-            <Typography textAlign="center" mt={3} variant="body2">
-              掃描完成{' '}
-              <Typography
-                component="span"
-                color="primary"
-                sx={{ fontWeight: 600, cursor: 'pointer' }}
-                onClick={() => router.push(`/${lang}/login`)}>
-                返回登入
-              </Typography>
+            <Typography textAlign='center' m={2} variant='body2'>
+              {qrCodeMsg}
+            </Typography>
+
+            <Typography textAlign='center' variant='body2'>
+              <Button onClick={() => router.push(`/${lang}/login`)}>返回登入</Button>
             </Typography>
           </Box>
         ) : (

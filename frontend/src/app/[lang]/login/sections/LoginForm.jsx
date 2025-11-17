@@ -13,7 +13,10 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
+import { useAppDispatch, useAppSelector } from '@/lib/store';
+import { addSnackbar } from '@/lib/features/snackbarSlice';
 
+import { setUser } from '@/lib/features/globalSlice';
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
@@ -21,48 +24,30 @@ export default function LoginForm() {
   const lang = pathname.split('/')[1];
   const [memberId, setMemberId] = useState('');
   const [memberPw, setMemberPw] = useState('');
-
+  const dispatch = useAppDispatch();
   const handleLogin = async () => {
-    try {
+    dispatch(setUser({ memberName: memberId }));
+    dispatch(addSnackbar({ message: '登入成功', severity: 'success' }));
+    router.push(`/${lang}/concert`);
+    /* try {
       const res = await fetch(`/api/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ memberId: memberId, memberPw: memberPw }),
+        body: JSON.stringify({ memberId: memberId, password: memberPw }),
       });
+      
+      const result = await res.json();
 
-      if (res.ok) {
+      if (res.status === 200) {
+        dispatch(setUser({ memberName: memberId }));
+        dispatch(addSnackbar({ message: '登入成功', severity: 'success' }));
         router.push(`/${lang}/concert`);
-
-        /* try {
-          const res = await fetch(`/api/vcLogin`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(ajaxData),
-          });
-
-          const data = await res.json();
-          console.log('POSTAPI:', {
-            transactionId: data.transactionId,
-            memberId: memberId,
-          });
-
-          if (res.ok) {
-            console.log(res);
-            // router.push(`/${lang}/concert`);
-          } else {
-            const data = await res.json();
-            alert(data.error || '失敗');
-          }
-        } catch (error) {
-          alert('失敗');
-        } */
       } else {
-        const data = await res.json();
-        alert(data.error || '登入失敗');
+        dispatch(addSnackbar({ message: result.message || '帳號或密碼錯誤 ', severity: 'error' }));
       }
     } catch (error) {
-      alert('登入失敗');
-    }
+      dispatch(addSnackbar({ message: error, severity: 'error' }));
+    } */
   };
   return (
     <Box className="flex flex-col gap-6 h-full mb-3">
@@ -73,7 +58,7 @@ export default function LoginForm() {
             sx={{
               width: 32,
               height: 32,
-              backgroundColor: '#3B82F6',
+              backgroundColor: '#8B5CF6',
               borderRadius: 1,
               display: 'flex',
               alignItems: 'center',
@@ -81,7 +66,7 @@ export default function LoginForm() {
               color: '#fff',
               fontWeight: 700,
             }}>
-            ⚡
+            <img src="/logoiconv3.svg" className=" w-[32px] h-[32px] object-contain" alt="login" />
           </Box>
           <Typography variant="h6" fontWeight="bold">
             票票盒
@@ -91,7 +76,7 @@ export default function LoginForm() {
         <Typography variant="h5" fontWeight="bold" mb={1}>
           歡迎回來
         </Typography>
-        <Typography variant="body2" color="text.secondary" mb={4}>
+        <Typography variant="body2" color="text.secondary" mb={1}>
           請登入您的帳戶以繼續
         </Typography>
 
@@ -132,20 +117,17 @@ export default function LoginForm() {
         <Button
           fullWidth
           variant="contained"
+          onClick={handleLogin}
           sx={{
             mt: 3,
             py: 1.3,
-            backgroundColor: '#4F46E5',
-            textTransform: 'none',
             fontWeight: 600,
-            '&:hover': { backgroundColor: '#4338CA' },
-          }}
-          onClick={handleLogin}>
+          }}>
           登入
         </Button>
 
         <Typography textAlign="center" mt={3} variant="body2">
-          還沒有帳戶？{' '}
+          還沒有帳戶？
           <Typography
             component="span"
             color="primary"

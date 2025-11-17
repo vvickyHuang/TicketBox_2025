@@ -1,33 +1,30 @@
-import { console } from 'inspector/promises';
 import { NextResponse } from 'next/server';
 
 export async function POST(req) {
   try {
     const body = await req.json();
-    const apiKey = 'HH5IPtqr3WnyY31pIiZFCZfelt4W2Nxg';
+    const { memberId } = body;
 
-    const externalRes = await fetch('https://issuer-sandbox.wallet.gov.tw/api/qrcode/data', {
-      method: 'POST',
+    const apiBase = process.env.API_BASE_URL || 'http://localhost:8080';
+    const externalRes = await fetch(
+      `${apiBase}/api/member/bind-vc?memberId=${encodeURIComponent(memberId)}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
 
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Token': apiKey,
-      },
-      body: JSON.stringify(body),
-    });
-
-    const result = await externalRes.json();
-
-    if (externalRes.ok) {
-      return NextResponse.json({ message: 'VC登入成功', data: result }, { status: 200 });
+    const text = await externalRes.text();
+    let result;
+    try {
+      result = JSON.parse(text);
+    } catch {
+      result = { error: text };
     }
 
-    return NextResponse.json(
-      { error: result.error || 'VC登入失敗' },
-      { status: externalRes.status || 500 },
-    );
+    return NextResponse.json(result, { status: 200 });
   } catch (err) {
-    console.error('Register API error:', err);
+    console.error('Login API error:', err);
     return NextResponse.json({ error: '伺服器錯誤' }, { status: 500 });
   }
 }

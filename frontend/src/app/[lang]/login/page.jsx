@@ -11,7 +11,7 @@ export default function LoginPage() {
         alignItems: 'center',
         justifyContent: 'center',
         background: 'linear-gradient(135deg, #EEF2FF 0%, #F8FAFC 100%)',
-        p: 1,
+        p: 2.5,
         overflow: 'auto',
       }}>
       <Paper
@@ -32,9 +32,7 @@ export default function LoginPage() {
           }}>
           <LoginForm />
         </Box>
-        {/* <Box sx={{ flex: 1, p: 5 }}>
-          <LoginForm />
-        </Box>*/}
+
         <Box
           sx={{
             flex: 1,
@@ -46,11 +44,17 @@ export default function LoginPage() {
             flexDirection: 'column',
           }}>
           <div className="relative w-full h-full">
-            {/*  <img
-              src="/img/login.png"
-              className="absolute inset-0 w-full h-full object-contain"
+            <img
+              src="/img/loginv3.png"
+              className="absolute inset-0 w-full h-full object-cover object-center"
               alt="login"
-            /> */}
+            />
+            <div className="absolute inset-0 bg-purple-400/15"></div>
+            <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-6">
+              <h2 className="text-4xl font-bold mb-3 drop-shadow-lg">探索精彩演唱會</h2>
+              <p className="text-lg opacity-90 mb-1 drop-shadow">感受每一個節拍的力量</p>
+              <p className="text-sm opacity-80 drop-shadow">最熱門的藝人演出，最優質的座位選擇</p>
+            </div>
           </div>
         </Box>
       </Paper>
