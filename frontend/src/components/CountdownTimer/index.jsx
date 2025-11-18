@@ -30,7 +30,7 @@ export default function CountdownTimer({ onTimeChange }) {
   }, [formattedTime, onTimeChange]);
 
   return (
-    <Typography variant="body1" sx={{ fontWeight: 600, color: '#ff4d4f' }}>
+    <Typography variant='body1' sx={{ fontWeight: 700, color: '#ff4d4f' }}>
       剩餘時間: {formattedTime}
     </Typography>
   );

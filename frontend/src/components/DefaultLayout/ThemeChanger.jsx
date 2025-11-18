@@ -46,26 +46,32 @@ export default function SimpleNavTabs() {
     handleClose();
   };
 
+  const onStartGuide = () => {
+    sessionStorage.setItem('guide', 'true');
+  };
+
   const open = Boolean(anchorEl);
   return (
     <Stack
-      direction="row"
+      direction='row'
       spacing={1}
-      sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+    >
       <Button
-        variant="outlined"
+        variant='outlined'
         onClick={colorMode.toggleColorMode}
         sx={{
           width: 36,
           height: 36,
           minWidth: 36,
           padding: 0,
-        }}>
+        }}
+      >
         {theme.palette.mode === 'light' ? <LuMoon /> : <LuSunMedium />}
       </Button>
 
       <Button
-        variant="outlined"
+        variant='outlined'
         onClick={handleLanguageToggle}
         sx={{
           width: 36,
@@ -73,9 +79,11 @@ export default function SimpleNavTabs() {
           minWidth: 36,
           padding: 0,
         }}
-        title={`Switch to ${nextLang === 'en' ? 'English' : '中文'}`}>
+        title={`Switch to ${nextLang === 'en' ? 'English' : '中文'}`}
+      >
         <LuEarth />
       </Button>
+
       {/* {user?.memberName === '' ? (
         <Button
           fullWidth
@@ -112,7 +120,8 @@ export default function SimpleNavTabs() {
         transformOrigin={{
           vertical: 'top',
           horizontal: 'center',
-        }}>
+        }}
+      >
         <Box
           sx={{
             p: 2,
@@ -120,14 +129,16 @@ export default function SimpleNavTabs() {
             display: 'flex',
             flexDirection: 'column',
             gap: 2,
-          }}>
+          }}
+        >
           {/* Profile Card */}
           <Box
             sx={{
               borderRadius: 3,
               boxShadow: '0 0 10px rgba(0,0,0,0.15)',
               overflow: 'hidden',
-            }}>
+            }}
+          >
             {/* Header */}
 
             {/* Content */}
@@ -139,15 +150,16 @@ export default function SimpleNavTabs() {
                 px: 3,
                 py: 3,
                 bgcolor: theme.palette.background.paper,
-              }}>
-              <button className="w-[38px] h-[38px] bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full flex items-center justify-center text-white font-bold hover:shadow-lg transition">
+              }}
+            >
+              <button className='w-[38px] h-[38px] bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full flex items-center justify-center text-white font-bold hover:shadow-lg transition'>
                 {user.memberName?.charAt(0).toUpperCase()}
               </button>
               <Box>
-                <Typography variant="h6" fontWeight={600}>
+                <Typography variant='h6' fontWeight={600}>
                   {user.memberName}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant='body2' color='text.secondary'>
                   {user.memberName}
                 </Typography>
               </Box>
@@ -166,7 +178,8 @@ export default function SimpleNavTabs() {
               '&:hover': {
                 backgroundColor: theme.palette.action.hover,
               },
-            }}>
+            }}
+          >
             <LuCircleUserRound size={20} />
             會員中心
           </MenuItem>
@@ -181,7 +194,8 @@ export default function SimpleNavTabs() {
               '&:hover': {
                 backgroundColor: theme.palette.action.hover,
               },
-            }}>
+            }}
+          >
             <LuLogOut size={20} />
             登出
           </MenuItem>

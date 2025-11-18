@@ -349,8 +349,8 @@ export async function GET(req, context) {
             time: '19:30',
             tickets: [
               {
-                name: 'MJ116VIP',
-                areaKey: 'MJ116VIP',
+                name: 'VVIP',
+                areaKey: 'VVIP',
                 price: 4080,
               },
               {

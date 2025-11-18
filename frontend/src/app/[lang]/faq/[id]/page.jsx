@@ -1,5 +1,7 @@
 'use client';
 import React, { useState } from 'react';
+import { useParams } from 'next/navigation';
+
 import {
   Box,
   Typography,
@@ -14,9 +16,8 @@ import {
 import { styled } from '@mui/system';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import theme from '../theme';
+import theme from '@/app/theme';
 
-// === Styled ===
 const PageContainer = styled(Box)(({ theme }) => ({
   maxWidth: 420,
   margin: '0 auto',
@@ -61,42 +62,86 @@ const BackBar = styled(Box)(({ theme }) => ({
 }));
 
 export default function TicketPage() {
-  // 🔹 狀態控制：目前是否進入細節頁
   const [selectedItem, setSelectedItem] = useState(null);
-
-  const faqs = {
-    綁定Facebook之會員無法成功登入:
-      '若您的 Facebook 綁定帳號無法登入，請確認 Facebook 授權狀態，並嘗試解除綁定重新登入。',
-    會員加入辦法: '請至拓元售票系統首頁，點選「加入會員」，依指示輸入必要資訊並完成認證即可。',
-    會員無法登入已綁定之帳號:
-      '若顯示帳號重複或錯誤，請至會員中心使用『忘記密碼』功能或聯絡客服協助。',
-    會員帳號連結綁定: '登入後可於『會員中心』>『帳號設定』中綁定 Facebook、Google 等快速登入方式。',
+  const params = useParams();
+  const lang = params.lang;
+  const key = params.id;
+  const SUPPORT_MAP = {
+    purchase: {
+      name: '購票',
+      desc: '會員加入、購票及付款方式說明',
+      faqs: {
+        綁定Facebook之會員無法成功登入:
+          '若您的 Facebook 綁定帳號無法登入，請確認 Facebook 授權狀態，並嘗試解除綁定重新登入。',
+        會員加入辦法:
+          '請至票票盒售票系統首頁，點選「加入會員」，依指示輸入必要資訊並完成認證即可。',
+        會員無法登入已綁定之帳號:
+          '若顯示帳號重複或錯誤，請至會員中心使用「忘記密碼」功能或聯絡客服協助。',
+        會員帳號連結綁定:
+          '登入後可於「會員中心」→「帳號設定」中綁定 Facebook、Google 等快速登入方式。',
+      },
+    },
+    collection: {
+      name: '取票',
+      desc: '取票方式說明',
+      faqs: {
+        超商取票方式: '至 7-11 / 全家 機台輸入取票代碼即可取票。',
+        電子票如何使用: '於入場時出示手機電子票 QR Code。',
+      },
+    },
+    business: {
+      name: '交易票券',
+      desc: '票券交易與轉讓說明',
+      faqs: {
+        如何轉讓票券: '依規範至會員中心執行票券轉讓。',
+        票券是否可退: '依照活動規定通常不可退票。',
+      },
+    },
+    query: {
+      name: '查詢訂單',
+      desc: '查詢訂單方式說明',
+      faqs: {
+        如何找到我的訂單: '請至會員中心 → 訂單查詢。',
+        '訂單找不到？': '請確認登入帳號正確一致。',
+      },
+    },
+    other: {
+      name: '其他',
+      desc: '其他類別說明',
+      faqs: {
+        忘記密碼: '可使用「忘記密碼」功能重新設定密碼。',
+        修改會員資料: '可於會員中心更新個人資料。',
+      },
+    },
+    contactUs: {
+      name: '聯繫我們',
+      desc: '尋找協助',
+      faqs: {
+        客服聯絡方式: '可透過客服表單聯絡我們。',
+      },
+    },
   };
 
-  // 🔹 回到主列表
-  const handleBack = () => setSelectedItem(null);
+  const data = SUPPORT_MAP[key];
+  if (!data) return null;
 
   return (
     <ThemeProvider theme={theme}>
       <PageContainer>
-        {/* Header */}
-        <HeaderBar>購票</HeaderBar>
+        <HeaderBar>{data.name}</HeaderBar>
 
-        {/* 如果目前有選項被點選 → 顯示詳細內容頁 */}
         {selectedItem ? (
           <>
             <BackBar>
-              <IconButton size="small" onClick={handleBack}>
+              <IconButton size='small' onClick={() => setSelectedItem(null)}>
                 <ArrowBackIosNewIcon sx={{ fontSize: 18, color: theme.palette.primary.main }} />
               </IconButton>
               <Typography sx={{ fontWeight: 600 }}>{selectedItem}</Typography>
             </BackBar>
 
             <Box sx={{ p: 3 }}>
-              <Typography
-                variant="body1"
-                sx={{ color: theme.palette.text.primary, lineHeight: 1.8 }}>
-                {faqs[selectedItem]}
+              <Typography variant='body1' sx={{ lineHeight: 1.8 }}>
+                {data.faqs[selectedItem]}
               </Typography>
             </Box>
           </>
@@ -104,37 +149,35 @@ export default function TicketPage() {
           <>
             {/* Breadcrumb */}
             <Box sx={{ px: 2, py: 1 }}>
-              <Breadcrumbs aria-label="breadcrumb" sx={{ fontSize: 13 }}>
-                <Link underline="hover" color="inherit" href="#">
-                  tixcraft 拓元售票系統
+              <Breadcrumbs aria-label='breadcrumb' sx={{ fontSize: 13 }}>
+                <Link underline='hover' color='inherit' href={`/${lang}/faq`}>
+                  ticketbox 票票盒售票系統
                 </Link>
-                <Link underline="hover" color="inherit" href="#">
-                  購票
+                <Link underline='hover' color='inherit' href='#'>
+                  {data.name}
                 </Link>
               </Breadcrumbs>
             </Box>
 
             {/* Section */}
             <SectionHeader>
-              <Typography variant="h5" sx={{ color: theme.palette.primary.main, fontWeight: 700 }}>
-                購票
+              <Typography variant='h5' sx={{ color: theme.palette.primary.main, fontWeight: 700 }}>
+                {data.name}
               </Typography>
-              <Typography variant="subtitle1" sx={{ mt: 1 }}>
-                會員加入、購票及付款方式說明
+              <Typography variant='subtitle1' sx={{ mt: 1 }}>
+                {data.desc}
               </Typography>
             </SectionHeader>
 
-            {/* Accordion Group */}
+            {/* FAQ List */}
             <Box sx={{ mt: 2 }}>
               <AccordionStyled defaultExpanded>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                  <Typography sx={{ fontWeight: 600, color: theme.palette.text.primary }}>
-                    會員相關
-                  </Typography>
+                  <Typography sx={{ fontWeight: 600 }}>{data.name}相關</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                   <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                    {Object.keys(faqs).map((title) => (
+                    {Object.keys(data.faqs).map((title) => (
                       <Typography
                         key={title}
                         sx={{
@@ -142,37 +185,12 @@ export default function TicketPage() {
                           cursor: 'pointer',
                           '&:hover': { textDecoration: 'underline' },
                         }}
-                        onClick={() => setSelectedItem(title)}>
+                        onClick={() => setSelectedItem(title)}
+                      >
                         {title}
                       </Typography>
                     ))}
                   </Box>
-                </AccordionDetails>
-              </AccordionStyled>
-
-              <AccordionStyled>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                  <Typography sx={{ fontWeight: 600, color: theme.palette.text.primary }}>
-                    購票方式
-                  </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Typography variant="body2" color="text.secondary">
-                    提供多種購票方式，包括網頁購票、App 購票等。
-                  </Typography>
-                </AccordionDetails>
-              </AccordionStyled>
-
-              <AccordionStyled>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                  <Typography sx={{ fontWeight: 600, color: theme.palette.text.primary }}>
-                    付款方式
-                  </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Typography variant="body2" color="text.secondary">
-                    支援信用卡、超商代碼及 ATM 轉帳等方式。
-                  </Typography>
                 </AccordionDetails>
               </AccordionStyled>
             </Box>
