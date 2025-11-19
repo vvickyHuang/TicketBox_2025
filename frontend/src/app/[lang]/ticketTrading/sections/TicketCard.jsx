@@ -5,9 +5,13 @@ import { Box, Card, CardContent, Typography, Button, Chip, Avatar, Divider } fro
 import { LuCalendarDays, LuTimer, LuMapPin, LuTicket, LuPlus, LuArmchair } from 'react-icons/lu';
 import { useRouter, usePathname } from 'next/navigation';
 import { useParams } from 'next/navigation';
+import { setBuyInfo } from '@/lib/features/globalSlice';
+import { useAppDispatch, useAppSelector } from '@/lib/store';
+
 export default function TicketCard({ ticket }) {
   const params = useParams();
   const id = params.id;
+  const dispatch = useAppDispatch();
 
   const pathname = usePathname();
   const router = useRouter();
@@ -131,7 +135,15 @@ export default function TicketCard({ ticket }) {
               fullWidth={{ xs: true, sm: false }}
               variant="contained"
               color="primary"
-              onClick={() => router.push(`/${lang}/sellPayment`)}
+              onClick={() => {
+                router.push(`/${lang}/sellPayment`);
+                dispatch(
+                  setBuyInfo({
+                    concertInfo: ticket,
+                    ticketList: ticket.ticketList,
+                  }),
+                );
+              }}
               sx={{
                 width: { xs: '100%', sm: 'auto' },
                 py: 1,

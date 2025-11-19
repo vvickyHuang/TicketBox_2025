@@ -11,6 +11,7 @@ const initialState = {
     payTime: '',
     orderId: '',
   },
+  currentSell: {},
 };
 
 const globalSlice = createSlice({
@@ -38,11 +39,15 @@ const globalSlice = createSlice({
     setTradingList: (state, action) => {
       state.tradingList = action.payload;
     },
+    setCurrentSell: (state, action) => {
+      state.currentSell = action.payload;
+    },
 
     resetGlobal: () => initialState,
   },
 });
 
-export const { setUser, setBuyInfo, setTradingList, resetGlobal } = globalSlice.actions;
+export const { setUser, setBuyInfo, setTradingList, resetGlobal, setCurrentSell } =
+  globalSlice.actions;
 
 export default globalSlice.reducer;

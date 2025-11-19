@@ -4,9 +4,9 @@ import 'dayjs/locale/zh-tw';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { Typography, Box } from '@mui/material';
+import { Box } from '@mui/material';
 
-export default function SingleDatePicker() {
+export default function DateRangePicker() {
   const [value, setValue] = React.useState(dayjs());
 
   return (

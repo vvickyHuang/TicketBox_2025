@@ -12,44 +12,19 @@ import {
   Divider,
   Chip,
   Stack,
-  CardMedia,
   Button,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
   Card,
   CardContent,
-  Avatar,
   Dialog,
   DialogActions,
 } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import EventIcon from '@mui/icons-material/Event';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
-import DownloadIcon from '@mui/icons-material/Download';
-import QrCode2Icon from '@mui/icons-material/QrCode2';
-import DirectionsWalkIcon from '@mui/icons-material/DirectionsWalk';
-import CountdownTimer from '@/components/CountdownTimer';
 import { useI18n } from '@/context/i18nContext';
 import { useAppDispatch, useAppSelector } from '@/lib/store';
-import { setBuyInfo } from '@/lib/features/globalSlice';
 import TestQR from '@/components/TestQR';
 import BubbleTour from '@/components/Tour/BubbleTour';
-import {
-  LuCalendarDays,
-  LuTimer,
-  LuMapPin,
-  LuTicket,
-  LuPlus,
-  LuMinus,
-  LuHouse,
-  LuArrowLeft,
-  LuArrowRight,
-} from 'react-icons/lu';
+import { LuCalendarDays, LuTimer, LuMapPin, LuTicket, LuHouse } from 'react-icons/lu';
 import { useIsMobile } from '@/hook/useIsMobile';
 
 const InfoRow = ({ label, value }) => (
@@ -73,22 +48,11 @@ export default function TicketSuccessPage() {
   const router = useRouter();
   const lang = pathname.split('/')[1] || 'en';
   const t = useI18n();
-  const isMobile = useIsMobile();
   const params = useParams();
   const { buyInfo } = useAppSelector((state) => state.global);
-  // const [time, setTime] = useState('');
   const [tourOpen, setTourOpen] = useState(false);
   const [ticketVcList, setTicketVcList] = useState([]);
   const [dialogIsOpen, setDialogIsOpen] = useState(false);
-
-  /* useEffect(() => {
-    if (typeof window !== 'undefined' && (!buyInfo || buyInfo.ticketList.length === 0)) {
-      const storedBuyInfo = sessionStorage.getItem('buyInfo');
-      if (storedBuyInfo) {
-        dispatch(setBuyInfo(JSON.parse(storedBuyInfo)));
-      }
-    }
-  }, [dispatch]); */
 
   const steps = [
     {
@@ -140,7 +104,26 @@ export default function TicketSuccessPage() {
       try {
         const message = await sendVerifyCode(orderId, email);
         const vcList = await getVcQrcode(message);
-        allVcResults.push(...vcList); // 合併結果
+        console.log(buyInfo.ticketList);
+        console.log('vcList:', vcList);
+
+        const result = vcList.map((bItem) => {
+          const matched = buyInfo.ticketList.find(
+            (aItem) =>
+              aItem.area === bItem.areaKey &&
+              aItem.line.toString() === bItem.line.toString() &&
+              aItem.seat.toString() === bItem.seat.toString(),
+          );
+          console.log('matched:', matched);
+          return {
+            ...bItem,
+            name: matched ? matched.user : null, // 沒找到就給 null 或保持不動
+          };
+        });
+
+        console.log('合併後的結果:', result);
+
+        allVcResults.push(...result); // 合併結果
       } catch (error) {
         console.error(`Error processing email ${email}:`, error);
       }
@@ -164,16 +147,6 @@ export default function TicketSuccessPage() {
 
   return (
     <>
-      <>
-        {/* --- 票券內容 --- */}
-        {/* <div id='ticketQRCode'> ... QR 圖 ... </div>
-        <div id='ticketPrice'> NT$ 3,000 </div>
-        <button id='navNext'>下一張</button> */}
-
-        {/* <button onClick={() => setTourOpen(true)}>啟動教學</button>
-
-        <BubbleTour open={tourOpen} steps={steps} onClose={() => setTourOpen(false)} /> */}
-      </>
       <Dialog
         disableEnforceFocus={false}
         open={dialogIsOpen}

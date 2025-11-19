@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, Typography, Box, Button, DialogActions } from '@mui/material';
+import { Dialog, DialogContent, Typography, Box, Button, Stack } from '@mui/material';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import { useEffect, useState } from 'react';
 import { LuArrowLeft, LuArrowRight } from 'react-icons/lu';
@@ -61,7 +61,7 @@ export default function TicketQRCodeDialog({ dialogType, oriTicketList, handleSe
           setBuyInfo({
             concertInfo: obj,
             ticketList: obj.ticketList,
-          })
+          }),
         );
         setTicketVcList((prev) => ({
           ...prev,
@@ -101,10 +101,10 @@ export default function TicketQRCodeDialog({ dialogType, oriTicketList, handleSe
   return isMobile ? (
     <>
       <DialogContent sx={{ textAlign: 'center' }}>
-        <Typography variant='h6' fontWeight={700} sx={{ mb: 1 }}>
+        <Typography variant="h6" fontWeight={700} sx={{ mb: 1 }}>
           您的憑證已準備好！
         </Typography>
-        <Typography variant='body2' sx={{ color: '#555', mb: 1 }}>
+        <Typography variant="body2" sx={{ color: '#555', mb: 1 }}>
           請點選連接將憑證加入數位憑證皮夾 App，
           {dialogType === 'cancel' && '取消票券販售'}
           {dialogType === 'shelves' && '完成票券上架'}
@@ -121,10 +121,9 @@ export default function TicketQRCodeDialog({ dialogType, oriTicketList, handleSe
             borderRadius: 2,
             p: 1,
             mb: 2,
-          }}
-        >
+          }}>
           {time === '00:00' ? <ErrorIcon sx={{ mr: 1 }} /> : <WarningAmberIcon sx={{ mr: 1 }} />}
-          <Typography variant='body2' fontWeight={600}>
+          <Typography variant="body2" fontWeight={600}>
             {time === '00:00'
               ? '您未在 5 分鐘內完成綁定，連結已失效。'
               : '請於 5 分鐘內完成綁定，否則連結將失效。'}
@@ -132,6 +131,23 @@ export default function TicketQRCodeDialog({ dialogType, oriTicketList, handleSe
         </Box>
 
         {!ticketVcList.isScanned && <CountdownTimer onTimeChange={setTime}></CountdownTimer>}
+
+        <Stack spacing={0.5} alignItems="center" textAlign="center">
+          <Stack direction="row" spacing={2} alignItems="center" justifyContent="center">
+            <Typography variant="subtitle2" fontWeight={600}>
+              區域：{ticketVcList?.area}
+            </Typography>
+
+            <Typography variant="subtitle2" fontWeight={600}>
+              座位：{ticketVcList?.line}排{ticketVcList?.seat}號
+            </Typography>
+          </Stack>
+
+          {/* 第二排：姓名（大字） */}
+          <Typography variant="subtitle1" fontWeight={700} sx={{ textTransform: 'none' }}>
+            姓名：{ticketVcList?.name}
+          </Typography>
+        </Stack>
         <Box
           width={'100%'}
           sx={{
@@ -139,8 +155,7 @@ export default function TicketQRCodeDialog({ dialogType, oriTicketList, handleSe
             justifyContent: 'center',
             display: 'flex',
             position: 'relative',
-          }}
-        >
+          }}>
           <Box
             sx={{
               alignItems: 'center',
@@ -149,20 +164,18 @@ export default function TicketQRCodeDialog({ dialogType, oriTicketList, handleSe
               position: 'relative',
               width: 160,
               height: 160,
-            }}
-          >
+            }}>
             <Button
-              id='ticketQRCode'
-              variant='contained'
-              color='primary'
+              id="ticketQRCode"
+              variant="contained"
+              color="primary"
               disabled={!ticketVcList?.authUri}
               onClick={() => {
                 const authUri = ticketVcList?.authUri;
                 if (authUri) {
                   window.location.href = authUri;
                 }
-              }}
-            >
+              }}>
               加入數位憑證皮夾 App
             </Button>
             {ticketVcList?.isScanned && (
@@ -178,8 +191,7 @@ export default function TicketQRCodeDialog({ dialogType, oriTicketList, handleSe
                   justifyContent: 'center',
                   bgcolor: 'rgba(255, 255, 255, 0.6)',
                   borderRadius: 2,
-                }}
-              >
+                }}>
                 <Box
                   sx={{
                     width: 120,
@@ -191,16 +203,14 @@ export default function TicketQRCodeDialog({ dialogType, oriTicketList, handleSe
                     justifyContent: 'center',
                     transform: 'rotate(-15deg)',
                     opacity: 0.9,
-                  }}
-                >
+                  }}>
                   <Typography
-                    variant='h6'
+                    variant="h6"
                     sx={{
                       color: '#d32f2f',
                       fontWeight: 700,
                       letterSpacing: 2,
-                    }}
-                  >
+                    }}>
                     已加入數位憑證皮夾
                   </Typography>
                 </Box>
@@ -215,18 +225,17 @@ export default function TicketQRCodeDialog({ dialogType, oriTicketList, handleSe
             justifyContent: 'center',
             gap: 2,
             mt: 1,
-          }}
-        ></Box>
+          }}></Box>
       </DialogContent>
     </>
   ) : (
     <>
       <DialogContent sx={{ textAlign: 'center' }}>
-        <Typography variant='h6' fontWeight={700} sx={{ mb: 1 }}>
+        <Typography variant="h6" fontWeight={700} sx={{ mb: 1 }}>
           您的憑證已準備好！
         </Typography>
 
-        <Typography variant='body2' sx={{ color: '#555', mb: 1 }}>
+        <Typography variant="body2" sx={{ color: '#555', mb: 1 }}>
           請使用數位憑證皮夾 App 掃描 QR Code 完成販售我的票券
         </Typography>
 
@@ -240,10 +249,9 @@ export default function TicketQRCodeDialog({ dialogType, oriTicketList, handleSe
             borderRadius: 2,
             p: 1,
             mb: 2,
-          }}
-        >
+          }}>
           <WarningAmberIcon sx={{ mr: 1 }} />
-          <Typography variant='body2' fontWeight={600}>
+          <Typography variant="body2" fontWeight={600}>
             請於 5 分鐘內完成掃描，否則 QR Code 將失效
           </Typography>
         </Box>
@@ -252,11 +260,10 @@ export default function TicketQRCodeDialog({ dialogType, oriTicketList, handleSe
           sx={{
             position: 'relative',
             display: 'inline-block',
-          }}
-        >
+          }}>
           <img
             src={ticketVcList?.qrcodeImage}
-            alt='QR Code'
+            alt="QR Code"
             style={{
               width: 160,
               height: 160,
@@ -278,8 +285,7 @@ export default function TicketQRCodeDialog({ dialogType, oriTicketList, handleSe
                 justifyContent: 'center',
                 bgcolor: 'rgba(255, 255, 255, 0.6)',
                 borderRadius: 2,
-              }}
-            >
+              }}>
               <Box
                 sx={{
                   width: 120,
@@ -291,16 +297,14 @@ export default function TicketQRCodeDialog({ dialogType, oriTicketList, handleSe
                   justifyContent: 'center',
                   transform: 'rotate(-15deg)',
                   opacity: 0.9,
-                }}
-              >
+                }}>
                 <Typography
-                  variant='h6'
+                  variant="h6"
                   sx={{
                     color: '#d32f2f',
                     fontWeight: 700,
                     letterSpacing: 2,
-                  }}
-                >
+                  }}>
                   已掃描
                 </Typography>
               </Box>
@@ -315,8 +319,7 @@ export default function TicketQRCodeDialog({ dialogType, oriTicketList, handleSe
             justifyContent: 'center',
             gap: 2,
             mt: 1,
-          }}
-        ></Box>
+          }}></Box>
       </DialogContent>
     </>
   );

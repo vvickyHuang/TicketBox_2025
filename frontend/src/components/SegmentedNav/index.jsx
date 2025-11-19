@@ -18,7 +18,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 const routes = [
   { label: '活動', value: 'concert', href: '/concert' },
-  { label: '票券交易', value: 'ticketTrading', href: '/ticketTrading' },
+  { label: '票券轉讓', value: 'ticketTrading', href: '/ticketTrading' },
   { label: '我的訂單', value: 'orderInquiry', href: '/orderInquiry' },
   { label: '常見問題', value: 'faq', href: '/faq' },
 ];

@@ -19,12 +19,68 @@ export default function Page() {
   const [shelvesInfo, setShelvesInfo] = useState({});
   const initData = async () => {
     try {
-      const res = await fetch('/api/trading');
+      const res = await fetch('/api/sellTicket', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      });
       const data = await res.json();
-      if (tradingList.id !== undefined) {
+      console.log(data);
+      let updatedList = [];
+      data.forEach((item) => {
+        let obj = {
+          id: item.concertId,
+          title: 'BTS PERMISSION TO DANCE ON STAGE - TAIPEI',
+          date: '2025/12/20(六) 19:30',
+          location: '臺北大巨蛋',
+          seat: `${item.area}區 第${item.line}排 ${item.seat}號 (1張)`,
+          price: 6880,
+          tags: ['售票', `${item.area}區`],
+          status: 'sell',
+          seatImg: '/aiimg/btsseat.png',
+          image: '/aiimg/btsbg.png',
+          seller: {
+            name: 'Mike Chen',
+          },
+          ticketList: [
+            {
+              areaKey: item.area,
+              email: '',
+              line: item.line,
+              name: `${item.area}區`,
+              price: 6880,
+              seat: item.seat,
+              user: '',
+              vcBindToken: item.vcBindToken,
+            },
+          ],
+        };
+        updatedList.push(obj);
+      });
+      setTicketsList(updatedList);
+
+      /* if (tradingList.id !== undefined) {
         data.data.unshift(tradingList);
       }
-      setTicketsList(data.data);
+      setTicketsList(data.data); */
+      /* {
+            "id": 1,
+            "title": "SUPER JUNIOR 20th Anniversary TOUR ＜SUPER SHOW 10＞ in TAIPEI",
+            "date": "2025/11/14 (五) 19:30",
+            "location": "臺北大巨蛋",
+            "seat": "特A1區 第5排 15-16號 (2張)",
+            "price": 8500,
+            "tags": [
+                "售票",
+                "VIP",
+                "含SOUNDCHECK"
+            ],
+            "status": "sell",
+            "seatImg": "/aiimg/sjseat.png",
+            "image": "/aiimg/sjbg.png",
+            "seller": {
+                "name": "Mike Chen"
+            }
+        }, */
     } catch (err) {
       console.error(err);
     }
@@ -32,7 +88,7 @@ export default function Page() {
 
   useEffect(() => {
     initData();
-  }, [tradingList]);
+  }, []);
 
   // useEffect(() => {
   //   if (tradingList.id === undefined) return;
@@ -46,15 +102,14 @@ export default function Page() {
 
   return (
     <>
-      <Container maxWidth='xl' sx={{ py: 5 }}>
+      <Container maxWidth="xl" sx={{ py: 5 }}>
         <Box
           sx={{
             display: 'flex',
             gap: 3,
             alignItems: 'flex-start',
             flexWrap: { xs: 'wrap', md: 'nowrap' },
-          }}
-        >
+          }}>
           <Box sx={{ flex: { xs: '1 1 100%', md: '0 0 25%' } }}>
             <FilterSidebar />
           </Box>

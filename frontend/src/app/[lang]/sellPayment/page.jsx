@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import { LuCalendarDays, LuTimer, LuMapPin, LuTicket, LuPlus, LuMinus } from 'react-icons/lu';
 import { useIsMobile } from '@/hook/useIsMobile';
 import { ExpandMore } from '@mui/icons-material';
+import { addSnackbar } from '@/lib/features/snackbarSlice';
 
 import {
   Accordion,
@@ -68,11 +69,19 @@ export default function LoginPage() {
     console.log('Submitting payment with:', { card, expDate, cvc });
     console.log('Buy Info:', buyInfo);
 
-    const tradeUuids = buyInfo.ticketList.map((item) => item?.tradeToken).filter(Boolean); // 避免 undefined
+    const tradeUuids = buyInfo.ticketList.map((item) => item?.vcBindToken).filter(Boolean); // 避免 undefined
 
     tradeUuids.forEach(async (uuid) => {
       try {
-        const res = await fetch(`/api/trading/status?id=${uuid}`);
+        const revokeRes = await fetch(`/api/trading/revokeVc`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ vcBindToken: uuid }),
+        });
+
+        const revokeData = await revokeRes.json();
+        console.log('API 回傳', revokeData);
+        /*  const res = await fetch(`/api/trading/status?id=${uuid}`);
 
         const data = await res.json();
         console.log('API 回傳', data);
@@ -87,7 +96,7 @@ export default function LoginPage() {
           console.log('API 回傳', revokeData);
         } catch (err) {
           console.error('API 錯誤', err);
-        }
+        } */
       } catch (err) {
         console.error('API 錯誤', err);
       }
@@ -113,6 +122,13 @@ export default function LoginPage() {
       setTimeout(() => {
         router.push(`/${lang}/paymentSuccess`);
       }, 1000);
+
+      dispatch(
+        addSnackbar({
+          message: '票券購買成功，感謝您的購買',
+          severity: 'success',
+        }),
+      );
       const cardLast = card.slice(-4);
       const payTime = dayjs().format('YYYY/MM/DD HH:mm:ss');
       const orderId = data.orderId;
@@ -121,7 +137,7 @@ export default function LoginPage() {
           cardLast,
           payTime,
           orderId,
-        })
+        }),
       );
     } catch (err) {
       console.error('下單失敗', err);
@@ -146,33 +162,33 @@ export default function LoginPage() {
     dispatch(
       setBuyInfo({
         ticketList: updatedTicketList,
-      })
+      }),
     );
   }, []);
 
   const handleEmailChange = (index, value) => {
     const newTicketList = buyInfo.ticketList.map((item, i) =>
-      i === index ? { ...item, email: value } : item
+      i === index ? { ...item, email: value } : item,
     );
 
     dispatch(
       setBuyInfo({
         ...buyInfo,
         ticketList: newTicketList,
-      })
+      }),
     );
   };
 
   const handleUserChange = (index, value) => {
     const newTicketList = buyInfo.ticketList.map((item, i) =>
-      i === index ? { ...item, user: value } : item
+      i === index ? { ...item, user: value } : item,
     );
 
     dispatch(
       setBuyInfo({
         ...buyInfo,
         ticketList: newTicketList,
-      })
+      }),
     );
   };
 
@@ -180,9 +196,9 @@ export default function LoginPage() {
     <>
       {loadingMap.isLoadingInfo ? (
         <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 2 }}>
-          <Skeleton variant='rectangular' width='100%' height={400} sx={{ borderRadius: 3 }} />
-          <Skeleton variant='rectangular' width='100%' height={100} sx={{ borderRadius: 3 }} />
-          <Skeleton variant='rectangular' width='100%' height={300} sx={{ borderRadius: 3 }} />
+          <Skeleton variant="rectangular" width="100%" height={400} sx={{ borderRadius: 3 }} />
+          <Skeleton variant="rectangular" width="100%" height={100} sx={{ borderRadius: 3 }} />
+          <Skeleton variant="rectangular" width="100%" height={300} sx={{ borderRadius: 3 }} />
         </Box>
       ) : (
         <Box
@@ -193,8 +209,7 @@ export default function LoginPage() {
             p: 3,
             gap: 2,
             flexDirection: 'column',
-          }}
-        >
+          }}>
           <Box
             sx={{
               width: '100%',
@@ -202,8 +217,7 @@ export default function LoginPage() {
               borderRadius: 3,
               boxShadow: 2,
               mb: 3,
-            }}
-          >
+            }}>
             <Box
               sx={{
                 borderRadius: '24px 24px 0 0',
@@ -214,10 +228,9 @@ export default function LoginPage() {
                 justifyContent: 'center',
                 alignItems: 'center',
                 backgroundColor: '#f3f3f3',
-              }}
-            >
+              }}>
               <CardMedia
-                component='img'
+                component="img"
                 image={buyInfo?.concertInfo?.image}
                 sx={{
                   width: '100%',
@@ -228,7 +241,7 @@ export default function LoginPage() {
               />
             </Box>
             <Box sx={{ m: 2 }}>
-              <Typography variant='h6' gutterBottom>
+              <Typography variant="h6" gutterBottom>
                 {buyInfo?.concertInfo?.title}
               </Typography>
               <Grid container sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -241,12 +254,10 @@ export default function LoginPage() {
                       display: 'flex',
                       justifyContent: 'start',
                       alignItems: 'center',
-                    }}
-                  >
+                    }}>
                     <Box
-                      color='primary.main'
-                      sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-                    >
+                      color="primary.main"
+                      sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                       {index === 0 && <LuTicket size={24} />}
                       {index === 1 && <LuCalendarDays size={24} />}
                       {index === 2 && <LuTimer size={24} />}
@@ -254,12 +265,11 @@ export default function LoginPage() {
                     </Box>
 
                     <Typography
-                      variant='body2'
-                      color='text.secondary'
+                      variant="body2"
+                      color="text.secondary"
                       sx={{
                         my: 1,
-                      }}
-                    >
+                      }}>
                       {item.label}
                     </Typography>
                     <Typography gap={1}>
@@ -272,7 +282,7 @@ export default function LoginPage() {
               <Box sx={{ width: '100%' }}>
                 <>
                   <Divider sx={{ my: 2 }} />
-                  <Typography variant='h6' gutterBottom>
+                  <Typography variant="h6" gutterBottom>
                     訂單明細
                   </Typography>
 
@@ -293,20 +303,17 @@ export default function LoginPage() {
                               alignItems: { xs: 'flex-start', sm: 'center' },
                               boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
                               border: '1px solid rgba(90,62,186,0.15)',
-                            }}
-                          >
+                            }}>
                             <Box
                               sx={{
                                 display: 'flex',
                                 flexDirection: 'column',
                                 width: { xs: '100%', sm: 'auto' },
-                              }}
-                            >
+                              }}>
                               <Typography
-                                variant='subtitle1'
-                                fontWeight='600'
-                                sx={{ mb: { xs: 0.5, sm: 0 } }}
-                              >
+                                variant="subtitle1"
+                                fontWeight="600"
+                                sx={{ mb: { xs: 0.5, sm: 0 } }}>
                                 {item.name}
                               </Typography>
                             </Box>
@@ -318,17 +325,16 @@ export default function LoginPage() {
                                 justifyContent: { xs: 'space-between', sm: 'flex-end' },
                                 width: { xs: '100%', sm: '300px' }, // 手機撐滿、桌面固定寬
                                 mt: { xs: 1, sm: 0 },
-                              }}
-                            >
+                              }}>
                               <Typography>
                                 {item.line} 排 {item.seat} 號
                               </Typography>
-                              <Typography variant='h6' fontWeight='bold'>
+                              <Typography variant="h6" fontWeight="bold">
                                 NT$ {item.price.toLocaleString()}
                               </Typography>
                             </Box>
                           </Grid>
-                        )
+                        ),
                     )}
                   </Grid>
 
@@ -340,10 +346,9 @@ export default function LoginPage() {
                       display: 'flex',
                       justifyContent: 'space-between',
                       alignItems: 'center',
-                    }}
-                  >
-                    <Typography fontWeight='600'>總金額</Typography>
-                    <Typography variant='h6' fontWeight='bold' color='primary'>
+                    }}>
+                    <Typography fontWeight="600">總金額</Typography>
+                    <Typography variant="h6" fontWeight="bold" color="primary">
                       NT$ {grandTotal?.toLocaleString()}
                     </Typography>
                   </Grid>
@@ -361,10 +366,9 @@ export default function LoginPage() {
                 border: (t) => `1px dashed ${t.palette.divider}`,
                 backgroundColor: (t) =>
                   t.palette.mode === 'light' ? '#fafbff' : 'background.paper',
-              }}
-            >
+              }}>
               <CardContent>
-                <Typography variant='h6' gutterBottom sx={{ mb: 2 }}>
+                <Typography variant="h6" gutterBottom sx={{ mb: 2 }}>
                   輸入訂單資訊
                 </Typography>
 
@@ -374,8 +378,8 @@ export default function LoginPage() {
                 <Box sx={{ mb: 2 }}>
                   <TextField
                     fullWidth
-                    size='small'
-                    label='全域信箱（套用所有票）'
+                    size="small"
+                    label="全域信箱（套用所有票）"
                     value={globalEmail}
                     onChange={(e) => {
                       const value = e.target.value;
@@ -390,7 +394,7 @@ export default function LoginPage() {
                         setBuyInfo({
                           ...buyInfo,
                           ticketList: newTicketList,
-                        })
+                        }),
                       );
                     }}
                   />
@@ -399,7 +403,7 @@ export default function LoginPage() {
                 {buyInfo.ticketList?.map((item, index) => (
                   <Accordion key={index} sx={{ mb: 2 }} defaultExpanded>
                     <AccordionSummary expandIcon={<ExpandMore />}>
-                      <Typography fontWeight='bold'>
+                      <Typography fontWeight="bold">
                         {item.name} - {item.line}排{item.seat}號
                       </Typography>
                     </AccordionSummary>
@@ -407,15 +411,15 @@ export default function LoginPage() {
                       <Stack spacing={1}>
                         <TextField
                           fullWidth
-                          size='small'
-                          label='姓名'
+                          size="small"
+                          label="姓名"
                           value={item.user}
                           onChange={(e) => handleUserChange(index, e.target.value)}
                         />
                         <TextField
                           fullWidth
-                          size='small'
-                          label='信箱'
+                          size="small"
+                          label="信箱"
                           value={item.email}
                           onChange={(e) => handleEmailChange(index, e.target.value)}
                         />
@@ -433,12 +437,11 @@ export default function LoginPage() {
                 border: (t) => `1px dashed ${t.palette.divider}`,
                 backgroundColor: (t) =>
                   t.palette.mode === 'light' ? '#fafbff' : 'background.paper',
-              }}
-            >
+              }}>
               <CardContent>
-                <Grid container alignItems='center'>
+                <Grid container alignItems="center">
                   <Grid size={{ xs: 12 }}>
-                    <Typography variant='h6' gutterBottom sx={{ mb: 2 }}>
+                    <Typography variant="h6" gutterBottom sx={{ mb: 2 }}>
                       輸入付款資訊
                     </Typography>
 
@@ -460,14 +463,13 @@ export default function LoginPage() {
 
           <Button
             fullWidth
-            variant='contained'
+            variant="contained"
             sx={{
               mt: 3,
               py: 1.3,
               fontWeight: 600,
             }}
-            onClick={handleSubmit}
-          >
+            onClick={handleSubmit}>
             付款
           </Button>
         </Box>
@@ -477,9 +479,9 @@ export default function LoginPage() {
     <>
       {loadingMap.isLoadingInfo ? (
         <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 2 }}>
-          <Skeleton variant='rectangular' width='100%' height={400} sx={{ borderRadius: 3 }} />
-          <Skeleton variant='rectangular' width='100%' height={100} sx={{ borderRadius: 3 }} />
-          <Skeleton variant='rectangular' width='100%' height={300} sx={{ borderRadius: 3 }} />
+          <Skeleton variant="rectangular" width="100%" height={400} sx={{ borderRadius: 3 }} />
+          <Skeleton variant="rectangular" width="100%" height={100} sx={{ borderRadius: 3 }} />
+          <Skeleton variant="rectangular" width="100%" height={300} sx={{ borderRadius: 3 }} />
         </Box>
       ) : (
         <Box
@@ -490,8 +492,7 @@ export default function LoginPage() {
             p: 3,
             gap: 2,
             flexDirection: 'column',
-          }}
-        >
+          }}>
           <Box
             sx={{
               width: '100%',
@@ -499,8 +500,7 @@ export default function LoginPage() {
               borderRadius: 3,
               boxShadow: 2,
               mb: 3,
-            }}
-          >
+            }}>
             <Box
               sx={{
                 borderRadius: '24px 24px 0 0',
@@ -511,10 +511,9 @@ export default function LoginPage() {
                 justifyContent: 'center',
                 alignItems: 'center',
                 backgroundColor: '#f3f3f3',
-              }}
-            >
+              }}>
               <CardMedia
-                component='img'
+                component="img"
                 image={buyInfo?.concertInfo?.image}
                 sx={{
                   width: '100%',
@@ -525,7 +524,7 @@ export default function LoginPage() {
               />
             </Box>
             <Box sx={{ m: 2 }}>
-              <Typography variant='h6' gutterBottom>
+              <Typography variant="h6" gutterBottom>
                 {buyInfo?.concertInfo?.title}
               </Typography>
               <Grid container sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -538,12 +537,10 @@ export default function LoginPage() {
                       display: 'flex',
                       justifyContent: 'start',
                       alignItems: 'center',
-                    }}
-                  >
+                    }}>
                     <Box
-                      color='primary.main'
-                      sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-                    >
+                      color="primary.main"
+                      sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                       {index === 0 && <LuTicket size={24} />}
                       {index === 1 && <LuCalendarDays size={24} />}
                       {index === 2 && <LuTimer size={24} />}
@@ -551,12 +548,11 @@ export default function LoginPage() {
                     </Box>
 
                     <Typography
-                      variant='body2'
-                      color='text.secondary'
+                      variant="body2"
+                      color="text.secondary"
                       sx={{
                         my: 1,
-                      }}
-                    >
+                      }}>
                       {item.label}
                     </Typography>
                     <Typography gap={1}>
@@ -572,20 +568,19 @@ export default function LoginPage() {
                   <Grid container spacing={1} sx={{ width: '100%', flexDirection: 'column' }}>
                     <Grid sx={{ display: 'flex', gap: 1, height: '32px' }}>
                       <Grid size={{ xs: 4 }} sx={{ width: '40%', px: 2 }}>
-                        <Typography variant='body1' fontWeight='bold'>
+                        <Typography variant="body1" fontWeight="bold">
                           票種
                         </Typography>
                       </Grid>
                       <Grid size={{ xs: 4 }} sx={{ width: '35%' }}>
-                        <Typography variant='body1' fontWeight='bold'>
+                        <Typography variant="body1" fontWeight="bold">
                           座位
                         </Typography>
                       </Grid>
                       <Grid
                         size={{ xs: 4 }}
-                        sx={{ width: '15%', display: 'flex', justifyContent: 'flex-end', px: 2 }}
-                      >
-                        <Typography variant='body1' fontWeight='bold'>
+                        sx={{ width: '15%', display: 'flex', justifyContent: 'flex-end', px: 2 }}>
+                        <Typography variant="body1" fontWeight="bold">
                           票價
                         </Typography>
                       </Grid>
@@ -604,8 +599,7 @@ export default function LoginPage() {
                           boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
                           border: '1px solid rgba(90,62,186,0.15)',
                           height: '48px',
-                        }}
-                      >
+                        }}>
                         <Grid size={{ xs: 4 }} sx={{ width: '40%' }}>
                           <Typography>{item.name}</Typography>
                         </Grid>
@@ -620,9 +614,8 @@ export default function LoginPage() {
                             width: '15%',
                             display: 'flex',
                             justifyContent: 'flex-end',
-                          }}
-                        >
-                          <Typography variant='h6' fontWeight='bold'>
+                          }}>
+                          <Typography variant="h6" fontWeight="bold">
                             NT$ {item.price.toLocaleString()}
                           </Typography>
                         </Grid>
@@ -631,18 +624,17 @@ export default function LoginPage() {
 
                     <Grid sx={{ display: 'flex', gap: 1, height: '32px', mt: 1 }}>
                       <Grid size={{ xs: 4 }} sx={{ width: '40%', px: 2 }}>
-                        <Typography variant='body1' fontWeight='bold'>
+                        <Typography variant="body1" fontWeight="bold">
                           總金額
                         </Typography>
                       </Grid>
                       <Grid size={{ xs: 4 }} sx={{ width: '35%' }}>
-                        <Typography variant='body1' fontWeight='bold'></Typography>
+                        <Typography variant="body1" fontWeight="bold"></Typography>
                       </Grid>
                       <Grid
                         size={{ xs: 4 }}
-                        sx={{ width: '15%', display: 'flex', justifyContent: 'flex-end', px: 2 }}
-                      >
-                        <Typography variant='h6' fontWeight='bold' color='primary'>
+                        sx={{ width: '15%', display: 'flex', justifyContent: 'flex-end', px: 2 }}>
+                        <Typography variant="h6" fontWeight="bold" color="primary">
                           NT$ {grandTotal?.toLocaleString()}
                         </Typography>
                       </Grid>
@@ -662,11 +654,10 @@ export default function LoginPage() {
                 border: (t) => `1px dashed ${t.palette.divider}`,
                 backgroundColor: (t) =>
                   t.palette.mode === 'light' ? '#fafbff' : 'background.paper',
-              }}
-            >
+              }}>
               <CardContent>
                 <Grid size={{ xs: 12 }}>
-                  <Typography variant='h6' gutterBottom sx={{ mb: 2 }}>
+                  <Typography variant="h6" gutterBottom sx={{ mb: 2 }}>
                     輸入訂單資訊
                   </Typography>
 
@@ -679,8 +670,8 @@ export default function LoginPage() {
                       <Box sx={{ width: '20%' }}></Box>
                       <TextField
                         sx={{ width: '48%' }}
-                        size='small'
-                        label='全域信箱（套用所有票）'
+                        size="small"
+                        label="全域信箱（套用所有票）"
                         value={globalEmail}
                         onChange={(e) => {
                           const value = e.target.value;
@@ -695,16 +686,15 @@ export default function LoginPage() {
                             setBuyInfo({
                               ...buyInfo,
                               ticketList: newTicketList,
-                            })
+                            }),
                           );
                         }}
                       />
                     </Grid>
                     <Grid size={{ xs: 12 }}>
                       <Stack
-                        direction='row'
-                        sx={{ fontWeight: 600, color: 'text.secondary', gap: 1 }}
-                      >
+                        direction="row"
+                        sx={{ fontWeight: 600, color: 'text.secondary', gap: 1 }}>
                         <Typography sx={{ width: '15%' }}>票種</Typography>
                         <Typography sx={{ width: '15%' }}>座位</Typography>
                         <Typography sx={{ width: '20%' }}>姓名</Typography>
@@ -714,13 +704,13 @@ export default function LoginPage() {
 
                     {buyInfo.ticketList?.map((item, index) => (
                       <Grid size={{ xs: 12 }} key={index}>
-                        <Stack direction='row' alignItems='center' sx={{ gap: 1 }}>
+                        <Stack direction="row" alignItems="center" sx={{ gap: 1 }}>
                           <Box sx={{ width: '15%' }}>
                             <Chip
                               label={item.name}
-                              size='small'
-                              color='primary'
-                              variant='outlined'
+                              size="small"
+                              color="primary"
+                              variant="outlined"
                             />
                           </Box>
                           <Typography sx={{ width: '15%' }}>
@@ -729,16 +719,16 @@ export default function LoginPage() {
 
                           <TextField
                             sx={{ width: '20%' }}
-                            size='small'
-                            label='姓名'
+                            size="small"
+                            label="姓名"
                             value={item.user}
                             onChange={(e) => handleUserChange(index, e.target.value)}
                           />
 
                           <TextField
                             sx={{ width: '48%' }}
-                            size='small'
-                            label='信箱'
+                            size="small"
+                            label="信箱"
                             value={item.email}
                             onChange={(e) => handleEmailChange(index, e.target.value)}
                           />
@@ -757,12 +747,11 @@ export default function LoginPage() {
                 border: (t) => `1px dashed ${t.palette.divider}`,
                 backgroundColor: (t) =>
                   t.palette.mode === 'light' ? '#fafbff' : 'background.paper',
-              }}
-            >
+              }}>
               <CardContent>
-                <Grid container alignItems='center'>
+                <Grid container alignItems="center">
                   <Grid size={{ xs: 12 }}>
-                    <Typography variant='h6' gutterBottom sx={{ mb: 2 }}>
+                    <Typography variant="h6" gutterBottom sx={{ mb: 2 }}>
                       輸入付款資訊
                     </Typography>
 
@@ -784,14 +773,13 @@ export default function LoginPage() {
 
           <Button
             fullWidth
-            variant='contained'
+            variant="contained"
             sx={{
               mt: 3,
               py: 1.3,
               fontWeight: 600,
             }}
-            onClick={handleSubmit}
-          >
+            onClick={handleSubmit}>
             付款
           </Button>
         </Box>

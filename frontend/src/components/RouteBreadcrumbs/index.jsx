@@ -10,7 +10,7 @@ const routeTitleMap = [
   { label: '活動', path: '/concert' },
   { label: '活動詳情', path: '/concert/:id' },
   { label: '購票', path: '/concert/:id/new' },
-  { label: '票券交易', path: '/ticketTrading' },
+  { label: '票券轉讓', path: '/ticketTrading' },
   { label: '我的訂單', path: '/orderInquiry' },
   { label: '訂單完成', path: '/paymentSuccess' },
   { label: '常見問題', path: '/faq' },
@@ -57,7 +57,7 @@ export default function RouteBreadcrumbs({ showId = false }) {
     const href = `/${lang}/${pathSoFar.join('/')}`;
 
     return isLast ? (
-      <Typography key={href} color='text.primary'>
+      <Typography key={href} color="text.primary">
         {label}
       </Typography>
     ) : (
@@ -68,7 +68,7 @@ export default function RouteBreadcrumbs({ showId = false }) {
   });
 
   return (
-    <Breadcrumbs separator='/' aria-label='breadcrumb' sx={{ mx: 3, my: 1 }}>
+    <Breadcrumbs separator="/" aria-label="breadcrumb" sx={{ mx: 3, my: 1 }}>
       {crumbs}
     </Breadcrumbs>
   );
