@@ -54,22 +54,22 @@ const InfoBox = styled(Box)({
 
 export default function TicketOrder({ ticketAllList, handleShelves, handleSearchold }) {
   return (
-    <Box display="flex" flexDirection="column" alignItems="center" mt={4} gap={2}>
+    <Box display='flex' flexDirection='column' alignItems='center' mt={4} gap={2}>
       {ticketAllList?.map((ticket, index) => (
         <TicketCard key={index}>
           <InfoBox>
-            <Typography variant="body1" fontWeight={700}>
+            <Typography variant='body1' fontWeight={700}>
               {/* {ticket.event} */}
               BTS PERMISSION TO DANCE ON STAGE - TAIPEI
             </Typography>
 
-            <Typography variant="body2">姓名：{ticket.name}</Typography>
-            <Typography variant="body2">信箱：{ticket.email}</Typography>
-            <Typography variant="body2">
+            <Typography variant='body2'>姓名：{ticket.name}</Typography>
+            <Typography variant='body2'>信箱：{ticket.email}</Typography>
+            <Typography variant='body2'>
               座位：{ticket.area} - {ticket.line}排{ticket.seat}號
             </Typography>
           </InfoBox>
-          <span className="dotted-line" />
+          <span className='dotted-line' />
           <Box
             sx={{
               display: 'flex',
@@ -79,23 +79,25 @@ export default function TicketOrder({ ticketAllList, handleShelves, handleSearch
 
               minWidth: 100,
               zIndex: 3,
-            }}>
+            }}
+          >
             <Box
               sx={{
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
                 flexDirection: 'column',
-              }}>
+              }}
+            >
               <Chip
                 sx={{ mb: 1 }}
                 label={
                   ticket.vcStatus === 'PENDING'
-                    ? '尚未領取票券'
+                    ? '未取票'
                     : ticket.vcStatus === 'TRADING'
                     ? '票券販售中'
                     : ticket.vcStatus === 'ACTIVE'
-                    ? '票券持有中'
+                    ? '已領票'
                     : ticket.vcStatus === 'REVOKED'
                     ? '票券已撤銷'
                     : `其他狀態：${ticket.vcStatus}`
@@ -111,50 +113,52 @@ export default function TicketOrder({ ticketAllList, handleShelves, handleSearch
                     ? 'error'
                     : 'default'
                 }
-                size="small"
-                variant="outlined"
+                size='small'
               />
             </Box>
 
             {ticket.vcStatus === 'TRADING' && (
               <Button
                 onClick={() => handleShelves('cancel', index)}
-                variant="contained"
-                size="small"
+                variant='contained'
+                size='small'
                 sx={{
                   px: 3,
                   py: 1,
                   borderRadius: 2,
                   textTransform: 'none',
-                }}>
+                }}
+              >
                 取消販售
               </Button>
             )}
             {ticket.vcStatus === 'ACTIVE' && (
               <Button
                 onClick={() => handleShelves('shelves', index)}
-                variant="contained"
-                size="small"
+                variant='contained'
+                size='small'
                 sx={{
                   px: 3,
                   py: 1,
                   borderRadius: 2,
                   textTransform: 'none',
-                }}>
+                }}
+              >
                 上架販售
               </Button>
             )}
             {ticket.vcStatus === 'PENDING' && (
               <Button
                 onClick={() => handleSearchold('get', index)}
-                variant="contained"
-                size="small"
+                variant='contained'
+                size='small'
                 sx={{
                   px: 3,
                   py: 1,
                   borderRadius: 2,
                   textTransform: 'none',
-                }}>
+                }}
+              >
                 領取票券
               </Button>
             )}

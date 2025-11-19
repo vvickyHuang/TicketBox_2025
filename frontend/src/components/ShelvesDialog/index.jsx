@@ -49,7 +49,7 @@ export default function FullScreenDialog({ hasTicketList }) {
           py: 1.3,
         }}
         onClick={handleClickOpen}>
-        <LuPlus size={24} /> 上架票券
+        <LuPlus size={24} /> 販售我的票券
       </Button>
       <Dialog
         fullScreen

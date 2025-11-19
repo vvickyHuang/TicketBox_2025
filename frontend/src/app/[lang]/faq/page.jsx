@@ -57,7 +57,6 @@ export default function SupportPage() {
     { key: 'collection', title: '取票', desc: '取票方式說明' },
     { key: 'business', title: '交易票券', desc: '交易票券方式說明' },
     { key: 'query', title: '查詢訂單', desc: '查詢訂單方式說明' },
-    { key: 'other', title: '其他', desc: '其他類別說明' },
     { key: 'contactUs', title: '聯繫我們', desc: '尋找協助' },
   ];
 
@@ -74,23 +73,22 @@ export default function SupportPage() {
           bgcolor: theme.palette.background.paper,
           // minHeight: '100vh',
           border: `1px solid ${theme.palette.divider}`,
-        }}
-      >
+        }}>
         <SearchSection>
-          <Typography variant='h5' sx={{ mb: 1 }}>
+          <Typography variant="h5" sx={{ mb: 1 }}>
             嗨！您好，
           </Typography>
-          <Typography variant='h5' sx={{ mb: 2 }}>
+          <Typography variant="h5" sx={{ mb: 2 }}>
             有什麼能為您服務的嗎？
           </Typography>
 
-          <SearchBox component='form' elevation={0}>
+          <SearchBox component="form" elevation={0}>
             <InputBase
               sx={{ ml: 1, flex: 1 }}
-              placeholder='搜尋'
+              placeholder="搜尋"
               inputProps={{ 'aria-label': 'search' }}
             />
-            <IconButton type='submit' sx={{ p: '10px', color: theme.palette.primary.main }}>
+            <IconButton type="submit" sx={{ p: '10px', color: theme.palette.primary.main }}>
               <SearchIcon />
             </IconButton>
           </SearchBox>
@@ -98,9 +96,8 @@ export default function SupportPage() {
 
         <CategoryBox>
           <Typography
-            variant='subtitle1'
-            sx={{ fontWeight: 700, px: 2, mb: 1, color: theme.palette.text.primary }}
-          >
+            variant="subtitle1"
+            sx={{ fontWeight: 700, px: 2, mb: 1, color: theme.palette.text.primary }}>
             類別
           </Typography>
           {categories.map((item, idx) => (
@@ -109,7 +106,7 @@ export default function SupportPage() {
                 <Typography sx={{ fontWeight: 700, color: theme.palette.primary.main }}>
                   {item.title}
                 </Typography>
-                <Typography variant='body2' color='text.secondary'>
+                <Typography variant="body2" color="text.secondary">
                   {item.desc}
                 </Typography>
               </Box>

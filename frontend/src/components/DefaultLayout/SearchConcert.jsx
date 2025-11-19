@@ -1,14 +1,13 @@
-import React from 'react';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 
-export default function SearchInput() {
+export default function DLSearchInput() {
   return (
     <TextField
-      variant='outlined'
-      placeholder='搜尋演唱會'
-      size='small'
+      variant="outlined"
+      placeholder="搜尋演唱會"
+      size="small"
       sx={{
         width: 250,
         backgroundColor: 'rgba(139, 92, 246, 0.05)',
@@ -27,9 +26,9 @@ export default function SearchInput() {
           },
         },
       }}
-      InputProps={{
+      slotProps={{
         startAdornment: (
-          <InputAdornment position='start'>
+          <InputAdornment position="start">
             <SearchIcon sx={{ color: '#8B5CF6' }} />
           </InputAdornment>
         ),

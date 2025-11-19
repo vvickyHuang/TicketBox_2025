@@ -1,9 +1,9 @@
 'use client';
 import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { Box, Typography, Divider } from '@mui/material';
+import { Typography } from '@mui/material';
 
-export default function EventPage({ descMD }) {
+export default function MarkdownTxt({ descMD }) {
   const [content, setContent] = useState('');
 
   useEffect(() => {
@@ -16,12 +16,11 @@ export default function EventPage({ descMD }) {
     <ReactMarkdown
       components={{
         p: ({ children }) => (
-          <Typography variant='body1' paragraph>
+          <Typography variant="body1" paragraph>
             {children}
           </Typography>
         ),
-      }}
-    >
+      }}>
       {content}
     </ReactMarkdown>
   );

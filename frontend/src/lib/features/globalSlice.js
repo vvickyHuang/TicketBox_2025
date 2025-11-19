@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   user: { memberName: '' },
+  tradingList: {},
   buyInfo: {
     ticketList: [],
     concertInfo: {},
@@ -34,10 +35,14 @@ const globalSlice = createSlice({
       } */
     },
 
+    setTradingList: (state, action) => {
+      state.tradingList = action.payload;
+    },
+
     resetGlobal: () => initialState,
   },
 });
 
-export const { setUser, setBuyInfo, resetGlobal } = globalSlice.actions;
+export const { setUser, setBuyInfo, setTradingList, resetGlobal } = globalSlice.actions;
 
 export default globalSlice.reducer;

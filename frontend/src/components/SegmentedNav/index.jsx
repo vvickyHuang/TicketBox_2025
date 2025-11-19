@@ -1,6 +1,7 @@
 'use client';
-
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 import {
   ToggleButton,
   ToggleButtonGroup,
@@ -14,17 +15,14 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 
 const routes = [
   { label: '活動', value: 'concert', href: '/concert' },
   { label: '票券交易', value: 'ticketTrading', href: '/ticketTrading' },
-  { label: '訂單查詢', value: 'orderInquiry', href: '/orderInquiry' },
+  { label: '我的訂單', value: 'orderInquiry', href: '/orderInquiry' },
   { label: '常見問題', value: 'faq', href: '/faq' },
 ];
 
-// Slide 從上往下動畫
 const Transition = (props) => <Slide direction="down" {...props} />;
 
 export default function SegmentedNav() {

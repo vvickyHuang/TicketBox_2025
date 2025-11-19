@@ -88,7 +88,8 @@ export default function Page() {
       sx={{
         width: '100%',
         alignItems: 'flex-start',
-        p: 3,
+        px: 3,
+        py: 2,
         gap: 2,
       }}
     >

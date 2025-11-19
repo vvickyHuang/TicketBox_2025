@@ -51,7 +51,7 @@ export default function ConcertPage() {
   return (
     <>
       <ConcertCarousel></ConcertCarousel>
-      <Box sx={{ mt: 8, px: { xs: 2, md: 8 } }}>
+      <Box sx={{ my: 1, px: { xs: 2, md: 8 } }}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 3 }}>
           <Tabs
             value={tab}
@@ -172,6 +172,7 @@ export default function ConcertPage() {
                           mt: 2,
                         }}>
                         <Button
+                          aria-label={`購買 ${event.title} 的票券`}
                           onClick={() => router.push(`/${lang}/concert/${event.id}`)}
                           variant="contained"
                           size="small"

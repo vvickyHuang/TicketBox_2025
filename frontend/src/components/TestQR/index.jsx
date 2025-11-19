@@ -6,7 +6,7 @@ import { LuArrowLeft, LuArrowRight } from 'react-icons/lu';
 import { useIsMobile } from '@/hook/useIsMobile';
 import CountdownTimer from '@/components/CountdownTimer';
 
-export default function TicketQRCodeDialog({ oriTicketList }) {
+export default function TicketQRCodeDialog({ oriTicketList, handleSearch }) {
   const isMobile = useIsMobile();
 
   const [activeTicket, setActiveTicket] = useState(0);
@@ -39,6 +39,7 @@ export default function TicketQRCodeDialog({ oriTicketList }) {
         );
 
         setTicketVcList(results);
+        handleSearch?.();
       } catch (err) {
         console.error('票券檢查失敗', err);
       }

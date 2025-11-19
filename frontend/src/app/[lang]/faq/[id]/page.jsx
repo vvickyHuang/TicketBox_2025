@@ -69,55 +69,52 @@ export default function TicketPage() {
   const SUPPORT_MAP = {
     purchase: {
       name: '購票',
-      desc: '會員加入、購票及付款方式說明',
+      desc: '購票及付款方式說明',
       faqs: {
-        綁定Facebook之會員無法成功登入:
-          '若您的 Facebook 綁定帳號無法登入，請確認 Facebook 授權狀態，並嘗試解除綁定重新登入。',
-        會員加入辦法:
-          '請至票票盒售票系統首頁，點選「加入會員」，依指示輸入必要資訊並完成認證即可。',
-        會員無法登入已綁定之帳號:
-          '若顯示帳號重複或錯誤，請至會員中心使用「忘記密碼」功能或聯絡客服協助。',
-        會員帳號連結綁定:
-          '登入後可於「會員中心」→「帳號設定」中綁定 Facebook、Google 等快速登入方式。',
+        購票方式: '選擇活動場次，確認票種、數量與相關資訊，完成購買流程並確認訂單內容無誤。',
+        付款方式: '確認場次與相關資訊無誤即可使用信用卡付款。',
       },
     },
     collection: {
       name: '取票',
       desc: '取票方式說明',
       faqs: {
-        超商取票方式: '至 7-11 / 全家 機台輸入取票代碼即可取票。',
-        電子票如何使用: '於入場時出示手機電子票 QR Code。',
+        手機版取票:
+          '購買完成後，系統會提供票券連結，點擊連結後會自動開啟"數位憑證皮夾APP"並將票券加入您的錢包中',
+        電腦版取票:
+          '購買完成後，將顯示您的 票券 QR Code，使用手機 掃描 QR Code 即可將票券加入您的"數位憑證皮夾APP" 中。',
       },
     },
     business: {
       name: '交易票券',
       desc: '票券交易與轉讓說明',
       faqs: {
-        如何轉讓票券: '依規範至會員中心執行票券轉讓。',
-        票券是否可退: '依照活動規定通常不可退票。',
+        我要購買票券:
+          '前往票券交易頁面，瀏覽可供轉售的票券清單，選擇您想購買的票券，確認相關資訊後完成購買流程即可。',
       },
     },
     query: {
       name: '查詢訂單',
       desc: '查詢訂單方式說明',
       faqs: {
-        如何找到我的訂單: '請至會員中心 → 訂單查詢。',
-        '訂單找不到？': '請確認登入帳號正確一致。',
-      },
-    },
-    other: {
-      name: '其他',
-      desc: '其他類別說明',
-      faqs: {
-        忘記密碼: '可使用「忘記密碼」功能重新設定密碼。',
-        修改會員資料: '可於會員中心更新個人資料。',
+        如何找到我的訂單編號: '請至您的 Email 信箱，查找系統寄出的 訂單通知信。',
+        如何找到我的訂單:
+          '前往我的訂單頁面，輸入您的訂單編號與購買時使用的 Email 信箱，即可查詢您的訂單資訊。',
+        更改票券狀態: '您可以針對已購買的票券進行以下操作，領取票券、販售票券、取消販售。',
+        領取票券: '將票券加入"數位憑證皮夾APP"。',
+        販售票券:
+          '將票券轉售至票券交易，點選"販售票券"按鈕，並透過"數位憑證皮夾APP"選擇您想要轉售的票券，確認資訊後即可成功上架欲轉售的票券。',
+        取消販售:
+          '前往票券交易頁面，點擊"取消販售"按鈕，並透過"數位憑證皮夾APP"選擇您想要取消販售的票券，確認資訊後即可成功取消販售狀態。',
       },
     },
     contactUs: {
       name: '聯繫我們',
       desc: '尋找協助',
       faqs: {
-        客服聯絡方式: '可透過客服表單聯絡我們。',
+        客服電話: '+886 (02) 1234-5678',
+        電子信箱: 'info@ticketbox.com',
+        營業時間: '週一至週五 09:00 - 18:00（例假日休息）',
       },
     },
   };
@@ -133,14 +130,14 @@ export default function TicketPage() {
         {selectedItem ? (
           <>
             <BackBar>
-              <IconButton size='small' onClick={() => setSelectedItem(null)}>
+              <IconButton size="small" onClick={() => setSelectedItem(null)}>
                 <ArrowBackIosNewIcon sx={{ fontSize: 18, color: theme.palette.primary.main }} />
               </IconButton>
               <Typography sx={{ fontWeight: 600 }}>{selectedItem}</Typography>
             </BackBar>
 
             <Box sx={{ p: 3 }}>
-              <Typography variant='body1' sx={{ lineHeight: 1.8 }}>
+              <Typography variant="body1" sx={{ lineHeight: 1.8 }}>
                 {data.faqs[selectedItem]}
               </Typography>
             </Box>
@@ -149,11 +146,11 @@ export default function TicketPage() {
           <>
             {/* Breadcrumb */}
             <Box sx={{ px: 2, py: 1 }}>
-              <Breadcrumbs aria-label='breadcrumb' sx={{ fontSize: 13 }}>
-                <Link underline='hover' color='inherit' href={`/${lang}/faq`}>
+              <Breadcrumbs aria-label="breadcrumb" sx={{ fontSize: 13 }}>
+                <Link underline="hover" color="inherit" href={`/${lang}/faq`}>
                   ticketbox 票票盒售票系統
                 </Link>
-                <Link underline='hover' color='inherit' href='#'>
+                <Link underline="hover" color="inherit" href="#">
                   {data.name}
                 </Link>
               </Breadcrumbs>
@@ -161,10 +158,10 @@ export default function TicketPage() {
 
             {/* Section */}
             <SectionHeader>
-              <Typography variant='h5' sx={{ color: theme.palette.primary.main, fontWeight: 700 }}>
+              <Typography variant="h5" sx={{ color: theme.palette.primary.main, fontWeight: 700 }}>
                 {data.name}
               </Typography>
-              <Typography variant='subtitle1' sx={{ mt: 1 }}>
+              <Typography variant="subtitle1" sx={{ mt: 1 }}>
                 {data.desc}
               </Typography>
             </SectionHeader>
@@ -185,8 +182,7 @@ export default function TicketPage() {
                           cursor: 'pointer',
                           '&:hover': { textDecoration: 'underline' },
                         }}
-                        onClick={() => setSelectedItem(title)}
-                      >
+                        onClick={() => setSelectedItem(title)}>
                         {title}
                       </Typography>
                     ))}

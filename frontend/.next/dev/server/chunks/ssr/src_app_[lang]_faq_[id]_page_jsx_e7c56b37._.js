@@ -76,58 +76,49 @@ function TicketPage() {
     const params = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useParams"])();
     const lang = params.lang;
     const key = params.id;
-    console.log('lang:', lang);
-    console.log('key:', key);
-    // ← 取 /faq/purchase 的 purchase
-    console.log(key);
     const SUPPORT_MAP = {
         purchase: {
             name: '購票',
-            desc: '會員加入、購票及付款方式說明',
+            desc: '購票及付款方式說明',
             faqs: {
-                綁定Facebook之會員無法成功登入: '若您的 Facebook 綁定帳號無法登入，請確認 Facebook 授權狀態，並嘗試解除綁定重新登入。',
-                會員加入辦法: '請至票票盒售票系統首頁，點選「加入會員」，依指示輸入必要資訊並完成認證即可。',
-                會員無法登入已綁定之帳號: '若顯示帳號重複或錯誤，請至會員中心使用「忘記密碼」功能或聯絡客服協助。',
-                會員帳號連結綁定: '登入後可於「會員中心」→「帳號設定」中綁定 Facebook、Google 等快速登入方式。'
+                購票方式: '選擇活動場次，確認票種、數量與相關資訊，完成購買流程並確認訂單內容無誤。',
+                付款方式: '確認場次與相關資訊無誤即可使用信用卡付款。'
             }
         },
         collection: {
             name: '取票',
             desc: '取票方式說明',
             faqs: {
-                超商取票方式: '至 7-11 / 全家 機台輸入取票代碼即可取票。',
-                電子票如何使用: '於入場時出示手機電子票 QR Code。'
+                手機版取票: '購買完成後，系統會提供票券連結，點擊連結後會自動開啟"數位憑證皮夾APP"並將票券加入您的錢包中',
+                電腦版取票: '購買完成後，將顯示您的 票券 QR Code，使用手機 掃描 QR Code 即可將票券加入您的"數位憑證皮夾APP" 中。'
             }
         },
         business: {
             name: '交易票券',
             desc: '票券交易與轉讓說明',
             faqs: {
-                如何轉讓票券: '依規範至會員中心執行票券轉讓。',
-                票券是否可退: '依照活動規定通常不可退票。'
+                我要購買票券: '前往票券交易頁面，瀏覽可供轉售的票券清單，選擇您想購買的票券，確認相關資訊後完成購買流程即可。'
             }
         },
         query: {
             name: '查詢訂單',
             desc: '查詢訂單方式說明',
             faqs: {
-                如何找到我的訂單: '請至會員中心 → 訂單查詢。',
-                '訂單找不到？': '請確認登入帳號正確一致。'
-            }
-        },
-        other: {
-            name: '其他',
-            desc: '其他類別說明',
-            faqs: {
-                忘記密碼: '可使用「忘記密碼」功能重新設定密碼。',
-                修改會員資料: '可於會員中心更新個人資料。'
+                如何找到我的訂單編號: '請至您的 Email 信箱，查找系統寄出的 訂單通知信。',
+                如何找到我的訂單: '前往我的訂單頁面，輸入您的訂單編號與購買時使用的 Email 信箱，即可查詢您的訂單資訊。',
+                更改票券狀態: '您可以針對已購買的票券進行以下操作，領取票券、販售票券、取消販售。',
+                領取票券: '將票券加入"數位憑證皮夾APP"。',
+                販售票券: '將票券轉售至票券交易，點選"販售票券"按鈕，並透過"數位憑證皮夾APP"選擇您想要轉售的票券，確認資訊後即可成功上架欲轉售的票券。',
+                取消販售: '前往票券交易頁面，點擊"取消販售"按鈕，並透過"數位憑證皮夾APP"選擇您想要取消販售的票券，確認資訊後即可成功取消販售狀態。'
             }
         },
         contactUs: {
             name: '聯繫我們',
             desc: '尋找協助',
             faqs: {
-                客服聯絡方式: '可透過客服表單聯絡我們。'
+                客服電話: '+886 (02) 1234-5678',
+                電子信箱: 'info@ticketbox.com',
+                營業時間: '週一至週五 09:00 - 18:00（例假日休息）'
             }
         }
     };
@@ -141,7 +132,7 @@ function TicketPage() {
                     children: data.name
                 }, void 0, false, {
                     fileName: "[project]/src/app/[lang]/faq/[id]/page.jsx",
-                    lineNumber: 137,
+                    lineNumber: 128,
                     columnNumber: 9
                 }, this),
                 selectedItem ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
@@ -158,12 +149,12 @@ function TicketPage() {
                                         }
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/[lang]/faq/[id]/page.jsx",
-                                        lineNumber: 144,
+                                        lineNumber: 134,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/[lang]/faq/[id]/page.jsx",
-                                    lineNumber: 143,
+                                    lineNumber: 133,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Typography$2f$Typography$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Typography$3e$__["Typography"], {
@@ -173,13 +164,13 @@ function TicketPage() {
                                     children: selectedItem
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/[lang]/faq/[id]/page.jsx",
-                                    lineNumber: 146,
+                                    lineNumber: 136,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/[lang]/faq/[id]/page.jsx",
-                            lineNumber: 142,
+                            lineNumber: 132,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Box$2f$Box$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Box$3e$__["Box"], {
@@ -194,12 +185,12 @@ function TicketPage() {
                                 children: data.faqs[selectedItem]
                             }, void 0, false, {
                                 fileName: "[project]/src/app/[lang]/faq/[id]/page.jsx",
-                                lineNumber: 150,
+                                lineNumber: 140,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/[lang]/faq/[id]/page.jsx",
-                            lineNumber: 149,
+                            lineNumber: 139,
                             columnNumber: 13
                         }, this)
                     ]
@@ -223,7 +214,7 @@ function TicketPage() {
                                         children: "ticketbox 票票盒售票系統"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/[lang]/faq/[id]/page.jsx",
-                                        lineNumber: 160,
+                                        lineNumber: 150,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Link$2f$Link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Link$3e$__["Link"], {
@@ -233,18 +224,18 @@ function TicketPage() {
                                         children: data.name
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/[lang]/faq/[id]/page.jsx",
-                                        lineNumber: 163,
+                                        lineNumber: 153,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/[lang]/faq/[id]/page.jsx",
-                                lineNumber: 159,
+                                lineNumber: 149,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/[lang]/faq/[id]/page.jsx",
-                            lineNumber: 158,
+                            lineNumber: 148,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(SectionHeader, {
@@ -258,7 +249,7 @@ function TicketPage() {
                                     children: data.name
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/[lang]/faq/[id]/page.jsx",
-                                    lineNumber: 171,
+                                    lineNumber: 161,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Typography$2f$Typography$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Typography$3e$__["Typography"], {
@@ -269,13 +260,13 @@ function TicketPage() {
                                     children: data.desc
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/[lang]/faq/[id]/page.jsx",
-                                    lineNumber: 174,
+                                    lineNumber: 164,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/[lang]/faq/[id]/page.jsx",
-                            lineNumber: 170,
+                            lineNumber: 160,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Box$2f$Box$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Box$3e$__["Box"], {
@@ -288,7 +279,7 @@ function TicketPage() {
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$AccordionSummary$2f$AccordionSummary$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__AccordionSummary$3e$__["AccordionSummary"], {
                                         expandIcon: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$ExpandMore$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                                             fileName: "[project]/src/app/[lang]/faq/[id]/page.jsx",
-                                            lineNumber: 182,
+                                            lineNumber: 172,
                                             columnNumber: 47
                                         }, void 0),
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Typography$2f$Typography$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Typography$3e$__["Typography"], {
@@ -301,12 +292,12 @@ function TicketPage() {
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/[lang]/faq/[id]/page.jsx",
-                                            lineNumber: 183,
+                                            lineNumber: 173,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/[lang]/faq/[id]/page.jsx",
-                                        lineNumber: 182,
+                                        lineNumber: 172,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$AccordionDetails$2f$AccordionDetails$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__AccordionDetails$3e$__["AccordionDetails"], {
@@ -328,28 +319,28 @@ function TicketPage() {
                                                     children: title
                                                 }, title, false, {
                                                     fileName: "[project]/src/app/[lang]/faq/[id]/page.jsx",
-                                                    lineNumber: 188,
+                                                    lineNumber: 178,
                                                     columnNumber: 23
                                                 }, this))
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/[lang]/faq/[id]/page.jsx",
-                                            lineNumber: 186,
+                                            lineNumber: 176,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/[lang]/faq/[id]/page.jsx",
-                                        lineNumber: 185,
+                                        lineNumber: 175,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/[lang]/faq/[id]/page.jsx",
-                                lineNumber: 181,
+                                lineNumber: 171,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/[lang]/faq/[id]/page.jsx",
-                            lineNumber: 180,
+                            lineNumber: 170,
                             columnNumber: 13
                         }, this)
                     ]
@@ -357,12 +348,12 @@ function TicketPage() {
             ]
         }, void 0, true, {
             fileName: "[project]/src/app/[lang]/faq/[id]/page.jsx",
-            lineNumber: 135,
+            lineNumber: 127,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/app/[lang]/faq/[id]/page.jsx",
-        lineNumber: 134,
+        lineNumber: 126,
         columnNumber: 5
     }, this);
 }
