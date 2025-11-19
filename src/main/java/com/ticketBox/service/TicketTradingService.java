@@ -175,6 +175,7 @@ public class TicketTradingService {
             dto.setArea(t.getArea());
             dto.setLine(t.getLine());
             dto.setSeat(t.getSeat());
+            dto.setVcBindToken(t.getVcBindToken());
             dto.setOrderId(t.getOrderUuid());
             orderlist.add(dto);
         }

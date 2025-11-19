@@ -16,5 +16,6 @@ public class TicketOrderStatusDTO {
     String area;
     String line;
     String seat;
+    String vcBindToken;
 
 }
