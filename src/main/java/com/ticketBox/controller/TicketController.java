@@ -108,5 +108,15 @@ public class TicketController {
     }
 
 
+    /**
+     * 取得目前販售中演唱會票券
+     */
+    @PostMapping("/tickets/sellingTicket")
+    @Operation(summary = "取得目前販售中演唱會票券", description = "取得目前販售中演唱會票券")
+    public List<TicketOrderStatusDTO> getSellingTicket() {
+        return ticketTradingService.getSellingTicket();
+    }
+
+
 
 }

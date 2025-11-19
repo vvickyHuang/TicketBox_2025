@@ -164,7 +164,23 @@ public class TicketTradingService {
         return orderlist;
     }
 
+    //getSellingTicket
+    public List<TicketOrderStatusDTO> getSellingTicket (){
 
+        List<Ticket> ticketList = ticketRepository.findAllByVcStatus("TRADING");
+        List<TicketOrderStatusDTO> orderlist = new ArrayList<>();
+        for(Ticket t: ticketList){
+            TicketOrderStatusDTO dto = new TicketOrderStatusDTO();
+            dto.setConcertId(t.getConcertId());
+            dto.setArea(t.getArea());
+            dto.setLine(t.getLine());
+            dto.setSeat(t.getSeat());
+            dto.setOrderId(t.getOrderUuid());
+            orderlist.add(dto);
+        }
+
+        return orderlist;
+    }
 
 }
 

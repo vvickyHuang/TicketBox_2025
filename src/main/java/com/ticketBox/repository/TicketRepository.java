@@ -15,5 +15,6 @@ public interface TicketRepository extends JpaRepository<Ticket, String> {
     Ticket findByTradeToken(String tradeToken);
     Ticket findByCid(String cid);
     List<Ticket> findAllByEmailAndOrderUuid(String email, String orderId);
+    List<Ticket> findAllByVcStatus(String vcStatus);
 
 }
