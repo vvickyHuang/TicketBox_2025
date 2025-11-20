@@ -176,7 +176,9 @@ export default function TicketQRCodeDialog({ dialogType, oriTicketList, handleSe
                   window.location.href = authUri;
                 }
               }}>
-              加入數位憑證皮夾 App
+              前往數位憑證皮夾 App 選擇
+              {dialogType === 'cancel' && '欲取消的票券'}
+              {dialogType === 'shelves' && '欲販售的票券'}
             </Button>
             {ticketVcList?.isScanned && (
               <Box
@@ -211,7 +213,8 @@ export default function TicketQRCodeDialog({ dialogType, oriTicketList, handleSe
                       fontWeight: 700,
                       letterSpacing: 2,
                     }}>
-                    已加入數位憑證皮夾
+                    {dialogType === 'cancel' && '取消販售此票券'}
+                    {dialogType === 'shelves' && '選擇販售此票券'}
                   </Typography>
                 </Box>
               </Box>

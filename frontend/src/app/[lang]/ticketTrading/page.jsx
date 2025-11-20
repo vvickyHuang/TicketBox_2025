@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import { useEffect, useState } from 'react';
 
-import { Container, Box } from '@mui/material';
+import { Container, Box, Typography } from '@mui/material';
 
 import FilterSidebar from './sections/FilterSidebar';
 import TicketList from './sections/TicketList';
@@ -25,8 +25,9 @@ export default function Page() {
       });
       const data = await res.json();
       console.log(data);
+      if (!data) return;
       let updatedList = [];
-      data.forEach((item) => {
+      data?.forEach((item) => {
         let obj = {
           id: item.concertId,
           title: 'BTS PERMISSION TO DANCE ON STAGE - TAIPEI',
@@ -57,30 +58,6 @@ export default function Page() {
         updatedList.push(obj);
       });
       setTicketsList(updatedList);
-
-      /* if (tradingList.id !== undefined) {
-        data.data.unshift(tradingList);
-      }
-      setTicketsList(data.data); */
-      /* {
-            "id": 1,
-            "title": "SUPER JUNIOR 20th Anniversary TOUR ＜SUPER SHOW 10＞ in TAIPEI",
-            "date": "2025/11/14 (五) 19:30",
-            "location": "臺北大巨蛋",
-            "seat": "特A1區 第5排 15-16號 (2張)",
-            "price": 8500,
-            "tags": [
-                "售票",
-                "VIP",
-                "含SOUNDCHECK"
-            ],
-            "status": "sell",
-            "seatImg": "/aiimg/sjseat.png",
-            "image": "/aiimg/sjbg.png",
-            "seller": {
-                "name": "Mike Chen"
-            }
-        }, */
     } catch (err) {
       console.error(err);
     }
@@ -89,16 +66,6 @@ export default function Page() {
   useEffect(() => {
     initData();
   }, []);
-
-  // useEffect(() => {
-  //   if (tradingList.id === undefined) return;
-
-  //   // 👉 tradingList 一更新就會跑這裡
-  //   console.log('tradingList updated:', tradingList);
-  //   setTicketsList((prev) => [tradingList, ...prev]);
-
-  //   // 你要做的事情
-  // }, [tradingList]);
 
   return (
     <>

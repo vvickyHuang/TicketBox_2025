@@ -33,6 +33,7 @@ import { useIsMobile } from '@/hook/useIsMobile';
 import { useAppDispatch, useAppSelector } from '@/lib/store';
 import { setBuyInfo } from '@/lib/features/globalSlice';
 import { addSnackbar } from '@/lib/features/snackbarSlice';
+import LoadingPay from '@/components/LoadingPay';
 
 export default function LoginPage() {
   const dispatch = useAppDispatch();
@@ -45,7 +46,7 @@ export default function LoginPage() {
   const isMobile = useIsMobile();
 
   const { buyInfo } = useAppSelector((state) => state.global);
-  const [loadingMap, setLoadingMap] = useState({ isLoadingInfo: true });
+  const [loadingMap, setLoadingMap] = useState({ isLoadingInfo: true, isLoadingPay: false });
   const [card, setCard] = useState('');
   const [expDate, setExpDate] = useState('');
   const [cvc, setCvc] = useState('');
@@ -55,6 +56,7 @@ export default function LoginPage() {
   const grandTotal = buyInfo?.ticketList.reduce((sum, t) => sum + t.price, 0);
 
   const handleSubmit = async () => {
+    setLoadingMap((prev) => ({ ...prev, isLoadingPay: true }));
     console.log('Submitting payment with:', { card, expDate, cvc });
     console.log('Buy Info:', buyInfo);
 
@@ -67,7 +69,7 @@ export default function LoginPage() {
       name: item.user,
     }));
     console.log('AJAX Data:', ajaxData);
-    router.push(`/${lang}/paymentSuccess`);
+    // router.push(`/${lang}/paymentSuccess`);
     try {
       const res = await fetch('/api/concert/createOrder', {
         method: 'POST',
@@ -76,15 +78,17 @@ export default function LoginPage() {
       });
 
       const data = await res.json();
+
       setTimeout(() => {
         router.push(`/${lang}/paymentSuccess`);
-      }, 1000);
-      dispatch(
-        addSnackbar({
-          message: '票券購買成功，感謝您的購買',
-          severity: 'success',
-        }),
-      );
+
+        dispatch(
+          addSnackbar({
+            message: '票券購買成功，感謝您的購買',
+            severity: 'success',
+          }),
+        );
+      }, 2000);
 
       const cardLast = card.slice(-4);
       const payTime = dayjs().format('YYYY/MM/DD HH:mm:ss');
@@ -99,6 +103,7 @@ export default function LoginPage() {
     } catch (err) {
       console.error('下單失敗', err);
     } finally {
+      // setLoadingMap((prev) => ({ ...prev, isLoadingPay: false }));
     }
   };
 
@@ -139,6 +144,18 @@ export default function LoginPage() {
 
   console.log(buyInfo);
 
+  const formatCard = (v) =>
+    v
+      .replace(/\D/g, '')
+      .replace(/(.{4})/g, '$1 ')
+      .trim();
+
+  const formatExpiry = (v) => {
+    const digits = v.replace(/\D/g, '').slice(0, 4);
+    if (digits.length <= 2) return digits;
+    return digits.slice(0, 2) + '/' + digits.slice(2);
+  };
+
   return isMobile ? (
     <>
       {loadingMap.isLoadingInfo ? (
@@ -148,278 +165,305 @@ export default function LoginPage() {
           <Skeleton variant="rectangular" width="100%" height={300} sx={{ borderRadius: 3 }} />
         </Box>
       ) : (
-        <Box
-          sx={{
-            display: 'flex',
-            width: '100%',
-            alignItems: 'flex-start',
-            p: 3,
-            gap: 2,
-            flexDirection: 'column',
-          }}>
+        <>
+          {loadingMap.isLoadingPay && <LoadingPay />}
+
           <Box
             sx={{
+              display: 'flex',
               width: '100%',
-              height: '100%',
-              borderRadius: 3,
-              boxShadow: 2,
-              mb: 3,
+              alignItems: 'flex-start',
+              p: 3,
+              gap: 2,
+              flexDirection: 'column',
             }}>
             <Box
               sx={{
-                borderRadius: '24px 24px 0 0',
                 width: '100%',
-                height: 120,
-                overflow: 'hidden',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                backgroundColor: '#f3f3f3',
+                height: '100%',
+                borderRadius: 3,
+                boxShadow: 2,
+                mb: 3,
               }}>
-              <CardMedia
-                component="img"
-                image={buyInfo?.concertInfo?.image}
+              <Box
                 sx={{
+                  borderRadius: '24px 24px 0 0',
                   width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  display: 'block',
-                }}
-              />
-            </Box>
-            <Box sx={{ m: 2 }}>
-              <Typography variant="h6" gutterBottom>
-                {buyInfo?.concertInfo?.title}
-              </Typography>
-              <Grid container sx={{ display: 'flex', flexDirection: 'column' }}>
-                {buyInfo?.info?.map((item, index) => (
-                  <Grid
-                    key={index}
-                    sx={{
-                      gap: 1,
-                      minWidth: '150px',
-                      display: 'flex',
-                      justifyContent: 'start',
-                      alignItems: 'center',
-                    }}>
-                    <Box
-                      color="primary.main"
-                      sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                      {index === 0 && <LuTicket size={24} />}
-                      {index === 1 && <LuCalendarDays size={24} />}
-                      {index === 2 && <LuTimer size={24} />}
-                      {index === 3 && <LuMapPin size={24} />}
-                    </Box>
-
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
+                  height: 120,
+                  overflow: 'hidden',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  backgroundColor: '#f3f3f3',
+                }}>
+                <CardMedia
+                  component="img"
+                  image={buyInfo?.concertInfo?.image}
+                  sx={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    display: 'block',
+                  }}
+                />
+              </Box>
+              <Box sx={{ m: 2 }}>
+                <Typography variant="h6" gutterBottom>
+                  {buyInfo?.concertInfo?.title}
+                </Typography>
+                <Grid container sx={{ display: 'flex', flexDirection: 'column' }}>
+                  {buyInfo?.info?.map((item, index) => (
+                    <Grid
+                      key={index}
                       sx={{
-                        my: 1,
+                        gap: 1,
+                        minWidth: '150px',
+                        display: 'flex',
+                        justifyContent: 'start',
+                        alignItems: 'center',
                       }}>
-                      {item.label}
-                    </Typography>
-                    <Typography gap={1}>
-                      <strong>{item.value}</strong>
-                    </Typography>
-                  </Grid>
-                ))}
-              </Grid>
+                      <Box
+                        color="primary.main"
+                        sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        {index === 0 && <LuTicket size={24} />}
+                        {index === 1 && <LuCalendarDays size={24} />}
+                        {index === 2 && <LuTimer size={24} />}
+                        {index === 3 && <LuMapPin size={24} />}
+                      </Box>
 
-              <Box sx={{ width: '100%' }}>
-                <>
-                  <Divider sx={{ my: 2 }} />
-                  <Typography variant="h6" gutterBottom>
-                    訂單明細
-                  </Typography>
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        sx={{
+                          my: 1,
+                        }}>
+                        {item.label}
+                      </Typography>
+                      <Typography gap={1}>
+                        <strong>{item.value}</strong>
+                      </Typography>
+                    </Grid>
+                  ))}
+                </Grid>
 
-                  <Grid container spacing={1} sx={{ flexDirection: 'column' }}>
-                    {buyInfo?.ticketList.map(
-                      (item, index) =>
-                        item.qty > 0 && (
-                          <Grid
-                            key={index}
-                            sx={{
-                              backgroundColor: '#F9F7FF',
-                              borderRadius: 3,
-                              px: 2,
-                              py: 1,
-                              display: 'flex',
-                              flexDirection: { xs: 'column', sm: 'row' },
-                              justifyContent: 'space-between',
-                              alignItems: { xs: 'flex-start', sm: 'center' },
-                              boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
-                              border: '1px solid rgba(90,62,186,0.15)',
-                            }}>
-                            <Box
+                <Box sx={{ width: '100%' }}>
+                  <>
+                    <Divider sx={{ my: 2 }} />
+                    <Typography variant="h6" gutterBottom>
+                      訂單明細
+                    </Typography>
+
+                    <Grid container spacing={1} sx={{ flexDirection: 'column' }}>
+                      {buyInfo?.ticketList.map(
+                        (item, index) =>
+                          item.qty > 0 && (
+                            <Grid
+                              key={index}
                               sx={{
+                                backgroundColor: '#F9F7FF',
+                                borderRadius: 3,
+                                px: 2,
+                                py: 1,
                                 display: 'flex',
-                                flexDirection: 'column',
-                                width: { xs: '100%', sm: 'auto' },
+                                flexDirection: { xs: 'column', sm: 'row' },
+                                justifyContent: 'space-between',
+                                alignItems: { xs: 'flex-start', sm: 'center' },
+                                boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
+                                border: '1px solid rgba(90,62,186,0.15)',
                               }}>
-                              <Typography
-                                variant="subtitle1"
-                                fontWeight="600"
-                                sx={{ mb: { xs: 0.5, sm: 0 } }}>
-                                {item.name}
-                              </Typography>
-                            </Box>
+                              <Box
+                                sx={{
+                                  display: 'flex',
+                                  flexDirection: 'column',
+                                  width: { xs: '100%', sm: 'auto' },
+                                }}>
+                                <Typography
+                                  variant="subtitle1"
+                                  fontWeight="600"
+                                  sx={{ mb: { xs: 0.5, sm: 0 } }}>
+                                  {item.name}
+                                </Typography>
+                              </Box>
 
-                            <Box
-                              sx={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: { xs: 'space-between', sm: 'flex-end' },
-                                width: { xs: '100%', sm: '300px' }, // 手機撐滿、桌面固定寬
-                                mt: { xs: 1, sm: 0 },
-                              }}>
-                              <Typography>
-                                {item.line} 排 {item.seat} 號
-                              </Typography>
-                              <Typography variant="h6" fontWeight="bold">
-                                NT$ {item.price.toLocaleString()}
-                              </Typography>
-                            </Box>
-                          </Grid>
-                        ),
-                    )}
-                  </Grid>
+                              <Box
+                                sx={{
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: { xs: 'space-between', sm: 'flex-end' },
+                                  width: { xs: '100%', sm: '300px' }, // 手機撐滿、桌面固定寬
+                                  mt: { xs: 1, sm: 0 },
+                                }}>
+                                <Typography>
+                                  {item.line} 排 {item.seat} 號
+                                </Typography>
+                                <Typography variant="h6" fontWeight="bold">
+                                  NT$ {item.price.toLocaleString()}
+                                </Typography>
+                              </Box>
+                            </Grid>
+                          ),
+                      )}
+                    </Grid>
 
-                  <Grid
-                    size={{ xs: 12 }}
-                    sx={{
-                      p: 2,
-                      mt: 1,
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                    }}>
-                    <Typography fontWeight="600">總金額</Typography>
-                    <Typography variant="h6" fontWeight="bold" color="primary">
-                      NT$ {grandTotal?.toLocaleString()}
-                    </Typography>
-                  </Grid>
-                </>
+                    <Grid
+                      size={{ xs: 12 }}
+                      sx={{
+                        p: 2,
+                        mt: 1,
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                      }}>
+                      <Typography fontWeight="600">總金額</Typography>
+                      <Typography variant="h6" fontWeight="bold" color="primary">
+                        NT$ {grandTotal?.toLocaleString()}
+                      </Typography>
+                    </Grid>
+                  </>
+                </Box>
               </Box>
             </Box>
-          </Box>
 
-          <Box sx={{ width: '100%' }}>
-            <Card
-              elevation={0}
-              sx={{
-                width: { xs: '100%', sm: '70%' },
-                borderRadius: 2,
-                border: (t) => `1px dashed ${t.palette.divider}`,
-                backgroundColor: (t) =>
-                  t.palette.mode === 'light' ? '#fafbff' : 'background.paper',
-              }}>
-              <CardContent>
-                <Typography variant="h6" gutterBottom sx={{ mb: 2 }}>
-                  輸入訂單資訊
-                </Typography>
+            <Box sx={{ width: '100%' }}>
+              <Card
+                elevation={0}
+                sx={{
+                  width: { xs: '100%', sm: '70%' },
+                  borderRadius: 2,
+                  border: (t) => `1px dashed ${t.palette.divider}`,
+                  backgroundColor: (t) =>
+                    t.palette.mode === 'light' ? '#fafbff' : 'background.paper',
+                }}>
+                <CardContent>
+                  <Typography variant="h6" gutterBottom sx={{ mb: 2 }}>
+                    輸入訂單資訊
+                  </Typography>
 
-                <Divider sx={{ my: 2 }} />
+                  <Divider sx={{ my: 2 }} />
 
-                {/* 全域信箱 */}
-                <Box sx={{ mb: 2 }}>
-                  <TextField
-                    fullWidth
-                    size="small"
-                    label="全域信箱（套用所有票）"
-                    value={globalEmail}
-                    onChange={(e) => {
-                      const value = e.target.value;
-                      setGlobalEmail(value);
+                  {/* 全域信箱 */}
+                  <Box sx={{ mb: 2 }}>
+                    <TextField
+                      fullWidth
+                      size="small"
+                      label="全域信箱（套用所有票）"
+                      value={globalEmail}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        setGlobalEmail(value);
 
-                      const newTicketList = buyInfo.ticketList.map((item) => ({
-                        ...item,
-                        email: value,
-                      }));
+                        const newTicketList = buyInfo.ticketList.map((item) => ({
+                          ...item,
+                          email: value,
+                        }));
 
-                      dispatch(
-                        setBuyInfo({
-                          ...buyInfo,
-                          ticketList: newTicketList,
-                        }),
-                      );
-                    }}
-                  />
-                </Box>
-
-                {buyInfo.ticketList?.map((item, index) => (
-                  <Accordion key={index} sx={{ mb: 2 }} defaultExpanded>
-                    <AccordionSummary expandIcon={<ExpandMore />}>
-                      <Typography fontWeight="bold">
-                        {item.name} - {item.line}排{item.seat}號
-                      </Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                      <Stack spacing={1}>
-                        <TextField
-                          fullWidth
-                          size="small"
-                          label="姓名 *"
-                          value={item.user}
-                          onChange={(e) => handleUserChange(index, e.target.value)}
-                        />
-                        <TextField
-                          fullWidth
-                          size="small"
-                          label="信箱 *"
-                          value={item.email}
-                          onChange={(e) => handleEmailChange(index, e.target.value)}
-                        />
-                      </Stack>
-                    </AccordionDetails>
-                  </Accordion>
-                ))}
-              </CardContent>
-            </Card>
-            <Card
-              elevation={0}
-              sx={{
-                width: { xs: '100%', sm: '30%' },
-                borderRadius: 2,
-                border: (t) => `1px dashed ${t.palette.divider}`,
-                backgroundColor: (t) =>
-                  t.palette.mode === 'light' ? '#fafbff' : 'background.paper',
-              }}>
-              <CardContent>
-                <Grid container alignItems="center">
-                  <Grid size={{ xs: 12 }}>
-                    <Typography variant="h6" gutterBottom sx={{ mb: 2 }}>
-                      輸入付款資訊
-                    </Typography>
-
-                    <Divider sx={{ my: 2 }} />
-
-                    <PaymetElement
-                      card={card}
-                      setCard={setCard}
-                      expDate={expDate}
-                      setExpDate={setExpDate}
-                      cvc={cvc}
-                      setCvc={setCvc}
+                        dispatch(
+                          setBuyInfo({
+                            ...buyInfo,
+                            ticketList: newTicketList,
+                          }),
+                        );
+                      }}
                     />
-                  </Grid>
-                </Grid>
-              </CardContent>
-            </Card>
-          </Box>
+                  </Box>
 
-          <Button
-            fullWidth
-            variant="contained"
-            sx={{
-              mt: 3,
-              py: 1.3,
-              fontWeight: 600,
-            }}
-            onClick={handleSubmit}>
-            付款
-          </Button>
-        </Box>
+                  {buyInfo.ticketList?.map((item, index) => (
+                    <Accordion key={index} sx={{ mb: 2 }} defaultExpanded>
+                      <AccordionSummary expandIcon={<ExpandMore />}>
+                        <Typography fontWeight="bold">
+                          {item.name} - {item.line}排{item.seat}號
+                        </Typography>
+                      </AccordionSummary>
+                      <AccordionDetails>
+                        <Stack spacing={1}>
+                          <TextField
+                            fullWidth
+                            size="small"
+                            label="姓名 *"
+                            value={item.user}
+                            onChange={(e) => handleUserChange(index, e.target.value)}
+                          />
+                          <TextField
+                            fullWidth
+                            size="small"
+                            label="信箱 *"
+                            value={item.email}
+                            onChange={(e) => handleEmailChange(index, e.target.value)}
+                          />
+                        </Stack>
+                      </AccordionDetails>
+                    </Accordion>
+                  ))}
+                </CardContent>
+              </Card>
+              <Card
+                elevation={0}
+                sx={{
+                  width: { xs: '100%', sm: '30%' },
+                  borderRadius: 2,
+                  border: (t) => `1px dashed ${t.palette.divider}`,
+                  backgroundColor: (t) =>
+                    t.palette.mode === 'light' ? '#fafbff' : 'background.paper',
+                }}>
+                <CardContent>
+                  <Grid container alignItems="center">
+                    <Grid size={{ xs: 12 }}>
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'center',
+                        }}>
+                        <Typography variant="h6" gutterBottom sx={{ mb: 2, width: '100%' }}>
+                          輸入付款資訊
+                        </Typography>
+
+                        <Button
+                          fullWidth
+                          variant="contained"
+                          color="secondary"
+                          sx={{
+                            fontWeight: 600,
+                            mb: 2,
+                          }}
+                          onClick={() => {
+                            setCard(formatCard('4242424242424242'));
+                            setExpDate(formatExpiry('1230'));
+                            setCvc('123');
+                          }}>
+                          填入測試付款資訊
+                        </Button>
+                      </Box>
+
+                      <Divider sx={{ my: 2 }} />
+
+                      <PaymetElement
+                        card={card}
+                        setCard={setCard}
+                        expDate={expDate}
+                        setExpDate={setExpDate}
+                        cvc={cvc}
+                        setCvc={setCvc}
+                      />
+                    </Grid>
+                  </Grid>
+                </CardContent>
+              </Card>
+            </Box>
+
+            <Button
+              fullWidth
+              variant="contained"
+              sx={{
+                mt: 3,
+                py: 1.3,
+                fontWeight: 600,
+              }}
+              onClick={handleSubmit}>
+              付款
+            </Button>
+          </Box>
+        </>
       )}
     </>
   ) : (

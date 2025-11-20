@@ -138,7 +138,7 @@ export default function OrderQueryPage() {
         target: '#navNext',
         title: '下一張票',
         text: '若您的訂單有多張票，可從這裡切換依序加入皮夾。',
-        position: 'bottom',
+        position: 'top',
       },
     ];
     setStepsTour(tour);
@@ -194,7 +194,10 @@ export default function OrderQueryPage() {
     let tour = [
       {
         target: '#ticketQRCode',
-        title: '加入數位憑證皮夾 App',
+        title:
+          ticketAllList[index].vcStatus === 'ACTIVE'
+            ? '前往數位憑證皮夾 App 選擇欲販售的票券'
+            : '前往數位憑證皮夾 App 選擇欲取消的票券',
         text:
           ticketAllList[index].vcStatus === 'ACTIVE'
             ? '點擊即可選擇此票券作為販售票券'
@@ -237,6 +240,12 @@ export default function OrderQueryPage() {
 
   const handleReset = () => {
     setActiveStep(0);
+    setOrderNumber('');
+    setEmail('');
+    setIsReceive(false);
+    setTicketVcList([]);
+    setVerifyResult(null);
+    setShelvesData({});
   };
 
   return (
@@ -332,8 +341,12 @@ export default function OrderQueryPage() {
             justifyContent: 'space-between',
             alignItems: 'center',
           }}>
-          <Button variant="outlined" sx={{ ml: 2 }} onClick={() => setTourOpen(true)}>
-            <MenuBookIcon />
+          <Button
+            variant="outlined"
+            color="secondary"
+            sx={{ ml: 2 }}
+            onClick={() => setTourOpen(true)}>
+            教學說明
           </Button>
           <Button onClick={() => setDialogIsOpen(false)}>關閉</Button>
         </DialogActions>

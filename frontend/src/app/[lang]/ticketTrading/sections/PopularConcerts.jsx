@@ -1,9 +1,16 @@
 import { Box, Typography, Avatar } from '@mui/material';
 
 const popular = [
-  { name: 'Taylor Swift', date: '12/15 台北小巨蛋', image: '/img/event1.jpg' },
-  { name: 'BTS', date: '12/20 高雄巨蛋', image: '/img/event1.jpg' },
-  { name: 'Ed Sheeran', date: '1/05 台中洲際體育場', image: '/img/event1.jpg' },
+  {
+    name: 'BTS PERMISSION TO DANCE ON STAGE',
+    date: '臺北大巨蛋 2025/12/20 (六',
+    image: '/aiimg/btsbg.png',
+  },
+  {
+    name: 'SUPER JUNIOR 20th Anniversary TOUR',
+    date: '臺北大巨蛋 2025/10/11 (六',
+    image: '/aiimg/sjbg.png',
+  },
 ];
 
 export default function PopularConcerts() {

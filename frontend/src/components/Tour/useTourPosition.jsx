@@ -15,8 +15,8 @@ export default function useTourPosition(target, open) {
       setRect(r);
 
       // 若上方放不下 → 箭頭往上，氣泡放在下方
-      if (r.top < 160) setArrowDir('down');
-      else setArrowDir('up');
+      // if (r.top < 160) setArrowDir('down');
+      // else setArrowDir('up');
     };
 
     updatePos();

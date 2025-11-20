@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname, useParams } from 'next/navigation';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 import {
   Box,
@@ -17,6 +18,7 @@ import {
   CardContent,
   Dialog,
   DialogActions,
+  IconButton,
 } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
@@ -24,18 +26,26 @@ import { useI18n } from '@/context/i18nContext';
 import { useAppDispatch, useAppSelector } from '@/lib/store';
 import TestQR from '@/components/TestQR';
 import BubbleTour from '@/components/Tour/BubbleTour';
-import { LuCalendarDays, LuTimer, LuMapPin, LuTicket, LuHouse } from 'react-icons/lu';
+import {
+  LuCalendarDays,
+  LuTimer,
+  LuMapPin,
+  LuTicket,
+  LuHouse,
+  LuCopy,
+  LuCopyCheck,
+} from 'react-icons/lu';
 import { useIsMobile } from '@/hook/useIsMobile';
 
 const InfoRow = ({ label, value }) => (
-  <Grid container alignItems="center" sx={{ py: 0.75 }}>
+  <Grid container alignItems='center' sx={{ py: 0.75 }}>
     <Grid size={{ xs: 4, md: 3 }}>
-      <Typography variant="body2" color="text.secondary">
+      <Typography variant='body2' color='text.secondary'>
         {label}
       </Typography>
     </Grid>
     <Grid size={{ xs: 8, md: 9 }}>
-      <Typography variant="body2" component="div" sx={{ fontWeight: 600 }}>
+      <Typography variant='body2' component='div' sx={{ fontWeight: 600 }}>
         {value}
       </Typography>
     </Grid>
@@ -53,6 +63,7 @@ export default function TicketSuccessPage() {
   const [tourOpen, setTourOpen] = useState(false);
   const [ticketVcList, setTicketVcList] = useState([]);
   const [dialogIsOpen, setDialogIsOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   const steps = [
     {
@@ -65,7 +76,7 @@ export default function TicketSuccessPage() {
       target: '#navNext',
       title: '下一張票',
       text: '若您的訂單有多張票，可從這裡切換依序加入皮夾。',
-      position: 'bottom',
+      position: 'top',
     },
   ];
 
@@ -112,7 +123,7 @@ export default function TicketSuccessPage() {
             (aItem) =>
               aItem.area === bItem.areaKey &&
               aItem.line.toString() === bItem.line.toString() &&
-              aItem.seat.toString() === bItem.seat.toString(),
+              aItem.seat.toString() === bItem.seat.toString()
           );
           console.log('matched:', matched);
           return {
@@ -145,12 +156,39 @@ export default function TicketSuccessPage() {
     }
   };
 
+  const handleCopy = () => {
+    const text = buyInfo?.orderId;
+    if (!text) return;
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard
+        .writeText(text)
+        .then(() => setCopied(true))
+        .catch(() => alert('複製失敗，請手動複製'));
+    } else {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        setCopied(true);
+      } catch {
+        alert('複製失敗，請手動複製');
+      }
+      document.body.removeChild(textarea);
+    }
+
+    // 1.5 秒自動恢復圖示
+    setTimeout(() => setCopied(false), 1500);
+  };
+
   return (
     <>
       <Dialog
         disableEnforceFocus={false}
         open={dialogIsOpen}
-        maxWidth="xs"
+        maxWidth='xs'
         fullWidth
         slotProps={{
           paper: {
@@ -159,7 +197,8 @@ export default function TicketSuccessPage() {
               boxShadow: '0 8px 30px rgba(0,0,0,0.15)',
             },
           },
-        }}>
+        }}
+      >
         <TestQR oriTicketList={ticketVcList} />
 
         <DialogActions
@@ -167,9 +206,15 @@ export default function TicketSuccessPage() {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-          }}>
-          <Button variant="outlined" sx={{ ml: 2 }} onClick={() => setTourOpen(true)}>
-            <MenuBookIcon />
+          }}
+        >
+          <Button
+            variant='outlined'
+            color='secondary'
+            sx={{ ml: 2 }}
+            onClick={() => setTourOpen(true)}
+          >
+            教學說明
           </Button>
           <Button onClick={() => setDialogIsOpen(false)}>關閉</Button>
         </DialogActions>
@@ -184,8 +229,9 @@ export default function TicketSuccessPage() {
           minHeight: '100vh',
           bgcolor: (t) => (t.palette.mode === 'light' ? '#f5f7fb' : 'background.default'),
           py: { xs: 3, md: 6 },
-        }}>
-        <Container maxWidth="md">
+        }}
+      >
+        <Container maxWidth='md'>
           <Paper
             elevation={0}
             sx={{
@@ -193,7 +239,8 @@ export default function TicketSuccessPage() {
               borderRadius: 3,
               mb: 3,
               border: (t) => `1px solid ${t.palette.divider}`,
-            }}>
+            }}
+          >
             <Box
               sx={{
                 px: { xs: 3, md: 6 },
@@ -201,13 +248,14 @@ export default function TicketSuccessPage() {
                 background: 'linear-gradient(135deg, #6e62ff 0%, #8358ff 40%, #a34bff 100%)',
                 color: 'white',
                 textAlign: 'center',
-              }}>
-              <Stack spacing={2} alignItems="center">
+              }}
+            >
+              <Stack spacing={2} alignItems='center'>
                 <CheckCircleOutlineIcon sx={{ fontSize: 56 }} />
-                <Typography variant="h5" sx={{ fontWeight: 800 }}>
+                <Typography variant='h5' sx={{ fontWeight: 800 }}>
                   付款成功！
                 </Typography>
-                <Typography variant="h6" gutterBottom>
+                <Typography variant='h6' gutterBottom>
                   訂單編號 : {buyInfo?.orderId}
                 </Typography>
               </Stack>
@@ -222,67 +270,80 @@ export default function TicketSuccessPage() {
                 border: (t) => `1px dashed ${t.palette.divider}`,
                 backgroundColor: (t) =>
                   t.palette.mode === 'light' ? '#fafbff' : 'background.paper',
-              }}>
+              }}
+            >
               <CardContent>
-                <Grid container alignItems="center">
+                <Grid container alignItems='center'>
                   <Grid size={{ xs: 12 }}>
-                    <Typography variant="subtitle2" color="text.secondary" gutterBottom>
+                    <Typography variant='subtitle2' color='text.secondary' gutterBottom>
                       {buyInfo.concertInfo?.title}
                     </Typography>
 
                     {buyInfo.info?.map((item, index) =>
                       index === 0 ? null : (
-                        <Stack direction="row" spacing={2} flexWrap="wrap" key={index}>
+                        <Stack direction='row' spacing={2} flexWrap='wrap' key={index}>
                           <Box
-                            color="primary.main"
+                            color='primary.main'
                             sx={{
                               display: 'flex',
                               justifyContent: 'center',
                               alignItems: 'center',
-                            }}>
+                            }}
+                          >
                             {index === 1 && <LuCalendarDays size={20} />}
                             {index === 2 && <LuTimer size={20} />}
                             {index === 3 && <LuMapPin size={20} />}
                           </Box>
 
-                          <Typography variant="body2">{item.value}</Typography>
+                          <Typography variant='body2'>{item.value}</Typography>
                         </Stack>
-                      ),
+                      )
                     )}
 
                     <Divider sx={{ my: 2 }} />
 
                     <Grid container spacing={0.5}>
                       <Grid size={{ xs: 12 }}>
-                        <Stack direction="row" sx={{ fontWeight: 600, color: 'text.secondary' }}>
-                          <Typography sx={{ width: '30%' }}>票種</Typography>
+                        <Stack direction='row' sx={{ fontWeight: 600, color: 'text.secondary' }}>
+                          <Typography sx={{ width: '22%' }}>票種</Typography>
                           <Typography sx={{ width: '25%' }}>座位</Typography>
-                          <Typography sx={{ width: '45%' }}>信箱</Typography>
+                          <Typography sx={{ width: '20%' }}>姓名</Typography>
+                          <Typography sx={{ width: '33%' }}>信箱</Typography>
                         </Stack>
                       </Grid>
 
                       {buyInfo.ticketList?.map((item, index) => (
                         <Grid size={{ xs: 12 }} key={index}>
-                          <Stack direction="row" alignItems="center">
-                            <Box sx={{ width: '30%' }}>
+                          <Stack direction='row' alignItems='center'>
+                            <Box sx={{ width: '22%' }}>
                               <Chip
                                 label={item.name}
-                                size="small"
-                                color="primary"
-                                variant="outlined"
+                                size='small'
+                                color='primary'
+                                variant='outlined'
                               />
                             </Box>
                             <Typography
                               sx={{ width: '25%' }}
-                              variant="overline"
-                              color="text.secondary">
+                              variant='overline'
+                              color='text.secondary'
+                            >
                               {item.line} 排 {item.seat} 號
                             </Typography>
 
                             <Typography
-                              sx={{ width: '45%', textTransform: 'none' }}
-                              variant="overline"
-                              color="text.secondary">
+                              sx={{ width: '20%' }}
+                              variant='overline'
+                              color='text.secondary'
+                            >
+                              {item.user}{' '}
+                            </Typography>
+
+                            <Typography
+                              sx={{ width: '30%', textTransform: 'none' }}
+                              variant='overline'
+                              color='text.secondary'
+                            >
                               {item.email}
                             </Typography>
                           </Stack>
@@ -295,30 +356,54 @@ export default function TicketSuccessPage() {
             </Card>
 
             <Box sx={{ px: { xs: 3, md: 6 }, pb: 4 }}>
-              <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 1 }}>
+              <Typography variant='subtitle1' sx={{ fontWeight: 700, mb: 1 }}>
                 訂單詳情
               </Typography>
-              <Paper variant="outlined" sx={{ p: { xs: 2, md: 3 }, borderRadius: 2 }}>
-                <InfoRow label="訂單編號" value={buyInfo?.orderId} />
+              <Paper variant='outlined' sx={{ p: { xs: 2, md: 3 }, borderRadius: 2 }}>
                 <InfoRow
-                  label="付款方式"
+                  label='訂單編號'
                   value={
-                    <Stack direction="row" spacing={1} alignItems="center">
-                      <CreditCardIcon fontSize="small" />
+                    <Stack
+                      direction='row'
+                      spacing={1}
+                      alignItems='center'
+                      justifyContent='space-between'
+                    >
+                      <span>{buyInfo.orderId}</span>{' '}
+                      <Button
+                        variant='outlined'
+                        onClick={handleCopy}
+                        sx={{
+                          width: 40,
+                          height: 40,
+                          minWidth: 40,
+                          padding: 1,
+                        }}
+                      >
+                        {copied ? <LuCopyCheck size={20} /> : <LuCopy size={20} />}
+                      </Button>
+                    </Stack>
+                  }
+                />
+                <InfoRow
+                  label='付款方式'
+                  value={
+                    <Stack direction='row' spacing={1} alignItems='center'>
+                      <CreditCardIcon fontSize='small' />
                       <span>信用卡（****{buyInfo?.cardLast}）</span>
                     </Stack>
                   }
                 />
-                <InfoRow label="付款時間" value={buyInfo?.payTime} />
+                <InfoRow label='付款時間' value={buyInfo?.payTime} />
                 <Divider sx={{ my: 1 }} />
                 <Grid container justifyContent={'space-between'}>
                   <Grid size={{ xs: 6 }}>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant='body2' color='text.secondary'>
                       總計
                     </Typography>
                   </Grid>
                   <Grid size={{ xs: 6 }}>
-                    <Typography variant="body2" textAlign="right" fontWeight={800}>
+                    <Typography variant='body2' textAlign='right' fontWeight={800}>
                       NT$ {grandTotal.toLocaleString()}
                     </Typography>
                   </Grid>
@@ -327,16 +412,18 @@ export default function TicketSuccessPage() {
 
               <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5} mt={2}>
                 <Button
-                  variant="contained"
+                  variant='contained'
                   startIcon={<LuTicket />}
-                  onClick={() => onReceiveClick()}>
+                  onClick={() => onReceiveClick()}
+                >
                   領取票券
                 </Button>
 
                 <Button
-                  variant="contained"
+                  variant='contained'
                   startIcon={<LuHouse />}
-                  onClick={() => router.push('/')}>
+                  onClick={() => router.push('/')}
+                >
                   稍後領取票券並回首頁
                 </Button>
               </Stack>
