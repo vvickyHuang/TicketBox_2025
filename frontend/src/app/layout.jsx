@@ -4,7 +4,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html>
+    <html lang="tw">
       <body>{children}</body>
     </html>
   );

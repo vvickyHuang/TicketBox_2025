@@ -2,6 +2,7 @@
 
 import Chip from '@mui/material/Chip';
 import { styled, useTheme } from '@mui/material/styles';
+import { useI18n } from '@/context/i18nContext';
 
 const StyledChip = styled(Chip)(({ theme, status }) => {
   const isHot = status === '熱賣中';
@@ -51,5 +52,7 @@ const StyledChip = styled(Chip)(({ theme, status }) => {
 
 export default function HotChip({ status }) {
   const theme = useTheme();
-  return <StyledChip status={status} label={status} />;
+  const t = useI18n();
+
+  return <StyledChip status={t.main[status]} label={t.main[status]} />;
 }

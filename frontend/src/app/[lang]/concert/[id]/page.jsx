@@ -61,7 +61,7 @@ export default function Page() {
           date: `${dateItem.date} ${dateItem.time}`,
           location: data.location,
           status: data.status,
-        }))
+        })),
       );
       setLoadingMap((prev) => ({ ...prev, isLoadingInfo: false, isLoadingSelect: false }));
       setConcertInfo(data);
@@ -91,12 +91,11 @@ export default function Page() {
         px: 3,
         py: 2,
         gap: 2,
-      }}
-    >
+      }}>
       {loadingMap.isLoadingInfo ? (
         <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 2 }}>
-          <Skeleton variant='rectangular' width='100%' height={400} sx={{ borderRadius: 3 }} />
-          <Skeleton variant='rectangular' width='100%' height={350} sx={{ borderRadius: 3 }} />
+          <Skeleton variant="rectangular" width="100%" height={400} sx={{ borderRadius: 3 }} />
+          <Skeleton variant="rectangular" width="100%" height={350} sx={{ borderRadius: 3 }} />
         </Box>
       ) : (
         <Box
@@ -106,8 +105,7 @@ export default function Page() {
             borderRadius: 3,
             boxShadow: 2,
             mb: 3,
-          }}
-        >
+          }}>
           <Box
             sx={{
               position: 'relative',
@@ -116,10 +114,9 @@ export default function Page() {
               borderRadius: '24px 24px 0 0',
               overflow: 'hidden',
               backgroundColor: '#f3f3f3',
-            }}
-          >
+            }}>
             <CardMedia
-              component='img'
+              component="img"
               image={concertInfo?.image}
               sx={{
                 position: 'absolute',
@@ -142,18 +139,16 @@ export default function Page() {
                     gap: 1,
                     minWidth: '150px',
                     display: 'flex',
-                  }}
-                >
+                  }}>
                   <Box
-                    color='primary.main'
-                    sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-                  >
+                    color="primary.main"
+                    sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     {item.icon}
                   </Box>
 
                   <Typography
-                    variant='body2'
-                    color='text.secondary'
+                    variant="body2"
+                    color="text.secondary"
                     sx={{
                       maxWidth: '20%',
                       minWidth: '20%',
@@ -161,16 +156,14 @@ export default function Page() {
                       display: 'flex',
                       justifyContent: 'start',
                       alignItems: 'center',
-                    }}
-                  >
+                    }}>
                     {item.label}
                   </Typography>
                   <Typography
-                    display='flex'
-                    alignItems='center'
+                    display="flex"
+                    alignItems="center"
                     gap={1}
-                    sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-                  >
+                    sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     <strong>{item.value}</strong>
                   </Typography>
                 </Grid>
@@ -180,20 +173,20 @@ export default function Page() {
             {loadingMap.isLoadingSelect ? (
               <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 2 }}>
                 <Skeleton
-                  variant='rectangular'
-                  width='100%'
+                  variant="rectangular"
+                  width="100%"
                   height={100}
                   sx={{ borderRadius: 3 }}
                 />
                 <Skeleton
-                  variant='rectangular'
-                  width='100%'
+                  variant="rectangular"
+                  width="100%"
                   height={200}
                   sx={{ borderRadius: 3 }}
                 />
                 <Skeleton
-                  variant='rectangular'
-                  width='100%'
+                  variant="rectangular"
+                  width="100%"
                   height={200}
                   sx={{ borderRadius: 3 }}
                 />
@@ -202,7 +195,7 @@ export default function Page() {
               <Box sx={{ width: '100%' }}>
                 <Divider sx={{ my: 1 }} />
                 <CardContent sx={{ p: 0 }}>
-                  <Typography variant='h6' gutterBottom>
+                  <Typography variant="h6" gutterBottom>
                     立即訂票
                   </Typography>
 
@@ -218,28 +211,26 @@ export default function Page() {
                             borderRadius: 1,
                             boxShadow: 1,
                             gap: 1,
-                          }}
-                        >
-                          <Box display='flex' justifyContent='space-between' alignItems='center'>
-                            <Typography fontWeight='bold'>{t.date}</Typography>
+                          }}>
+                          <Box display="flex" justifyContent="space-between" alignItems="center">
+                            <Typography fontWeight="bold">{t.date}</Typography>
                           </Box>
-                          <Typography color='text.secondary'>{t.location}</Typography>
+                          <Typography color="text.secondary">{t.location}</Typography>
 
                           <Button
                             fullWidth
-                            variant='contained'
-                            color='secondary'
+                            variant="contained"
+                            color="secondary"
                             sx={{
                               mt: 2,
                               py: 1.3,
                               background: 'linear-gradient(to right, #8b5cf6, #a855f7, #ec4899)',
                             }}
-                            onClick={() => router.push(`/${lang}/concert/${id}/new?date=${t.key}`)}
-                          >
+                            onClick={() => router.push(`/${lang}/concert/${id}/new?date=${t.key}`)}>
                             立即購買
                           </Button>
                         </Box>
-                      )
+                      ),
                   )}
                 </CardContent>
                 {/* </Card> */}
@@ -248,7 +239,7 @@ export default function Page() {
             )}
 
             <Box sx={{ mt: 4 }}>
-              <Typography variant='h6' gutterBottom>
+              <Typography variant="h6" gutterBottom>
                 活動介紹
               </Typography>
               {concertInfo?.descMD && <Markdown descMD={concertInfo.descMD} />}
@@ -268,10 +259,9 @@ export default function Page() {
                   '& img': {
                     transition: 'transform 0.6s ease',
                   },
-                }}
-              >
+                }}>
                 <CardMedia
-                  component='img'
+                  component="img"
                   image={concertInfo?.locationImage}
                   sx={{
                     width: '100%',
@@ -284,21 +274,20 @@ export default function Page() {
             </Box>
             <Divider sx={{ my: 4 }} />
             <Box>
-              <Typography variant='h6' gutterBottom>
+              <Typography variant="h6" gutterBottom>
                 場地資訊
               </Typography>
               <Box
                 sx={{
                   display: 'flex',
                   alignItems: 'flex-start',
-                }}
-              >
+                }}>
                 <Box sx={{ width: '30px', mr: 1 }}>
                   <LuBuilding2 size={24} />
                 </Box>
                 <Box sx={{ width: '100%', gap: 1, display: 'flex', flexDirection: 'column' }}>
                   <Typography>{concertInfo?.location}</Typography>
-                  <Typography color='text.secondary'>{concertInfo?.address}</Typography>
+                  <Typography color="text.secondary">{concertInfo?.address}</Typography>
 
                   <Box
                     sx={{
@@ -307,12 +296,11 @@ export default function Page() {
                       paddingTop: '56.25%',
                       borderRadius: 3,
                       overflow: 'hidden',
-                    }}
-                  >
+                    }}>
                     <iframe
-                      title='google-map'
+                      title="google-map"
                       src={`https://www.google.com/maps?q=${encodeURIComponent(
-                        info[3].value
+                        info[3].value,
                       )}&output=embed`}
                       style={{
                         border: 0,
@@ -322,9 +310,9 @@ export default function Page() {
                         width: '100%',
                         height: '100%',
                       }}
-                      loading='lazy'
+                      loading="lazy"
                       allowFullScreen
-                      referrerPolicy='no-referrer-when-downgrade'
+                      referrerPolicy="no-referrer-when-downgrade"
                     />
                   </Box>
                 </Box>
@@ -342,12 +330,11 @@ export default function Page() {
         alignItems: 'flex-start',
         p: 3,
         gap: 2,
-      }}
-    >
+      }}>
       {loadingMap.isLoadingInfo ? (
         <Box sx={{ width: '75%', display: 'flex', flexDirection: 'column', gap: 2 }}>
-          <Skeleton variant='rectangular' width='100%' height={400} sx={{ borderRadius: 3 }} />
-          <Skeleton variant='rectangular' width='100%' height={350} sx={{ borderRadius: 3 }} />
+          <Skeleton variant="rectangular" width="100%" height={400} sx={{ borderRadius: 3 }} />
+          <Skeleton variant="rectangular" width="100%" height={350} sx={{ borderRadius: 3 }} />
         </Box>
       ) : (
         <Box
@@ -357,8 +344,7 @@ export default function Page() {
             borderRadius: 3,
             boxShadow: 2,
             mb: 3,
-          }}
-        >
+          }}>
           <Box
             sx={{
               position: 'relative',
@@ -367,10 +353,9 @@ export default function Page() {
               borderRadius: '24px 24px 0 0',
               overflow: 'hidden',
               backgroundColor: '#f3f3f3',
-            }}
-          >
+            }}>
             <CardMedia
-              component='img'
+              component="img"
               image={concertInfo?.image}
               sx={{
                 position: 'absolute',
@@ -395,35 +380,31 @@ export default function Page() {
                     boxShadow: 1,
                     gap: 1,
                     minWidth: '150px',
-                  }}
-                >
+                  }}>
                   <Box
-                    color='primary.main'
-                    sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-                  >
+                    color="primary.main"
+                    sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     {item.icon}
                   </Box>
 
                   <Typography
-                    variant='body2'
-                    color='text.secondary'
-                    sx={{ my: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-                  >
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ my: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     {item.label}
                   </Typography>
                   <Typography
-                    display='flex'
-                    alignItems='center'
+                    display="flex"
+                    alignItems="center"
                     gap={1}
-                    sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-                  >
+                    sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     <strong>{item.value}</strong>
                   </Typography>
                 </Grid>
               ))}
             </Grid>
             <Box sx={{ mt: 4 }}>
-              <Typography variant='h6' gutterBottom>
+              <Typography variant="h6" gutterBottom>
                 活動介紹
               </Typography>
               {concertInfo?.descMD && <Markdown descMD={concertInfo.descMD} />}
@@ -443,10 +424,9 @@ export default function Page() {
                   '& img': {
                     transition: 'transform 0.6s ease',
                   },
-                }}
-              >
+                }}>
                 <CardMedia
-                  component='img'
+                  component="img"
                   image={concertInfo?.locationImage}
                   sx={{
                     width: '100%',
@@ -459,32 +439,31 @@ export default function Page() {
             </Box>
             <Divider sx={{ my: 4 }} />
             <Box>
-              <Typography variant='h6' gutterBottom>
+              <Typography variant="h6" gutterBottom>
                 場地資訊
               </Typography>
               <Box
                 sx={{
                   display: 'flex',
                   alignItems: 'flex-start',
-                }}
-              >
+                }}>
                 <Box sx={{ width: '30px', mr: 1 }}>
                   <LuBuilding2 size={24} />
                 </Box>
                 <Box sx={{ width: '100%', gap: 1, display: 'flex', flexDirection: 'column' }}>
                   <Typography>{concertInfo?.location}</Typography>
-                  <Typography color='text.secondary'>{concertInfo?.address}</Typography>
+                  <Typography color="text.secondary">{concertInfo?.address}</Typography>
 
                   <iframe
-                    title='google-map'
-                    width='100%'
-                    height='300'
+                    title="google-map"
+                    width="100%"
+                    height="300"
                     style={{ border: 0 }}
-                    loading='lazy'
+                    loading="lazy"
                     allowFullScreen
-                    referrerPolicy='no-referrer-when-downgrade'
+                    referrerPolicy="no-referrer-when-downgrade"
                     src={`https://www.google.com/maps?q=${encodeURIComponent(
-                      info[3].value
+                      info[3].value,
                     )}&output=embed`}
                   />
                 </Box>
@@ -496,26 +475,25 @@ export default function Page() {
 
       {loadingMap.isLoadingSelect ? (
         <Box sx={{ width: '25%', display: 'flex', flexDirection: 'column', gap: 2 }}>
-          <Skeleton variant='rectangular' width='100%' height={100} sx={{ borderRadius: 3 }} />
-          <Skeleton variant='rectangular' width='100%' height={200} sx={{ borderRadius: 3 }} />
-          <Skeleton variant='rectangular' width='100%' height={200} sx={{ borderRadius: 3 }} />
+          <Skeleton variant="rectangular" width="100%" height={100} sx={{ borderRadius: 3 }} />
+          <Skeleton variant="rectangular" width="100%" height={200} sx={{ borderRadius: 3 }} />
+          <Skeleton variant="rectangular" width="100%" height={200} sx={{ borderRadius: 3 }} />
         </Box>
       ) : (
         <Box sx={{ width: '25%' }}>
           <Card sx={{ borderRadius: 3, p: 1, position: 'sticky', top: 20 }}>
             <CardContent>
-              <Typography variant='h6' gutterBottom>
+              <Typography variant="h6" gutterBottom>
                 立即訂票
               </Typography>
               <Select
                 fullWidth
-                size='small'
-                defaultValue=''
+                size="small"
+                defaultValue=""
                 displayEmpty
                 sx={{ mb: 3 }}
-                onChange={handleChange}
-              >
-                {selectedDate && <MenuItem value=''>選擇日期</MenuItem>}
+                onChange={handleChange}>
+                {selectedDate && <MenuItem value="">選擇日期</MenuItem>}
 
                 {concertInfo?.dateArr.map(({ date, time }) => (
                   <MenuItem key={date} value={`${date} ${time}`}>
@@ -536,28 +514,26 @@ export default function Page() {
                         borderRadius: 1,
                         boxShadow: 1,
                         gap: 1,
-                      }}
-                    >
-                      <Box display='flex' justifyContent='space-between' alignItems='center'>
-                        <Typography fontWeight='bold'>{t.date}</Typography>
+                      }}>
+                      <Box display="flex" justifyContent="space-between" alignItems="center">
+                        <Typography fontWeight="bold">{t.date}</Typography>
                       </Box>
-                      <Typography color='text.secondary'>{t.location}</Typography>
+                      <Typography color="text.secondary">{t.location}</Typography>
 
                       <Button
                         fullWidth
-                        variant='contained'
-                        color='secondary'
+                        variant="contained"
+                        color="secondary"
                         sx={{
                           mt: 2,
                           py: 1.3,
                           background: 'linear-gradient(to right, #8b5cf6, #a855f7, #ec4899)',
                         }}
-                        onClick={() => router.push(`/${lang}/concert/${id}/new?date=${t.key}`)}
-                      >
+                        onClick={() => router.push(`/${lang}/concert/${id}/new?date=${t.key}`)}>
                         立即購買
                       </Button>
                     </Box>
-                  )
+                  ),
               )}
             </CardContent>
           </Card>

@@ -1,7 +1,9 @@
 'use client';
 import { Box, Typography, Link, Grid, Divider } from '@mui/material';
+import { useI18n } from '@/context/i18nContext';
 
 export default function DLFooter() {
+  const t = useI18n();
   return (
     <Box
       component="footer"
@@ -15,18 +17,17 @@ export default function DLFooter() {
       <Grid container spacing={4}>
         <Grid>
           <Typography variant="h6" sx={{ fontSize: 16, mb: 2 }}>
-            聯絡我們
+            {t.main.Contact}
           </Typography>
-
-          <Typography>票票盒</Typography>
-          <Typography>客服電話：+886 (02) 1234-5678</Typography>
+          <Typography>{t.main.TicketBox}</Typography>
+          <Typography>{t.main.phone}</Typography>
           <Typography>
-            電子信箱：
+            {t.main.email}
             <Link href="mailto:info@ticketbox.com" color="inherit" underline="hover">
               info@ticketbox.com
             </Link>
           </Typography>
-          <Typography>營業時間：週一至週五 09:00 - 18:00（例假日休息）</Typography>
+          <Typography>{t.main.time}</Typography>
         </Grid>
       </Grid>
 

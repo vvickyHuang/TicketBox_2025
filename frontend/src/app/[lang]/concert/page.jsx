@@ -57,18 +57,17 @@ export default function ConcertPage() {
           <Tabs
             value={tab}
             onChange={handleChange}
-            textColor='primary'
-            indicatorColor='primary'
+            textColor="primary"
+            indicatorColor="primary"
             sx={{
               borderBottom: 1,
               borderColor: 'divider',
               '& .MuiTab-root': { fontWeight: 'bold' },
-            }}
-          >
-            <Tab label={t.main.Allactivities} />
-            <Tab label='熱門活動' />
+            }}>
+            <Tab label={t.main.AllEvents} />
+            <Tab label={t.main.PopularEvents} />
           </Tabs>
-          <Button color='primary'>查看全部</Button>
+          <Button color="primary">{t.main.ViewAll}</Button>
         </Box>
 
         <Grid container spacing={2}>
@@ -77,11 +76,10 @@ export default function ConcertPage() {
                 <Grid
                   size={{ xs: 12, sm: 6, md: 4, lg: 4, xl: 4 }}
                   key={index}
-                  sx={{ display: 'flex' }}
-                >
+                  sx={{ display: 'flex' }}>
                   <Skeleton
-                    variant='rectangular'
-                    width='100%'
+                    variant="rectangular"
+                    width="100%"
                     height={300}
                     sx={{ borderRadius: 3 }}
                   />
@@ -91,8 +89,7 @@ export default function ConcertPage() {
                 <Grid
                   size={{ xs: 12, sm: 6, md: 4, lg: 4, xl: 4 }}
                   key={event.id}
-                  sx={{ display: 'flex' }}
-                >
+                  sx={{ display: 'flex' }}>
                   <Card
                     sx={{
                       width: '100%',
@@ -108,17 +105,15 @@ export default function ConcertPage() {
                         transform: 'translateY(-4px)',
                         boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
                       },
-                    }}
-                  >
+                    }}>
                     <Box
                       sx={{
                         width: '100%',
                         overflow: 'hidden',
                         backgroundColor: '#f3f3f3',
-                      }}
-                    >
+                      }}>
                       <CardMedia
-                        component='img'
+                        component="img"
                         image={event.image}
                         alt={event.title}
                         sx={{
@@ -136,8 +131,7 @@ export default function ConcertPage() {
                         justifyContent: 'space-between',
                         position: 'relative',
                         height: '100%',
-                      }}
-                    >
+                      }}>
                       <Box>
                         <HotChip status={event.status} />
                         {/* <Chip
@@ -153,8 +147,8 @@ export default function ConcertPage() {
                           }}
                         /> */}
                         <Typography
-                          variant='subtitle1'
-                          fontWeight='bold'
+                          variant="subtitle1"
+                          fontWeight="bold"
                           mt={1}
                           sx={{
                             overflow: 'hidden',
@@ -162,15 +156,14 @@ export default function ConcertPage() {
                             display: '-webkit-box',
                             WebkitLineClamp: 2, // 限制最多兩行
                             WebkitBoxOrient: 'vertical',
-                          }}
-                        >
+                          }}>
                           {event.title}
                         </Typography>
-                        <Typography variant='body2' color='text.secondary'>
-                          {event.location}
+                        <Typography variant="body2" color="text.secondary">
+                          {t.main[event.location]}
                         </Typography>
-                        <Typography variant='caption' color='text.secondary'>
-                          {event.date}
+                        <Typography variant="caption" color="text.secondary">
+                          {t.main[event.date]}
                         </Typography>
                       </Box>
 
@@ -179,21 +172,19 @@ export default function ConcertPage() {
                           display: 'flex',
                           justifyContent: 'flex-end',
                           mt: 2,
-                        }}
-                      >
+                        }}>
                         <Button
-                          aria-label={`購買 ${event.title} 的票券`}
+                          aria-label={`${t.main.Buyticketsnow} ${event.title} ${t.main.tickets}`}
                           onClick={() => router.push(`/${lang}/concert/${event.id}`)}
-                          variant='contained'
-                          size='small'
+                          variant="contained"
+                          size="small"
                           sx={{
                             px: 3,
                             py: 1,
                             borderRadius: 2,
                             textTransform: 'none',
-                          }}
-                        >
-                          購票
+                          }}>
+                          {t.main.Buyticketsnow}
                         </Button>
                       </Box>
                     </CardContent>
