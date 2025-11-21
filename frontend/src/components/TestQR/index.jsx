@@ -8,7 +8,7 @@ import CountdownTimer from '@/components/CountdownTimer';
 
 export default function TicketQRCodeDialog({ oriTicketList, handleSearch }) {
   const isMobile = useIsMobile();
-  const [loadingMap, setLoadingMap] = useState({ isLoadingQR: false });
+  const [loadingMap, setLoadingMap] = useState({ isLoadingQR: true });
 
   const [activeTicket, setActiveTicket] = useState(0);
   const [time, setTime] = useState('');
@@ -16,6 +16,9 @@ export default function TicketQRCodeDialog({ oriTicketList, handleSearch }) {
   // console.log('oriTicketList', oriTicketList);
   useEffect(() => {
     setTicketVcList(oriTicketList);
+    setTimeout(() => {
+      setLoadingMap((prev) => ({ ...prev, isLoadingQR: false }));
+    }, 200);
   }, [oriTicketList]);
   // console.log('oriTicketList', ticketVcList);
 
@@ -36,7 +39,7 @@ export default function TicketQRCodeDialog({ oriTicketList, handleSearch }) {
               ...ticket,
               isScanned: data.message === 'VC 綁定完成',
             };
-          }),
+          })
         );
 
         setTicketVcList(results);
@@ -53,11 +56,11 @@ export default function TicketQRCodeDialog({ oriTicketList, handleSearch }) {
   return isMobile ? (
     <>
       <DialogContent sx={{ textAlign: 'center' }}>
-        <Typography variant="h6" fontWeight={700} sx={{ mb: 1 }}>
+        <Typography variant='h6' fontWeight={700} sx={{ mb: 1 }}>
           您的票券已準備好！
         </Typography>
 
-        <Typography variant="body2" sx={{ color: '#555', mb: 1 }}>
+        <Typography variant='body2' sx={{ color: '#555', mb: 1 }}>
           請點選連接將票券加入數位憑證皮夾 App，完成綁定
         </Typography>
 
@@ -71,9 +74,10 @@ export default function TicketQRCodeDialog({ oriTicketList, handleSearch }) {
             borderRadius: 2,
             p: 1,
             mb: 2,
-          }}>
+          }}
+        >
           {time === '00:00' ? <ErrorIcon sx={{ mr: 1 }} /> : <WarningAmberIcon sx={{ mr: 1 }} />}
-          <Typography variant="body2" fontWeight={600}>
+          <Typography variant='body2' fontWeight={600}>
             {time === '00:00'
               ? '您未在 5 分鐘內完成綁定，連結已失效。'
               : '請於 5 分鐘內完成綁定，否則連結將失效。'}
@@ -83,18 +87,18 @@ export default function TicketQRCodeDialog({ oriTicketList, handleSearch }) {
         <CountdownTimer onTimeChange={setTime}></CountdownTimer>
 
         <Box sx={{ my: 2 }}>
-          <Stack spacing={0.5} alignItems="center" textAlign="center">
-            <Stack direction="row" spacing={2} alignItems="center" justifyContent="center">
-              <Typography variant="subtitle2" fontWeight={600}>
+          <Stack spacing={0.5} alignItems='center' textAlign='center'>
+            <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
+              <Typography variant='subtitle2' fontWeight={600}>
                 區域：{ticketVcList[activeTicket]?.area}
               </Typography>
 
-              <Typography variant="subtitle2" fontWeight={600}>
+              <Typography variant='subtitle2' fontWeight={600}>
                 座位：{ticketVcList[activeTicket]?.line}排{ticketVcList[activeTicket]?.seat}號
               </Typography>
             </Stack>
 
-            <Typography variant="subtitle1" fontWeight={700} sx={{ textTransform: 'none' }}>
+            <Typography variant='subtitle1' fontWeight={700} sx={{ textTransform: 'none' }}>
               姓名：{ticketVcList[activeTicket]?.name}
             </Typography>
           </Stack>
@@ -107,7 +111,8 @@ export default function TicketQRCodeDialog({ oriTicketList, handleSearch }) {
             justifyContent: 'center',
             display: 'flex',
             position: 'relative',
-          }}>
+          }}
+        >
           <Box
             sx={{
               alignItems: 'center',
@@ -116,18 +121,20 @@ export default function TicketQRCodeDialog({ oriTicketList, handleSearch }) {
               position: 'relative',
               width: 160,
               height: 160,
-            }}>
+            }}
+          >
             <Button
-              id="ticketQRCode"
-              variant="contained"
-              color="primary"
+              id='ticketQRCode'
+              variant='contained'
+              color='primary'
               disabled={!ticketVcList[activeTicket]?.deeplink}
               onClick={() => {
                 const authUri = ticketVcList[activeTicket]?.deeplink;
                 if (authUri) {
                   window.location.href = authUri;
                 }
-              }}>
+              }}
+            >
               加入數位憑證皮夾 App
             </Button>
             {/* <img
@@ -154,7 +161,8 @@ export default function TicketQRCodeDialog({ oriTicketList, handleSearch }) {
                   justifyContent: 'center',
                   bgcolor: 'rgba(255, 255, 255, 0.6)',
                   borderRadius: 2,
-                }}>
+                }}
+              >
                 <Box
                   sx={{
                     width: 120,
@@ -166,14 +174,16 @@ export default function TicketQRCodeDialog({ oriTicketList, handleSearch }) {
                     justifyContent: 'center',
                     transform: 'rotate(-15deg)',
                     opacity: 0.9,
-                  }}>
+                  }}
+                >
                   <Typography
-                    variant="h6"
+                    variant='h6'
                     sx={{
                       color: '#d32f2f',
                       fontWeight: 700,
                       letterSpacing: 2,
-                    }}>
+                    }}
+                  >
                     已加入數位憑證皮夾
                   </Typography>
                 </Box>
@@ -188,25 +198,28 @@ export default function TicketQRCodeDialog({ oriTicketList, handleSearch }) {
             alignItems: 'center',
             justifyContent: 'center',
             mt: 1,
-          }}>
+          }}
+        >
           <Button
-            variant="contained"
+            variant='contained'
             // startIcon={<LuArrowLeft />}
             onClick={handlePrev}
-            disabled={activeTicket === 0}>
+            disabled={activeTicket === 0}
+          >
             上一張
           </Button>
 
-          <Typography variant="body2" sx={{ minWidth: 60, textAlign: 'center', color: '#555' }}>
+          <Typography variant='body2' sx={{ minWidth: 60, textAlign: 'center', color: '#555' }}>
             {ticketVcList.length > 0 ? `${activeTicket + 1} / ${ticketVcList.length}` : '- / -'}
           </Typography>
 
           <Button
-            id="navNext"
-            variant="contained"
+            id='navNext'
+            variant='contained'
             // endIcon={<LuArrowRight />}
             onClick={handleNext}
-            disabled={activeTicket === ticketVcList.length - 1 || ticketVcList.length === 0}>
+            disabled={activeTicket === ticketVcList.length - 1 || ticketVcList.length === 0}
+          >
             下一張
           </Button>
         </Box>
@@ -215,11 +228,11 @@ export default function TicketQRCodeDialog({ oriTicketList, handleSearch }) {
   ) : (
     <>
       <DialogContent sx={{ textAlign: 'center' }}>
-        <Typography variant="h6" fontWeight={700} sx={{ mb: 1 }}>
+        <Typography variant='h6' fontWeight={700} sx={{ mb: 1 }}>
           您的票券已準備好！
         </Typography>
 
-        <Typography variant="body2" sx={{ color: '#555', mb: 1 }}>
+        <Typography variant='body2' sx={{ color: '#555', mb: 1 }}>
           請使用數位憑證皮夾 App 掃描 QR Code 完成綁定
         </Typography>
 
@@ -233,9 +246,10 @@ export default function TicketQRCodeDialog({ oriTicketList, handleSearch }) {
             borderRadius: 2,
             p: 1,
             mb: 2,
-          }}>
+          }}
+        >
           {time === '00:00' ? <ErrorIcon sx={{ mr: 1 }} /> : <WarningAmberIcon sx={{ mr: 1 }} />}
-          <Typography variant="body2" fontWeight={600}>
+          <Typography variant='body2' fontWeight={600}>
             {time === '00:00'
               ? '您未在 5 分鐘內完成綁定，QR Code已失效。'
               : '請於 5 分鐘內完成掃描，否則 QR Code 將失效。'}
@@ -245,18 +259,18 @@ export default function TicketQRCodeDialog({ oriTicketList, handleSearch }) {
         <CountdownTimer onTimeChange={setTime}></CountdownTimer>
 
         <Box sx={{ my: 2 }}>
-          <Stack spacing={0.5} alignItems="center" textAlign="center">
-            <Stack direction="row" spacing={2} alignItems="center" justifyContent="center">
-              <Typography variant="subtitle2" fontWeight={600}>
+          <Stack spacing={0.5} alignItems='center' textAlign='center'>
+            <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
+              <Typography variant='subtitle2' fontWeight={600}>
                 區域：{ticketVcList[activeTicket]?.area}
               </Typography>
 
-              <Typography variant="subtitle2" fontWeight={600}>
+              <Typography variant='subtitle2' fontWeight={600}>
                 座位：{ticketVcList[activeTicket]?.line}排{ticketVcList[activeTicket]?.seat}號
               </Typography>
             </Stack>
 
-            <Typography variant="subtitle1" fontWeight={700} sx={{ textTransform: 'none' }}>
+            <Typography variant='subtitle1' fontWeight={700} sx={{ textTransform: 'none' }}>
               姓名：{ticketVcList[activeTicket]?.name}
             </Typography>
           </Stack>
@@ -266,7 +280,8 @@ export default function TicketQRCodeDialog({ oriTicketList, handleSearch }) {
           sx={{
             position: 'relative',
             display: 'inline-block',
-          }}>
+          }}
+        >
           {/*  <img
             src={ticketVcList[activeTicket]?.qrcode}
             alt="QR Code"
@@ -279,8 +294,9 @@ export default function TicketQRCodeDialog({ oriTicketList, handleSearch }) {
           /> */}
           {!loadingMap.isLoadingQR ? (
             <img
+              id='ticketQRCodePC'
               src={ticketVcList[activeTicket]?.qrcode}
-              alt="QR Code"
+              alt='QR Code'
               style={{
                 width: 160,
                 height: 160,
@@ -306,7 +322,8 @@ export default function TicketQRCodeDialog({ oriTicketList, handleSearch }) {
                   '0%': { transform: 'rotate(0deg)' },
                   '100%': { transform: 'rotate(360deg)' },
                 },
-              }}>
+              }}
+            >
               <Box
                 sx={{
                   width: 32,
@@ -318,7 +335,7 @@ export default function TicketQRCodeDialog({ oriTicketList, handleSearch }) {
                 }}
               />
 
-              <Typography variant="body2">請等待 QR Code 生成中</Typography>
+              <Typography variant='body2'>請等待 QR Code 生成中</Typography>
             </Box>
           )}
 
@@ -335,7 +352,8 @@ export default function TicketQRCodeDialog({ oriTicketList, handleSearch }) {
                 justifyContent: 'center',
                 bgcolor: 'rgba(255, 255, 255, 0.6)',
                 borderRadius: 2,
-              }}>
+              }}
+            >
               <Box
                 sx={{
                   width: 120,
@@ -347,14 +365,16 @@ export default function TicketQRCodeDialog({ oriTicketList, handleSearch }) {
                   justifyContent: 'center',
                   transform: 'rotate(-15deg)',
                   opacity: 0.9,
-                }}>
+                }}
+              >
                 <Typography
-                  variant="h6"
+                  variant='h6'
                   sx={{
                     color: '#d32f2f',
                     fontWeight: 700,
                     letterSpacing: 2,
-                  }}>
+                  }}
+                >
                   已掃描
                 </Typography>
               </Box>
@@ -369,25 +389,28 @@ export default function TicketQRCodeDialog({ oriTicketList, handleSearch }) {
             justifyContent: 'center',
             gap: 2,
             mt: 1,
-          }}>
+          }}
+        >
           <Button
-            variant="contained"
+            variant='contained'
             startIcon={<LuArrowLeft />}
             onClick={handlePrev}
-            disabled={activeTicket === 0}>
+            disabled={activeTicket === 0}
+          >
             上一張
           </Button>
 
-          <Typography variant="body2" sx={{ minWidth: 60, textAlign: 'center', color: '#555' }}>
+          <Typography variant='body2' sx={{ minWidth: 60, textAlign: 'center', color: '#555' }}>
             {ticketVcList.length > 0 ? `${activeTicket + 1} / ${ticketVcList.length}` : '- / -'}
           </Typography>
 
           <Button
-            id="navNext"
-            variant="contained"
+            id='navNext'
+            variant='contained'
             endIcon={<LuArrowRight />}
             onClick={handleNext}
-            disabled={activeTicket === ticketVcList.length - 1 || ticketVcList.length === 0}>
+            disabled={activeTicket === ticketVcList.length - 1 || ticketVcList.length === 0}
+          >
             下一張
           </Button>
         </Box>

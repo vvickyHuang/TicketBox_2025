@@ -89,11 +89,11 @@ export default function BubbleTour({ open, steps, onClose }) {
         </div>
       </BubbleStep>
 
-      <StepDots>
+      {/* <StepDots>
         {steps.map((_, i) => (
           <Dot key={i} active={i === index} />
         ))}
-      </StepDots>
+      </StepDots> */}
     </>
   );
 }

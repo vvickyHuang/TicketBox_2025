@@ -55,6 +55,8 @@ const InfoRow = ({ label, value }) => (
 export default function TicketSuccessPage() {
   const dispatch = useAppDispatch();
   const pathname = usePathname();
+  const isMobile = useIsMobile();
+
   const router = useRouter();
   const lang = pathname.split('/')[1] || 'en';
   const t = useI18n();
@@ -64,21 +66,7 @@ export default function TicketSuccessPage() {
   const [ticketVcList, setTicketVcList] = useState([]);
   const [dialogIsOpen, setDialogIsOpen] = useState(false);
   const [copied, setCopied] = useState(false);
-
-  const steps = [
-    {
-      target: '#ticketQRCode',
-      title: '加入數位憑證皮夾 App',
-      text: '點擊即可將此票券加入您的數位票券錢包，方便隨時出示。',
-      position: 'top',
-    },
-    {
-      target: '#navNext',
-      title: '下一張票',
-      text: '若您的訂單有多張票，可從這裡切換依序加入皮夾。',
-      position: 'top',
-    },
-  ];
+  const [steps, setSteps] = useState([]);
 
   const grandTotal = buyInfo?.ticketList.reduce((sum, t) => sum + t.price, 0);
   const totalQty = buyInfo.ticketList.reduce((sum, t) => sum + t.qty, 0);
@@ -145,7 +133,38 @@ export default function TicketSuccessPage() {
   // --- 4️⃣ onReceiveClick ---
   const onReceiveClick = async () => {
     if (!buyInfo?.ticketList) return;
-
+    console.log(isMobile);
+    if (isMobile) {
+      setSteps([
+        {
+          target: '#ticketQRCode',
+          title: '加入數位憑證皮夾 App',
+          text: '點擊即可將此票券加入您的數位票券錢包，方便隨時出示。oo',
+          position: 'top',
+        },
+        {
+          target: '#navNext',
+          title: '下一張票',
+          text: '若您的訂單有多張票，可從這裡切換依序加入皮夾。',
+          position: 'top',
+        },
+      ]);
+    } else {
+      setSteps([
+        {
+          target: '#ticketQRCodePC',
+          title: '加入數位憑證皮夾 App',
+          text: '請使用數位憑證皮夾 App 掃描 QR Code 完成綁定',
+          position: 'top',
+        },
+        {
+          target: '#navNext',
+          title: '下一張票',
+          text: '若您的訂單有多張票，可從這裡切換依序加入皮夾。',
+          position: 'top',
+        },
+      ]);
+    }
     setDialogIsOpen(true);
 
     try {
@@ -422,7 +441,7 @@ export default function TicketSuccessPage() {
                 <Button
                   variant='contained'
                   startIcon={<LuHouse />}
-                  onClick={() => router.push('/')}
+                  onClick={() => router.push('/tw/concert')}
                 >
                   稍後領取票券並回首頁
                 </Button>
