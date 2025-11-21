@@ -86,7 +86,7 @@ export default function LoginPage() {
           addSnackbar({
             message: '票券購買成功，感謝您的購買',
             severity: 'success',
-          }),
+          })
         );
       }, 2000);
 
@@ -98,7 +98,7 @@ export default function LoginPage() {
           cardLast,
           payTime,
           orderId,
-        }),
+        })
       );
     } catch (err) {
       console.error('下單失敗', err);
@@ -119,26 +119,26 @@ export default function LoginPage() {
 
   const handleEmailChange = (index, value) => {
     const newTicketList = buyInfo.ticketList.map((item, i) =>
-      i === index ? { ...item, email: value } : item,
+      i === index ? { ...item, email: value } : item
     );
 
     dispatch(
       setBuyInfo({
         ...buyInfo,
         ticketList: newTicketList,
-      }),
+      })
     );
   };
   const handleUserChange = (index, value) => {
     const newTicketList = buyInfo.ticketList.map((item, i) =>
-      i === index ? { ...item, user: value } : item,
+      i === index ? { ...item, user: value } : item
     );
 
     dispatch(
       setBuyInfo({
         ...buyInfo,
         ticketList: newTicketList,
-      }),
+      })
     );
   };
 
@@ -160,9 +160,9 @@ export default function LoginPage() {
     <>
       {loadingMap.isLoadingInfo ? (
         <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 2 }}>
-          <Skeleton variant="rectangular" width="100%" height={400} sx={{ borderRadius: 3 }} />
-          <Skeleton variant="rectangular" width="100%" height={100} sx={{ borderRadius: 3 }} />
-          <Skeleton variant="rectangular" width="100%" height={300} sx={{ borderRadius: 3 }} />
+          <Skeleton variant='rectangular' width='100%' height={400} sx={{ borderRadius: 3 }} />
+          <Skeleton variant='rectangular' width='100%' height={100} sx={{ borderRadius: 3 }} />
+          <Skeleton variant='rectangular' width='100%' height={300} sx={{ borderRadius: 3 }} />
         </Box>
       ) : (
         <>
@@ -176,7 +176,8 @@ export default function LoginPage() {
               p: 3,
               gap: 2,
               flexDirection: 'column',
-            }}>
+            }}
+          >
             <Box
               sx={{
                 width: '100%',
@@ -184,7 +185,8 @@ export default function LoginPage() {
                 borderRadius: 3,
                 boxShadow: 2,
                 mb: 3,
-              }}>
+              }}
+            >
               <Box
                 sx={{
                   borderRadius: '24px 24px 0 0',
@@ -195,9 +197,10 @@ export default function LoginPage() {
                   justifyContent: 'center',
                   alignItems: 'center',
                   backgroundColor: '#f3f3f3',
-                }}>
+                }}
+              >
                 <CardMedia
-                  component="img"
+                  component='img'
                   image={buyInfo?.concertInfo?.image}
                   sx={{
                     width: '100%',
@@ -208,7 +211,7 @@ export default function LoginPage() {
                 />
               </Box>
               <Box sx={{ m: 2 }}>
-                <Typography variant="h6" gutterBottom>
+                <Typography variant='h6' gutterBottom>
                   {buyInfo?.concertInfo?.title}
                 </Typography>
                 <Grid container sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -221,10 +224,12 @@ export default function LoginPage() {
                         display: 'flex',
                         justifyContent: 'start',
                         alignItems: 'center',
-                      }}>
+                      }}
+                    >
                       <Box
-                        color="primary.main"
-                        sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        color='primary.main'
+                        sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                      >
                         {index === 0 && <LuTicket size={24} />}
                         {index === 1 && <LuCalendarDays size={24} />}
                         {index === 2 && <LuTimer size={24} />}
@@ -232,11 +237,12 @@ export default function LoginPage() {
                       </Box>
 
                       <Typography
-                        variant="body2"
-                        color="text.secondary"
+                        variant='body2'
+                        color='text.secondary'
                         sx={{
                           my: 1,
-                        }}>
+                        }}
+                      >
                         {item.label}
                       </Typography>
                       <Typography gap={1}>
@@ -249,7 +255,7 @@ export default function LoginPage() {
                 <Box sx={{ width: '100%' }}>
                   <>
                     <Divider sx={{ my: 2 }} />
-                    <Typography variant="h6" gutterBottom>
+                    <Typography variant='h6' gutterBottom>
                       訂單明細
                     </Typography>
 
@@ -270,17 +276,20 @@ export default function LoginPage() {
                                 alignItems: { xs: 'flex-start', sm: 'center' },
                                 boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
                                 border: '1px solid rgba(90,62,186,0.15)',
-                              }}>
+                              }}
+                            >
                               <Box
                                 sx={{
                                   display: 'flex',
                                   flexDirection: 'column',
                                   width: { xs: '100%', sm: 'auto' },
-                                }}>
+                                }}
+                              >
                                 <Typography
-                                  variant="subtitle1"
-                                  fontWeight="600"
-                                  sx={{ mb: { xs: 0.5, sm: 0 } }}>
+                                  variant='subtitle1'
+                                  fontWeight='600'
+                                  sx={{ mb: { xs: 0.5, sm: 0 } }}
+                                >
                                   {item.name}
                                 </Typography>
                               </Box>
@@ -292,16 +301,17 @@ export default function LoginPage() {
                                   justifyContent: { xs: 'space-between', sm: 'flex-end' },
                                   width: { xs: '100%', sm: '300px' }, // 手機撐滿、桌面固定寬
                                   mt: { xs: 1, sm: 0 },
-                                }}>
+                                }}
+                              >
                                 <Typography>
                                   {item.line} 排 {item.seat} 號
                                 </Typography>
-                                <Typography variant="h6" fontWeight="bold">
+                                <Typography variant='h6' fontWeight='bold'>
                                   NT$ {item.price.toLocaleString()}
                                 </Typography>
                               </Box>
                             </Grid>
-                          ),
+                          )
                       )}
                     </Grid>
 
@@ -313,9 +323,10 @@ export default function LoginPage() {
                         display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'center',
-                      }}>
-                      <Typography fontWeight="600">總金額</Typography>
-                      <Typography variant="h6" fontWeight="bold" color="primary">
+                      }}
+                    >
+                      <Typography fontWeight='600'>總金額</Typography>
+                      <Typography variant='h6' fontWeight='bold' color='primary'>
                         NT$ {grandTotal?.toLocaleString()}
                       </Typography>
                     </Grid>
@@ -333,9 +344,10 @@ export default function LoginPage() {
                   border: (t) => `1px dashed ${t.palette.divider}`,
                   backgroundColor: (t) =>
                     t.palette.mode === 'light' ? '#fafbff' : 'background.paper',
-                }}>
+                }}
+              >
                 <CardContent>
-                  <Typography variant="h6" gutterBottom sx={{ mb: 2 }}>
+                  <Typography variant='h6' gutterBottom sx={{ mb: 2 }}>
                     輸入訂單資訊
                   </Typography>
 
@@ -345,8 +357,8 @@ export default function LoginPage() {
                   <Box sx={{ mb: 2 }}>
                     <TextField
                       fullWidth
-                      size="small"
-                      label="全域信箱（套用所有票）"
+                      size='small'
+                      label='全域信箱（套用所有票）'
                       value={globalEmail}
                       onChange={(e) => {
                         const value = e.target.value;
@@ -361,7 +373,7 @@ export default function LoginPage() {
                           setBuyInfo({
                             ...buyInfo,
                             ticketList: newTicketList,
-                          }),
+                          })
                         );
                       }}
                     />
@@ -370,7 +382,7 @@ export default function LoginPage() {
                   {buyInfo.ticketList?.map((item, index) => (
                     <Accordion key={index} sx={{ mb: 2 }} defaultExpanded>
                       <AccordionSummary expandIcon={<ExpandMore />}>
-                        <Typography fontWeight="bold">
+                        <Typography fontWeight='bold'>
                           {item.name} - {item.line}排{item.seat}號
                         </Typography>
                       </AccordionSummary>
@@ -378,15 +390,15 @@ export default function LoginPage() {
                         <Stack spacing={1}>
                           <TextField
                             fullWidth
-                            size="small"
-                            label="姓名 *"
+                            size='small'
+                            label='姓名 *'
                             value={item.user}
                             onChange={(e) => handleUserChange(index, e.target.value)}
                           />
                           <TextField
                             fullWidth
-                            size="small"
-                            label="信箱 *"
+                            size='small'
+                            label='信箱 *'
                             value={item.email}
                             onChange={(e) => handleEmailChange(index, e.target.value)}
                           />
@@ -404,24 +416,26 @@ export default function LoginPage() {
                   border: (t) => `1px dashed ${t.palette.divider}`,
                   backgroundColor: (t) =>
                     t.palette.mode === 'light' ? '#fafbff' : 'background.paper',
-                }}>
+                }}
+              >
                 <CardContent>
-                  <Grid container alignItems="center">
+                  <Grid container alignItems='center'>
                     <Grid size={{ xs: 12 }}>
                       <Box
                         sx={{
                           display: 'flex',
                           justifyContent: 'space-between',
                           alignItems: 'center',
-                        }}>
-                        <Typography variant="h6" gutterBottom sx={{ mb: 2, width: '100%' }}>
+                        }}
+                      >
+                        <Typography variant='h6' gutterBottom sx={{ mb: 2, width: '100%' }}>
                           輸入付款資訊
                         </Typography>
 
                         <Button
                           fullWidth
-                          variant="contained"
-                          color="secondary"
+                          variant='contained'
+                          color='secondary'
                           sx={{
                             fontWeight: 600,
                             mb: 2,
@@ -430,7 +444,8 @@ export default function LoginPage() {
                             setCard(formatCard('4242424242424242'));
                             setExpDate(formatExpiry('1230'));
                             setCvc('123');
-                          }}>
+                          }}
+                        >
                           填入測試付款資訊
                         </Button>
                       </Box>
@@ -453,13 +468,14 @@ export default function LoginPage() {
 
             <Button
               fullWidth
-              variant="contained"
+              variant='contained'
               sx={{
                 mt: 3,
                 py: 1.3,
                 fontWeight: 600,
               }}
-              onClick={handleSubmit}>
+              onClick={handleSubmit}
+            >
               付款
             </Button>
           </Box>
@@ -470,310 +486,328 @@ export default function LoginPage() {
     <>
       {loadingMap.isLoadingInfo ? (
         <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 2 }}>
-          <Skeleton variant="rectangular" width="100%" height={400} sx={{ borderRadius: 3 }} />
-          <Skeleton variant="rectangular" width="100%" height={100} sx={{ borderRadius: 3 }} />
-          <Skeleton variant="rectangular" width="100%" height={300} sx={{ borderRadius: 3 }} />
+          <Skeleton variant='rectangular' width='100%' height={400} sx={{ borderRadius: 3 }} />
+          <Skeleton variant='rectangular' width='100%' height={100} sx={{ borderRadius: 3 }} />
+          <Skeleton variant='rectangular' width='100%' height={300} sx={{ borderRadius: 3 }} />
         </Box>
       ) : (
-        <Box
-          sx={{
-            display: 'flex',
-            width: '100%',
-            alignItems: 'flex-start',
-            p: 3,
-            gap: 2,
-            flexDirection: 'column',
-          }}>
+        <>
+          {loadingMap.isLoadingPay && <LoadingPay />}
+
           <Box
             sx={{
+              display: 'flex',
               width: '100%',
-              height: '100%',
-              borderRadius: 3,
-              boxShadow: 2,
-              mb: 3,
-            }}>
+              alignItems: 'flex-start',
+              p: 3,
+              gap: 2,
+              flexDirection: 'column',
+            }}
+          >
             <Box
               sx={{
-                borderRadius: '24px 24px 0 0',
                 width: '100%',
-                height: 400,
-                overflow: 'hidden',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                backgroundColor: '#f3f3f3',
-              }}>
-              <CardMedia
-                component="img"
-                image={buyInfo?.concertInfo?.image}
+                height: '100%',
+                borderRadius: 3,
+                boxShadow: 2,
+                mb: 3,
+              }}
+            >
+              <Box
                 sx={{
+                  borderRadius: '24px 24px 0 0',
                   width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  display: 'block',
+                  height: 400,
+                  overflow: 'hidden',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  backgroundColor: '#f3f3f3',
                 }}
-              />
-            </Box>
-            <Box sx={{ m: 2 }}>
-              <Typography variant="h6" gutterBottom>
-                {buyInfo?.concertInfo?.title}
-              </Typography>
-              <Grid container sx={{ display: 'flex', flexDirection: 'column' }}>
-                {buyInfo?.info?.map((item, index) => (
-                  <Grid
-                    key={index}
-                    sx={{
-                      gap: 1,
-                      minWidth: '150px',
-                      display: 'flex',
-                      justifyContent: 'start',
-                      alignItems: 'center',
-                    }}>
-                    <Box
-                      color="primary.main"
-                      sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                      {index === 0 && <LuTicket size={24} />}
-                      {index === 1 && <LuCalendarDays size={24} />}
-                      {index === 2 && <LuTimer size={24} />}
-                      {index === 3 && <LuMapPin size={24} />}
-                    </Box>
-
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
+              >
+                <CardMedia
+                  component='img'
+                  image={buyInfo?.concertInfo?.image}
+                  sx={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    display: 'block',
+                  }}
+                />
+              </Box>
+              <Box sx={{ m: 2 }}>
+                <Typography variant='h6' gutterBottom>
+                  {buyInfo?.concertInfo?.title}
+                </Typography>
+                <Grid container sx={{ display: 'flex', flexDirection: 'column' }}>
+                  {buyInfo?.info?.map((item, index) => (
+                    <Grid
+                      key={index}
                       sx={{
-                        my: 1,
-                      }}>
-                      {item.label}
-                    </Typography>
-                    <Typography gap={1}>
-                      <strong>{item.value}</strong>
-                    </Typography>
-                  </Grid>
-                ))}
-              </Grid>
+                        gap: 1,
+                        minWidth: '150px',
+                        display: 'flex',
+                        justifyContent: 'start',
+                        alignItems: 'center',
+                      }}
+                    >
+                      <Box
+                        color='primary.main'
+                        sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                      >
+                        {index === 0 && <LuTicket size={24} />}
+                        {index === 1 && <LuCalendarDays size={24} />}
+                        {index === 2 && <LuTimer size={24} />}
+                        {index === 3 && <LuMapPin size={24} />}
+                      </Box>
 
-              <Box sx={{ width: '100%' }}>
-                <>
-                  <Divider sx={{ my: 2 }} />
-                  <Grid container spacing={1} sx={{ width: '100%', flexDirection: 'column' }}>
-                    <Grid sx={{ display: 'flex', gap: 1, height: '32px' }}>
-                      <Grid size={{ xs: 4 }} sx={{ width: '40%', px: 2 }}>
-                        <Typography variant="body1" fontWeight="bold">
-                          票種
-                        </Typography>
-                      </Grid>
-                      <Grid size={{ xs: 4 }} sx={{ width: '35%' }}>
-                        <Typography variant="body1" fontWeight="bold">
-                          座位
-                        </Typography>
-                      </Grid>
-                      <Grid
-                        size={{ xs: 4 }}
-                        sx={{ width: '15%', display: 'flex', justifyContent: 'flex-end', px: 2 }}>
-                        <Typography variant="body1" fontWeight="bold">
-                          票價
-                        </Typography>
-                      </Grid>
-                    </Grid>
-
-                    {buyInfo?.ticketList.map((item, index) => (
-                      <Grid
-                        key={index}
+                      <Typography
+                        variant='body2'
+                        color='text.secondary'
                         sx={{
-                          display: 'flex',
-                          gap: 1,
-                          backgroundColor: '#fff',
-                          borderRadius: 3,
-                          px: 2,
-                          alignItems: 'center',
-                          boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
-                          border: '1px solid rgba(90,62,186,0.15)',
-                          height: '48px',
-                        }}>
-                        <Grid size={{ xs: 4 }} sx={{ width: '40%' }}>
-                          <Typography>{item.name}</Typography>
+                          my: 1,
+                        }}
+                      >
+                        {item.label}
+                      </Typography>
+                      <Typography gap={1}>
+                        <strong>{item.value}</strong>
+                      </Typography>
+                    </Grid>
+                  ))}
+                </Grid>
+
+                <Box sx={{ width: '100%' }}>
+                  <>
+                    <Divider sx={{ my: 2 }} />
+                    <Grid container spacing={1} sx={{ width: '100%', flexDirection: 'column' }}>
+                      <Grid sx={{ display: 'flex', gap: 1, height: '32px' }}>
+                        <Grid size={{ xs: 4 }} sx={{ width: '40%', px: 2 }}>
+                          <Typography variant='body1' fontWeight='bold'>
+                            票種
+                          </Typography>
                         </Grid>
                         <Grid size={{ xs: 4 }} sx={{ width: '35%' }}>
-                          <Typography>
-                            {item.line} 排 {item.seat} 號
+                          <Typography variant='body1' fontWeight='bold'>
+                            座位
                           </Typography>
                         </Grid>
                         <Grid
                           size={{ xs: 4 }}
-                          sx={{
-                            width: '15%',
-                            display: 'flex',
-                            justifyContent: 'flex-end',
-                          }}>
-                          <Typography variant="h6" fontWeight="bold">
-                            NT$ {item.price.toLocaleString()}
+                          sx={{ width: '15%', display: 'flex', justifyContent: 'flex-end', px: 2 }}
+                        >
+                          <Typography variant='body1' fontWeight='bold'>
+                            票價
                           </Typography>
                         </Grid>
                       </Grid>
-                    ))}
 
-                    <Grid sx={{ display: 'flex', gap: 1, height: '32px', mt: 1 }}>
-                      <Grid size={{ xs: 4 }} sx={{ width: '40%', px: 2 }}>
-                        <Typography variant="body1" fontWeight="bold">
-                          總金額
-                        </Typography>
-                      </Grid>
-                      <Grid size={{ xs: 4 }} sx={{ width: '35%' }}>
-                        <Typography variant="body1" fontWeight="bold"></Typography>
-                      </Grid>
-                      <Grid
-                        size={{ xs: 4 }}
-                        sx={{ width: '15%', display: 'flex', justifyContent: 'flex-end', px: 2 }}>
-                        <Typography variant="h6" fontWeight="bold" color="primary">
-                          NT$ {grandTotal?.toLocaleString()}
-                        </Typography>
+                      {buyInfo?.ticketList.map((item, index) => (
+                        <Grid
+                          key={index}
+                          sx={{
+                            display: 'flex',
+                            gap: 1,
+                            backgroundColor: '#fff',
+                            borderRadius: 3,
+                            px: 2,
+                            alignItems: 'center',
+                            boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
+                            border: '1px solid rgba(90,62,186,0.15)',
+                            height: '48px',
+                          }}
+                        >
+                          <Grid size={{ xs: 4 }} sx={{ width: '40%' }}>
+                            <Typography>{item.name}</Typography>
+                          </Grid>
+                          <Grid size={{ xs: 4 }} sx={{ width: '35%' }}>
+                            <Typography>
+                              {item.line} 排 {item.seat} 號
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            size={{ xs: 4 }}
+                            sx={{
+                              width: '15%',
+                              display: 'flex',
+                              justifyContent: 'flex-end',
+                            }}
+                          >
+                            <Typography variant='h6' fontWeight='bold'>
+                              NT$ {item.price.toLocaleString()}
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                      ))}
+
+                      <Grid sx={{ display: 'flex', gap: 1, height: '32px', mt: 1 }}>
+                        <Grid size={{ xs: 4 }} sx={{ width: '40%', px: 2 }}>
+                          <Typography variant='body1' fontWeight='bold'>
+                            總金額
+                          </Typography>
+                        </Grid>
+                        <Grid size={{ xs: 4 }} sx={{ width: '35%' }}>
+                          <Typography variant='body1' fontWeight='bold'></Typography>
+                        </Grid>
+                        <Grid
+                          size={{ xs: 4 }}
+                          sx={{ width: '15%', display: 'flex', justifyContent: 'flex-end', px: 2 }}
+                        >
+                          <Typography variant='h6' fontWeight='bold' color='primary'>
+                            NT$ {grandTotal?.toLocaleString()}
+                          </Typography>
+                        </Grid>
                       </Grid>
                     </Grid>
-                  </Grid>
-                </>
+                  </>
+                </Box>
               </Box>
             </Box>
-          </Box>
 
-          <Box sx={{ width: '100%', display: 'flex', gap: 2 }}>
-            <Card
-              elevation={0}
-              sx={{
-                width: { xs: '100%', sm: '70%' },
-                borderRadius: 2,
-                border: (t) => `1px dashed ${t.palette.divider}`,
-                backgroundColor: (t) =>
-                  t.palette.mode === 'light' ? '#fafbff' : 'background.paper',
-              }}>
-              <CardContent>
-                <Grid size={{ xs: 12 }}>
-                  <Typography variant="h6" gutterBottom sx={{ mb: 2 }}>
-                    輸入訂單資訊
-                  </Typography>
-
-                  <Divider sx={{ my: 2 }} />
-
-                  <Grid container spacing={2}>
-                    <Grid size={{ xs: 12 }} sx={{ display: 'flex', gap: 1 }}>
-                      <Box sx={{ width: '15%' }}></Box>
-                      <Box sx={{ width: '15%' }}></Box>
-                      <Box sx={{ width: '20%' }}></Box>
-                      <TextField
-                        sx={{ width: '48%' }}
-                        size="small"
-                        label="全域信箱（套用所有票）"
-                        value={globalEmail}
-                        onChange={(e) => {
-                          const value = e.target.value;
-                          setGlobalEmail(value);
-
-                          const newTicketList = buyInfo.ticketList.map((item) => ({
-                            ...item,
-                            email: value,
-                          }));
-
-                          dispatch(
-                            setBuyInfo({
-                              ...buyInfo,
-                              ticketList: newTicketList,
-                            }),
-                          );
-                        }}
-                      />
-                    </Grid>
-                    <Grid size={{ xs: 12 }}>
-                      <Stack
-                        direction="row"
-                        sx={{ fontWeight: 600, color: 'text.secondary', gap: 1 }}>
-                        <Typography sx={{ width: '15%' }}>票種</Typography>
-                        <Typography sx={{ width: '15%' }}>座位</Typography>
-                        <Typography sx={{ width: '20%' }}>姓名 *</Typography>
-                        <Typography sx={{ width: '48%' }}>信箱 *</Typography>
-                      </Stack>
-                    </Grid>
-
-                    {buyInfo.ticketList?.map((item, index) => (
-                      <Grid size={{ xs: 12 }} key={index}>
-                        <Stack direction="row" alignItems="center" sx={{ gap: 1 }}>
-                          <Box sx={{ width: '15%' }}>
-                            <Chip
-                              label={item.name}
-                              size="small"
-                              color="primary"
-                              variant="outlined"
-                            />
-                          </Box>
-                          <Typography sx={{ width: '15%' }}>
-                            {item.line} 排 {item.seat} 號
-                          </Typography>
-
-                          <TextField
-                            sx={{ width: '20%' }}
-                            size="small"
-                            label="姓名 *"
-                            value={item.user}
-                            onChange={(e) => handleUserChange(index, e.target.value)}
-                          />
-
-                          <TextField
-                            sx={{ width: '48%' }}
-                            size="small"
-                            label="信箱 *"
-                            value={item.email}
-                            onChange={(e) => handleEmailChange(index, e.target.value)}
-                          />
-                        </Stack>
-                      </Grid>
-                    ))}
-                  </Grid>
-                </Grid>
-              </CardContent>
-            </Card>
-            <Card
-              elevation={0}
-              sx={{
-                width: { xs: '100%', sm: '30%' },
-                borderRadius: 2,
-                border: (t) => `1px dashed ${t.palette.divider}`,
-                backgroundColor: (t) =>
-                  t.palette.mode === 'light' ? '#fafbff' : 'background.paper',
-              }}>
-              <CardContent>
-                <Grid container alignItems="center">
+            <Box sx={{ width: '100%', display: 'flex', gap: 2 }}>
+              <Card
+                elevation={0}
+                sx={{
+                  width: { xs: '100%', sm: '70%' },
+                  borderRadius: 2,
+                  border: (t) => `1px dashed ${t.palette.divider}`,
+                  backgroundColor: (t) =>
+                    t.palette.mode === 'light' ? '#fafbff' : 'background.paper',
+                }}
+              >
+                <CardContent>
                   <Grid size={{ xs: 12 }}>
-                    <Typography variant="h6" gutterBottom sx={{ mb: 2 }}>
-                      輸入付款資訊
+                    <Typography variant='h6' gutterBottom sx={{ mb: 2 }}>
+                      輸入訂單資訊
                     </Typography>
 
                     <Divider sx={{ my: 2 }} />
 
-                    <PaymetElement
-                      card={card}
-                      setCard={setCard}
-                      expDate={expDate}
-                      setExpDate={setExpDate}
-                      cvc={cvc}
-                      setCvc={setCvc}
-                    />
-                  </Grid>
-                </Grid>
-              </CardContent>
-            </Card>
-          </Box>
+                    <Grid container spacing={2}>
+                      <Grid size={{ xs: 12 }} sx={{ display: 'flex', gap: 1 }}>
+                        <Box sx={{ width: '15%' }}></Box>
+                        <Box sx={{ width: '15%' }}></Box>
+                        <Box sx={{ width: '20%' }}></Box>
+                        <TextField
+                          sx={{ width: '48%' }}
+                          size='small'
+                          label='全域信箱（套用所有票）'
+                          value={globalEmail}
+                          onChange={(e) => {
+                            const value = e.target.value;
+                            setGlobalEmail(value);
 
-          <Button
-            fullWidth
-            variant="contained"
-            sx={{
-              mt: 3,
-              py: 1.3,
-              fontWeight: 600,
-            }}
-            onClick={handleSubmit}>
-            付款
-          </Button>
-        </Box>
+                            const newTicketList = buyInfo.ticketList.map((item) => ({
+                              ...item,
+                              email: value,
+                            }));
+
+                            dispatch(
+                              setBuyInfo({
+                                ...buyInfo,
+                                ticketList: newTicketList,
+                              })
+                            );
+                          }}
+                        />
+                      </Grid>
+                      <Grid size={{ xs: 12 }}>
+                        <Stack
+                          direction='row'
+                          sx={{ fontWeight: 600, color: 'text.secondary', gap: 1 }}
+                        >
+                          <Typography sx={{ width: '15%' }}>票種</Typography>
+                          <Typography sx={{ width: '15%' }}>座位</Typography>
+                          <Typography sx={{ width: '20%' }}>姓名 *</Typography>
+                          <Typography sx={{ width: '48%' }}>信箱 *</Typography>
+                        </Stack>
+                      </Grid>
+
+                      {buyInfo.ticketList?.map((item, index) => (
+                        <Grid size={{ xs: 12 }} key={index}>
+                          <Stack direction='row' alignItems='center' sx={{ gap: 1 }}>
+                            <Box sx={{ width: '15%' }}>
+                              <Chip
+                                label={item.name}
+                                size='small'
+                                color='primary'
+                                variant='outlined'
+                              />
+                            </Box>
+                            <Typography sx={{ width: '15%' }}>
+                              {item.line} 排 {item.seat} 號
+                            </Typography>
+
+                            <TextField
+                              sx={{ width: '20%' }}
+                              size='small'
+                              label='姓名 *'
+                              value={item.user}
+                              onChange={(e) => handleUserChange(index, e.target.value)}
+                            />
+
+                            <TextField
+                              sx={{ width: '48%' }}
+                              size='small'
+                              label='信箱 *'
+                              value={item.email}
+                              onChange={(e) => handleEmailChange(index, e.target.value)}
+                            />
+                          </Stack>
+                        </Grid>
+                      ))}
+                    </Grid>
+                  </Grid>
+                </CardContent>
+              </Card>
+              <Card
+                elevation={0}
+                sx={{
+                  width: { xs: '100%', sm: '30%' },
+                  borderRadius: 2,
+                  border: (t) => `1px dashed ${t.palette.divider}`,
+                  backgroundColor: (t) =>
+                    t.palette.mode === 'light' ? '#fafbff' : 'background.paper',
+                }}
+              >
+                <CardContent>
+                  <Grid container alignItems='center'>
+                    <Grid size={{ xs: 12 }}>
+                      <Typography variant='h6' gutterBottom sx={{ mb: 2 }}>
+                        輸入付款資訊
+                      </Typography>
+
+                      <Divider sx={{ my: 2 }} />
+
+                      <PaymetElement
+                        card={card}
+                        setCard={setCard}
+                        expDate={expDate}
+                        setExpDate={setExpDate}
+                        cvc={cvc}
+                        setCvc={setCvc}
+                      />
+                    </Grid>
+                  </Grid>
+                </CardContent>
+              </Card>
+            </Box>
+
+            <Button
+              fullWidth
+              variant='contained'
+              sx={{
+                mt: 3,
+                py: 1.3,
+                fontWeight: 600,
+              }}
+              onClick={handleSubmit}
+            >
+              付款
+            </Button>
+          </Box>
+        </>
       )}
     </>
   );

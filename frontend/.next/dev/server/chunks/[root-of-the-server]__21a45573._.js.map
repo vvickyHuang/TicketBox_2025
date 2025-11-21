@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 46, "column": 0}, "map": {"version":3,"sources":["file:///Users/iris/Desktop/1117/TicketBox_2025/frontend/src/app/api/sellTicket/route.js"],"sourcesContent":["import { NextResponse } from 'next/server';\r\n\r\nexport async function POST(req) {\r\n  try {\r\n    const apiBase = process.env.API_BASE_URL || 'http://localhost:8080';\r\n\r\n    const externalRes = await fetch(`${apiBase}/api/tickets/tickets/sellingTicket`, {\r\n      method: 'POST',\r\n      headers: { 'Content-Type': 'application/json' },\r\n    });\r\n\r\n    const data = await externalRes.json();\r\n\r\n    return NextResponse.json(data);\r\n  } catch (error) {\r\n    console.error('Error in createOrder:', error);\r\n    return NextResponse.json({ error: 'Failed to create order' }, { status: 500 });\r\n  }\r\n}\r\n"],"names":[],"mappings":";;;;AAAA;;AAEO,eAAe,KAAK,GAAG;IAC5B,IAAI;QACF,MAAM,UAAU,QAAQ,GAAG,CAAC,YAAY,IAAI;QAE5C,MAAM,cAAc,MAAM,MAAM,GAAG,QAAQ,kCAAkC,CAAC,EAAE;YAC9E,QAAQ;YACR,SAAS;gBAAE,gBAAgB;YAAmB;QAChD;QAEA,MAAM,OAAO,MAAM,YAAY,IAAI;QAEnC,OAAO,gJAAY,CAAC,IAAI,CAAC;IAC3B,EAAE,OAAO,OAAO;QACd,QAAQ,KAAK,CAAC,yBAAyB;QACvC,OAAO,gJAAY,CAAC,IAAI,CAAC;YAAE,OAAO;QAAyB,GAAG;YAAE,QAAQ;QAAI;IAC9E;AACF","debugId":null}}]
+}

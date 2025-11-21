@@ -20,23 +20,25 @@ export default function DLThemeChanger() {
 
   return (
     <Stack
-      direction="row"
+      direction='row'
       spacing={1}
-      sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+    >
       <Button
-        variant="outlined"
+        variant='outlined'
         onClick={colorMode.toggleColorMode}
         sx={{
           width: 36,
           height: 36,
           minWidth: 36,
           padding: 0,
-        }}>
+        }}
+      >
         {theme.palette.mode === 'light' ? <LuMoon /> : <LuSunMedium />}
       </Button>
 
       <Button
-        variant="outlined"
+        variant='outlined'
         onClick={handleLanguageToggle}
         sx={{
           width: 36,
@@ -44,7 +46,8 @@ export default function DLThemeChanger() {
           minWidth: 36,
           padding: 0,
         }}
-        title={`Switch to ${nextLang === 'en' ? 'English' : '中文'}`}>
+        title={`Switch to ${nextLang === 'en' ? 'English' : '中文'}`}
+      >
         <LuEarth />
       </Button>
     </Stack>

@@ -164,12 +164,13 @@ export default function Page() {
           p: 3,
           gap: 2,
           flexDirection: 'column',
-        }}>
+        }}
+      >
         {loadingMap.isLoadingInfo ? (
           <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 2 }}>
-            <Skeleton variant="rectangular" width="100%" height={400} sx={{ borderRadius: 3 }} />
-            <Skeleton variant="rectangular" width="100%" height={100} sx={{ borderRadius: 3 }} />
-            <Skeleton variant="rectangular" width="100%" height={300} sx={{ borderRadius: 3 }} />
+            <Skeleton variant='rectangular' width='100%' height={400} sx={{ borderRadius: 3 }} />
+            <Skeleton variant='rectangular' width='100%' height={100} sx={{ borderRadius: 3 }} />
+            <Skeleton variant='rectangular' width='100%' height={300} sx={{ borderRadius: 3 }} />
           </Box>
         ) : (
           <Box
@@ -179,7 +180,8 @@ export default function Page() {
               borderRadius: 3,
               boxShadow: 2,
               mb: 3,
-            }}>
+            }}
+          >
             <Box
               sx={{
                 borderRadius: '24px 24px 0 0',
@@ -190,9 +192,10 @@ export default function Page() {
                 justifyContent: 'center',
                 alignItems: 'center',
                 backgroundColor: '#f3f3f3',
-              }}>
+              }}
+            >
               <CardMedia
-                component="img"
+                component='img'
                 image={concertInfo?.image}
                 sx={{
                   width: '100%',
@@ -204,7 +207,7 @@ export default function Page() {
             </Box>
 
             <Box sx={{ m: 2 }}>
-              <Typography variant="h6" gutterBottom>
+              <Typography variant='h6' gutterBottom>
                 {concertInfo?.title}
               </Typography>
               <Grid container sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -216,29 +219,33 @@ export default function Page() {
                       gap: 1,
                       minWidth: '150px',
                       display: 'flex',
-                    }}>
+                    }}
+                  >
                     <Box
-                      color="primary.main"
-                      sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                      color='primary.main'
+                      sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                    >
                       {item.icon}
                     </Box>
 
                     <Typography
-                      variant="body2"
-                      color="text.secondary"
+                      variant='body2'
+                      color='text.secondary'
                       sx={{
                         my: 1,
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
-                      }}>
+                      }}
+                    >
                       {item.label}
                     </Typography>
                     <Typography
-                      display="flex"
-                      alignItems="center"
+                      display='flex'
+                      alignItems='center'
                       gap={1}
-                      sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                      sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                    >
                       <strong>{item.value}</strong>
                     </Typography>
                   </Grid>
@@ -271,7 +278,8 @@ export default function Page() {
                             transform: 'translateY(-2px)',
                             boxShadow: '0 6px 16px rgba(90,62,186,0.15)',
                           },
-                        }}>
+                        }}
+                      >
                         <Box
                           sx={{
                             display: 'flex',
@@ -280,8 +288,9 @@ export default function Page() {
                             // flexDirection: 'column',
                             gap: 1,
                             width: { xs: '100%', sm: 'auto' },
-                          }}>
-                          <Typography variant="subtitle1" fontWeight="600" sx={{ mb: 0.5 }}>
+                          }}
+                        >
+                          <Typography variant='subtitle1' fontWeight='600' sx={{ mb: 0.5 }}>
                             {item.name}
                           </Typography>
                           {item.status !== 'ok' && (
@@ -297,15 +306,17 @@ export default function Page() {
                                   item.badge?.includes('僅剩') || item.badge?.includes('售罄')
                                     ? '#FFE0E0'
                                     : '#E5E9FF',
-                              }}>
+                              }}
+                            >
                               <Typography
-                                variant="caption"
-                                fontWeight="500"
+                                variant='caption'
+                                fontWeight='500'
                                 color={
                                   item.badge?.includes('僅剩') || item.badge?.includes('售罄')
                                     ? '#D64545'
                                     : '#4A56B1'
-                                }>
+                                }
+                              >
                                 {item.badge}
                               </Typography>
                             </Box>
@@ -334,8 +345,9 @@ export default function Page() {
                             justifyContent: 'space-between',
                             width: { xs: '100%', sm: '300px' },
                             mt: { xs: 1, sm: 0 },
-                          }}>
-                          <Typography variant="h6" fontWeight="bold">
+                          }}
+                        >
+                          <Typography variant='h6' fontWeight='bold'>
                             NT$ {item.price.toLocaleString()}
                           </Typography>
 
@@ -348,15 +360,17 @@ export default function Page() {
                               overflow: 'hidden',
                               backgroundColor: '#fff',
                               boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.08)',
-                            }}>
+                            }}
+                          >
                             <IconButton
-                              size="small"
+                              size='small'
                               sx={{
                                 color: item.qty === 0 ? 'rgba(0,0,0,0.26)' : '#323332',
                                 '&:hover': { backgroundColor: 'rgba(90,62,186,0.08)' },
                               }}
                               onClick={() => handleChange(index, -1)}
-                              disabled={item.qty === 0}>
+                              disabled={item.qty === 0}
+                            >
                               <LuMinus />
                             </IconButton>
 
@@ -374,12 +388,13 @@ export default function Page() {
                                     : '#323332',
                                 borderLeft: '1px solid rgba(0,0,0,0.08)',
                                 borderRight: '1px solid rgba(0,0,0,0.08)',
-                              }}>
+                              }}
+                            >
                               {item.qty}
                             </Box>
 
                             <IconButton
-                              size="small"
+                              size='small'
                               sx={{
                                 color:
                                   totalQty >= 4 || item.remaining <= item.qty
@@ -388,7 +403,8 @@ export default function Page() {
                                 '&:hover': { backgroundColor: 'rgba(90,62,186,0.08)' },
                               }}
                               onClick={() => handleChange(index, 1)}
-                              disabled={totalQty >= 4 || item.remaining <= item.qty}>
+                              disabled={totalQty >= 4 || item.remaining <= item.qty}
+                            >
                               <LuPlus />
                             </IconButton>
                           </Box>
@@ -414,9 +430,10 @@ export default function Page() {
                         '& img': {
                           transition: 'transform 0.6s ease',
                         },
-                      }}>
+                      }}
+                    >
                       <CardMedia
-                        component="img"
+                        component='img'
                         image={concertInfo?.locationImage}
                         sx={{
                           width: '100%',
@@ -429,7 +446,7 @@ export default function Page() {
                   </Grid>
 
                   <Divider sx={{ my: 2 }} />
-                  <Typography variant="h6" gutterBottom>
+                  <Typography variant='h6' gutterBottom>
                     訂單明細
                   </Typography>
 
@@ -450,17 +467,20 @@ export default function Page() {
                               alignItems: { xs: 'flex-start', sm: 'center' },
                               boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
                               border: '1px solid rgba(90,62,186,0.15)',
-                            }}>
+                            }}
+                          >
                             <Box
                               sx={{
                                 display: 'flex',
                                 flexDirection: 'column',
                                 width: { xs: '100%', sm: 'auto' },
-                              }}>
+                              }}
+                            >
                               <Typography
-                                variant="subtitle1"
-                                fontWeight="600"
-                                sx={{ mb: { xs: 0.5, sm: 0 } }}>
+                                variant='subtitle1'
+                                fontWeight='600'
+                                sx={{ mb: { xs: 0.5, sm: 0 } }}
+                              >
                                 {item.name}
                               </Typography>
                             </Box>
@@ -472,13 +492,14 @@ export default function Page() {
                                 justifyContent: { xs: 'flex-start', sm: 'flex-end' },
                                 width: { xs: '100%', sm: '300px' }, // 手機撐滿、桌面固定寬
                                 mt: { xs: 1, sm: 0 },
-                              }}>
-                              <Typography variant="h6" fontWeight="bold">
+                              }}
+                            >
+                              <Typography variant='h6' fontWeight='bold'>
                                 NT$ {item.price.toLocaleString()} x {item.qty}
                               </Typography>
                             </Box>
                           </Grid>
-                        ),
+                        )
                     )}
                   </Grid>
 
@@ -490,9 +511,10 @@ export default function Page() {
                       display: 'flex',
                       justifyContent: 'space-between',
                       alignItems: 'center',
-                    }}>
-                    <Typography fontWeight="600">總金額 </Typography>
-                    <Typography variant="h6" fontWeight="bold" color="primary">
+                    }}
+                  >
+                    <Typography fontWeight='600'>總金額 </Typography>
+                    <Typography variant='h6' fontWeight='bold' color='primary'>
                       NT$ {grandTotal?.toLocaleString()}
                     </Typography>
                   </Grid>
@@ -504,205 +526,413 @@ export default function Page() {
 
         <Button
           fullWidth
-          variant="contained"
+          variant='contained'
           sx={{
             mt: 3,
             py: 1.3,
             fontWeight: 600,
           }}
           onClick={handleNext}
-          disabled={totalQty === 0}>
+          disabled={totalQty === 0}
+        >
           下一步
         </Button>
       </Box>
     </>
   ) : (
-    <Box
-      sx={{
-        display: 'flex',
-        width: '100%',
-        alignItems: 'flex-start',
-        p: 3,
-        gap: 2,
-        flexDirection: 'column',
-      }}>
-      {loadingMap.isLoadingInfo ? (
-        <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 2 }}>
-          <Skeleton variant="rectangular" width="100%" height={400} sx={{ borderRadius: 3 }} />
-          <Skeleton variant="rectangular" width="100%" height={100} sx={{ borderRadius: 3 }} />
-          <Skeleton variant="rectangular" width="100%" height={300} sx={{ borderRadius: 3 }} />
-        </Box>
-      ) : (
-        <Box
-          sx={{
-            width: '100%',
-            height: '100%',
-            borderRadius: 3,
-            boxShadow: 2,
-            mb: 3,
-          }}>
+    <>
+      {loadingMap.isLoadingBuy && <LoadingBuy />}
+      <Box
+        sx={{
+          display: 'flex',
+          width: '100%',
+          alignItems: 'flex-start',
+          p: 3,
+          gap: 2,
+          flexDirection: 'column',
+        }}
+      >
+        {loadingMap.isLoadingInfo ? (
+          <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 2 }}>
+            <Skeleton variant='rectangular' width='100%' height={400} sx={{ borderRadius: 3 }} />
+            <Skeleton variant='rectangular' width='100%' height={100} sx={{ borderRadius: 3 }} />
+            <Skeleton variant='rectangular' width='100%' height={300} sx={{ borderRadius: 3 }} />
+          </Box>
+        ) : (
           <Box
             sx={{
-              borderRadius: '24px 24px 0 0',
               width: '100%',
-              height: 400,
-              overflow: 'hidden',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: '#f3f3f3',
-            }}>
-            <CardMedia
-              component="img"
-              image={concertInfo?.image}
+              height: '100%',
+              borderRadius: 3,
+              boxShadow: 2,
+              mb: 3,
+            }}
+          >
+            <Box
               sx={{
+                borderRadius: '24px 24px 0 0',
                 width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                display: 'block',
+                height: 400,
+                overflow: 'hidden',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: '#f3f3f3',
               }}
-            />
-          </Box>
+            >
+              <CardMedia
+                component='img'
+                image={concertInfo?.image}
+                sx={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  display: 'block',
+                }}
+              />
+            </Box>
 
-          <Box sx={{ m: 2 }}>
-            <Typography variant="h6" gutterBottom>
-              {concertInfo?.title}
-            </Typography>
-            <Grid container sx={{ display: 'flex', flexDirection: 'column' }}>
-              {info.map((item, index) => (
-                <Grid
-                  key={index}
-                  sx={{
-                    borderRadius: 1,
-                    gap: 1,
-                    minWidth: '150px',
-                    display: 'flex',
-                  }}>
-                  <Box
-                    color="primary.main"
-                    sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    {item.icon}
-                  </Box>
-
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    sx={{ my: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    {item.label}
-                  </Typography>
-                  <Typography
-                    display="flex"
-                    alignItems="center"
-                    gap={1}
-                    sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <strong>{item.value}</strong>
-                  </Typography>
-                </Grid>
-              ))}
-            </Grid>
-
-            <Divider sx={{ my: 4 }} />
-
-            <Box sx={{ width: '100%' }}>
-              <React.Fragment>
-                <Divider sx={{ my: 2 }} />
-                <Grid container spacing={2}>
-                  <Grid size={{ xs: 12, md: 5 }}>
+            <Box sx={{ m: 2 }}>
+              <Typography variant='h6' gutterBottom>
+                {concertInfo?.title}
+              </Typography>
+              <Grid container sx={{ display: 'flex', flexDirection: 'column' }}>
+                {info.map((item, index) => (
+                  <Grid
+                    key={index}
+                    sx={{
+                      borderRadius: 1,
+                      gap: 1,
+                      minWidth: '150px',
+                      display: 'flex',
+                    }}
+                  >
                     <Box
+                      color='primary.main'
+                      sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                    >
+                      {item.icon}
+                    </Box>
+
+                    <Typography
+                      variant='body2'
+                      color='text.secondary'
                       sx={{
-                        width: '100%',
-                        height: '100%',
-                        overflow: 'hidden',
+                        my: 1,
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
-                        backgroundColor: '#f3f3f3',
-                        transition: 'width 0.6s ease, transform 0.6s ease',
-                        cursor: 'pointer',
-                        '& img': {
-                          transition: 'transform 0.6s ease',
-                        },
-                      }}>
-                      <CardMedia
-                        component="img"
-                        image={concertInfo?.locationImage}
+                      }}
+                    >
+                      {item.label}
+                    </Typography>
+                    <Typography
+                      display='flex'
+                      alignItems='center'
+                      gap={1}
+                      sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                    >
+                      <strong>{item.value}</strong>
+                    </Typography>
+                  </Grid>
+                ))}
+              </Grid>
+
+              <Divider sx={{ my: 4 }} />
+
+              <Box sx={{ width: '100%' }}>
+                <React.Fragment>
+                  <Divider sx={{ my: 2 }} />
+                  <Grid container spacing={2}>
+                    <Grid size={{ xs: 12, md: 5 }}>
+                      <Box
                         sx={{
                           width: '100%',
                           height: '100%',
-                          objectFit: 'cover',
-                          display: 'block',
-                        }}
-                      />
-                    </Box>
-                  </Grid>
-                  <Grid size={{ xs: 12, md: 7 }}>
-                    <Grid
-                      sx={{
-                        p: 2,
-                        gap: 1,
-                        minWidth: '150px',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                      }}>
-                      <Typography
-                        display="flex"
-                        alignItems="center"
-                        gap={1}
-                        sx={{
+                          overflow: 'hidden',
                           display: 'flex',
                           justifyContent: 'center',
                           alignItems: 'center',
-                        }}>
-                        <strong>票種</strong>
-                      </Typography>
-
-                      <Box
+                          backgroundColor: '#f3f3f3',
+                          transition: 'width 0.6s ease, transform 0.6s ease',
+                          cursor: 'pointer',
+                          '& img': {
+                            transition: 'transform 0.6s ease',
+                          },
+                        }}
+                      >
+                        <CardMedia
+                          component='img'
+                          image={concertInfo?.locationImage}
+                          sx={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            display: 'block',
+                          }}
+                        />
+                      </Box>
+                    </Grid>
+                    <Grid size={{ xs: 12, md: 7 }}>
+                      <Grid
                         sx={{
-                          width: '300px',
+                          p: 2,
+                          gap: 1,
+                          minWidth: '150px',
                           display: 'flex',
-                          justifyContent: 'start',
+                          justifyContent: 'space-between',
                           alignItems: 'center',
-                        }}>
+                        }}
+                      >
                         <Typography
-                          display="flex"
-                          alignItems="center"
+                          display='flex'
+                          alignItems='center'
                           gap={1}
                           sx={{
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center',
-                          }}>
-                          <strong>票價</strong>
+                          }}
+                        >
+                          <strong>票種</strong>
                         </Typography>
-                      </Box>
-                    </Grid>
 
-                    <Grid container spacing={1} sx={{ flexDirection: 'column' }}>
-                      {loadingMap.isLoadingSelect ? (
                         <Box
                           sx={{
-                            width: '100%',
+                            width: '300px',
                             display: 'flex',
-                            flexDirection: 'column',
-                            gap: 2,
-                          }}>
-                          {Array.from({ length: 5 }).map((_, index) => (
-                            <Skeleton
-                              key={index}
-                              variant="rectangular"
-                              width="100%"
-                              height={40}
-                              sx={{ borderRadius: 3, mb: 1 }}
-                            />
-                          ))}
+                            justifyContent: 'start',
+                            alignItems: 'center',
+                          }}
+                        >
+                          <Typography
+                            display='flex'
+                            alignItems='center'
+                            gap={1}
+                            sx={{
+                              display: 'flex',
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                            }}
+                          >
+                            <strong>票價</strong>
+                          </Typography>
                         </Box>
-                      ) : (
-                        ticketList.map((item, index) => (
+                      </Grid>
+
+                      <Grid container spacing={1} sx={{ flexDirection: 'column' }}>
+                        {loadingMap.isLoadingSelect ? (
+                          <Box
+                            sx={{
+                              width: '100%',
+                              display: 'flex',
+                              flexDirection: 'column',
+                              gap: 2,
+                            }}
+                          >
+                            {Array.from({ length: 5 }).map((_, index) => (
+                              <Skeleton
+                                key={index}
+                                variant='rectangular'
+                                width='100%'
+                                height={40}
+                                sx={{ borderRadius: 3, mb: 1 }}
+                              />
+                            ))}
+                          </Box>
+                        ) : (
+                          ticketList.map((item, index) => (
+                            <Grid
+                              key={index}
+                              sx={{
+                                backgroundColor: '#FFFFFF',
+                                borderRadius: 3,
+                                px: 2,
+                                py: 1,
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
+                                border: '1px solid rgba(90,62,186,0.15)',
+                                transition: 'all 0.3s ease',
+                                '&:hover': {
+                                  backgroundColor: '#F3E9FF',
+                                  transform: 'translateY(-2px)',
+                                  boxShadow: '0 6px 16px rgba(90,62,186,0.15)',
+                                },
+                              }}
+                            >
+                              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                                <Typography variant='subtitle1' fontWeight='600' sx={{ mb: 0.5 }}>
+                                  {item.name}
+                                </Typography>
+                              </Box>
+
+                              <Box
+                                sx={{
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'flex-start',
+                                  width: '300px',
+                                }}
+                              >
+                                <Typography
+                                  variant='h6'
+                                  fontWeight='bold'
+                                  sx={{
+                                    minWidth: '80px',
+                                  }}
+                                >
+                                  {item.price.toLocaleString()}
+                                </Typography>
+
+                                <Box
+                                  sx={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    border: '1px solid #D1C4E9',
+                                    borderRadius: 2,
+                                    overflow: 'hidden',
+                                    ml: 4,
+                                    backgroundColor: '#fff',
+                                    boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.08)',
+                                  }}
+                                >
+                                  <IconButton
+                                    size='small'
+                                    sx={{
+                                      color: item.qty === 0 ? 'rgba(0,0,0,0.26)' : '#323332',
+                                      '&:hover': { backgroundColor: 'rgba(90,62,186,0.08)' },
+                                      transition: 'all 0.2s ease',
+                                    }}
+                                    onClick={() => handleChange(index, -1)}
+                                    disabled={item.qty === 0}
+                                  >
+                                    <LuMinus />
+                                  </IconButton>
+
+                                  <Box
+                                    sx={{
+                                      px: 1.5,
+                                      py: 0.8,
+                                      minWidth: 40,
+                                      textAlign: 'center',
+                                      fontSize: '1rem',
+                                      fontWeight: 500,
+                                      color:
+                                        totalQty >= 4 || item.remaining <= item.qty
+                                          ? 'rgba(0, 0, 0, 0.38)'
+                                          : '#323332',
+                                      borderLeft: '1px solid rgba(0,0,0,0.08)',
+                                      borderRight: '1px solid rgba(0,0,0,0.08)',
+                                    }}
+                                  >
+                                    {item.qty}
+                                  </Box>
+
+                                  <IconButton
+                                    size='small'
+                                    sx={{
+                                      color:
+                                        totalQty >= 4 || item.remaining <= item.qty
+                                          ? 'rgba(0,0,0,0.26)'
+                                          : '#323332',
+                                      '&:hover': { backgroundColor: 'rgba(90,62,186,0.08)' },
+                                      transition: 'all 0.2s ease',
+                                    }}
+                                    onClick={() => handleChange(index, 1)}
+                                    disabled={totalQty >= 4 || item.remaining <= item.qty}
+                                  >
+                                    <LuPlus />
+                                  </IconButton>
+                                </Box>
+
+                                {item.status !== 'ok' && (
+                                  <Box
+                                    sx={{
+                                      display: 'inline-flex',
+                                      alignItems: 'center',
+                                      justifyContent: 'center',
+                                      ml: 2,
+                                      px: 1,
+                                      py: 0.3,
+                                      borderRadius: 1.5,
+                                      backgroundColor:
+                                        item.badge?.includes('僅剩') || item.badge?.includes('售罄')
+                                          ? '#FFE0E0'
+                                          : '#E5E9FF',
+                                    }}
+                                  >
+                                    <Typography
+                                      variant='caption'
+                                      fontWeight='500'
+                                      color={
+                                        item.badge?.includes('僅剩') || item.badge?.includes('售罄')
+                                          ? '#D64545'
+                                          : '#4A56B1'
+                                      }
+                                    >
+                                      {item.badge}
+                                    </Typography>
+                                  </Box>
+                                )}
+                              </Box>
+                            </Grid>
+                          ))
+                        )}
+                      </Grid>
+                    </Grid>
+                  </Grid>
+
+                  <Divider sx={{ my: 2 }} />
+                  <Typography variant='h6' gutterBottom>
+                    訂單名細
+                  </Typography>
+                  <Grid
+                    sx={{
+                      p: 2,
+                      gap: 1,
+                      minWidth: '150px',
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <Typography
+                      display='flex'
+                      alignItems='center'
+                      gap={1}
+                      sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                    >
+                      <strong>票種</strong>
+                    </Typography>
+
+                    <Box
+                      sx={{
+                        width: '300px',
+                        display: 'flex',
+                        justifyContent: 'start',
+                        alignItems: 'center',
+                      }}
+                    >
+                      <Typography
+                        display='flex'
+                        alignItems='center'
+                        gap={1}
+                        sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                      >
+                        <strong>票價</strong>
+                      </Typography>
+                    </Box>
+                  </Grid>
+                  <Grid container spacing={1} sx={{ flexDirection: 'column' }}>
+                    {ticketList.map(
+                      (item, index) =>
+                        item.qty > 0 && (
                           <Grid
                             key={index}
                             sx={{
-                              backgroundColor: '#FFFFFF',
+                              backgroundColor: '#F9F7FF',
                               borderRadius: 3,
                               px: 2,
                               py: 1,
@@ -711,15 +941,10 @@ export default function Page() {
                               alignItems: 'center',
                               boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
                               border: '1px solid rgba(90,62,186,0.15)',
-                              transition: 'all 0.3s ease',
-                              '&:hover': {
-                                backgroundColor: '#F3E9FF',
-                                transform: 'translateY(-2px)',
-                                boxShadow: '0 6px 16px rgba(90,62,186,0.15)',
-                              },
-                            }}>
+                            }}
+                          >
                             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                              <Typography variant="subtitle1" fontWeight="600" sx={{ mb: 0.5 }}>
+                              <Typography variant='subtitle1' fontWeight='600' sx={{ mb: 0.5 }}>
                                 {item.name}
                               </Typography>
                             </Box>
@@ -730,244 +955,84 @@ export default function Page() {
                                 alignItems: 'center',
                                 justifyContent: 'flex-start',
                                 width: '300px',
-                              }}>
+                              }}
+                            >
                               <Typography
-                                variant="h6"
-                                fontWeight="bold"
+                                variant='h6'
+                                fontWeight='bold'
                                 sx={{
                                   minWidth: '80px',
-                                }}>
-                                {item.price.toLocaleString()}
+                                }}
+                              >
+                                <strong>
+                                  NT$ {item.price.toLocaleString()}x{item.qty}
+                                </strong>
                               </Typography>
-
-                              <Box
-                                sx={{
-                                  display: 'flex',
-                                  alignItems: 'center',
-                                  border: '1px solid #D1C4E9',
-                                  borderRadius: 2,
-                                  overflow: 'hidden',
-                                  ml: 4,
-                                  backgroundColor: '#fff',
-                                  boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.08)',
-                                }}>
-                                <IconButton
-                                  size="small"
-                                  sx={{
-                                    color: item.qty === 0 ? 'rgba(0,0,0,0.26)' : '#323332',
-                                    '&:hover': { backgroundColor: 'rgba(90,62,186,0.08)' },
-                                    transition: 'all 0.2s ease',
-                                  }}
-                                  onClick={() => handleChange(index, -1)}
-                                  disabled={item.qty === 0}>
-                                  <LuMinus />
-                                </IconButton>
-
-                                <Box
-                                  sx={{
-                                    px: 1.5,
-                                    py: 0.8,
-                                    minWidth: 40,
-                                    textAlign: 'center',
-                                    fontSize: '1rem',
-                                    fontWeight: 500,
-                                    color:
-                                      totalQty >= 4 || item.remaining <= item.qty
-                                        ? 'rgba(0, 0, 0, 0.38)'
-                                        : '#323332',
-                                    borderLeft: '1px solid rgba(0,0,0,0.08)',
-                                    borderRight: '1px solid rgba(0,0,0,0.08)',
-                                  }}>
-                                  {item.qty}
-                                </Box>
-
-                                <IconButton
-                                  size="small"
-                                  sx={{
-                                    color:
-                                      totalQty >= 4 || item.remaining <= item.qty
-                                        ? 'rgba(0,0,0,0.26)'
-                                        : '#323332',
-                                    '&:hover': { backgroundColor: 'rgba(90,62,186,0.08)' },
-                                    transition: 'all 0.2s ease',
-                                  }}
-                                  onClick={() => handleChange(index, 1)}
-                                  disabled={totalQty >= 4 || item.remaining <= item.qty}>
-                                  <LuPlus />
-                                </IconButton>
-                              </Box>
-
-                              {item.status !== 'ok' && (
-                                <Box
-                                  sx={{
-                                    display: 'inline-flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    ml: 2,
-                                    px: 1,
-                                    py: 0.3,
-                                    borderRadius: 1.5,
-                                    backgroundColor:
-                                      item.badge?.includes('僅剩') || item.badge?.includes('售罄')
-                                        ? '#FFE0E0'
-                                        : '#E5E9FF',
-                                  }}>
-                                  <Typography
-                                    variant="caption"
-                                    fontWeight="500"
-                                    color={
-                                      item.badge?.includes('僅剩') || item.badge?.includes('售罄')
-                                        ? '#D64545'
-                                        : '#4A56B1'
-                                    }>
-                                    {item.badge}
-                                  </Typography>
-                                </Box>
-                              )}
                             </Box>
                           </Grid>
-                        ))
-                      )}
-                    </Grid>
+                        )
+                    )}
                   </Grid>
-                </Grid>
 
-                <Divider sx={{ my: 2 }} />
-                <Typography variant="h6" gutterBottom>
-                  訂單名細
-                </Typography>
-                <Grid
-                  sx={{
-                    p: 2,
-                    gap: 1,
-                    minWidth: '150px',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                  }}>
-                  <Typography
-                    display="flex"
-                    alignItems="center"
-                    gap={1}
-                    sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <strong>票種</strong>
-                  </Typography>
-
-                  <Box
+                  <Grid
                     sx={{
-                      width: '300px',
+                      p: 2,
+                      gap: 1,
+                      minWidth: '150px',
                       display: 'flex',
-                      justifyContent: 'start',
+                      justifyContent: 'space-between',
                       alignItems: 'center',
-                    }}>
+                    }}
+                  >
                     <Typography
-                      display="flex"
-                      alignItems="center"
+                      display='flex'
+                      alignItems='center'
                       gap={1}
-                      sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                      <strong>票價</strong>
+                      sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                    >
+                      <strong>總金額</strong>
                     </Typography>
-                  </Box>
-                </Grid>
-                <Grid container spacing={1} sx={{ flexDirection: 'column' }}>
-                  {ticketList.map(
-                    (item, index) =>
-                      item.qty > 0 && (
-                        <Grid
-                          key={index}
-                          sx={{
-                            backgroundColor: '#F9F7FF',
-                            borderRadius: 3,
-                            px: 2,
-                            py: 1,
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
-                            border: '1px solid rgba(90,62,186,0.15)',
-                          }}>
-                          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                            <Typography variant="subtitle1" fontWeight="600" sx={{ mb: 0.5 }}>
-                              {item.name}
-                            </Typography>
-                          </Box>
 
-                          <Box
-                            sx={{
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'flex-start',
-                              width: '300px',
-                            }}>
-                            <Typography
-                              variant="h6"
-                              fontWeight="bold"
-                              sx={{
-                                minWidth: '80px',
-                              }}>
-                              <strong>
-                                NT$ {item.price.toLocaleString()}x{item.qty}
-                              </strong>
-                            </Typography>
-                          </Box>
-                        </Grid>
-                      ),
-                  )}
-                </Grid>
-
-                <Grid
-                  sx={{
-                    p: 2,
-                    gap: 1,
-                    minWidth: '150px',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                  }}>
-                  <Typography
-                    display="flex"
-                    alignItems="center"
-                    gap={1}
-                    sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <strong>總金額</strong>
-                  </Typography>
-
-                  <Box
-                    sx={{
-                      width: '300px',
-                      display: 'flex',
-                      justifyContent: 'start',
-                      alignItems: 'center',
-                    }}>
-                    <Typography
-                      color="primary"
-                      variant="h6"
-                      fontWeight="bold"
+                    <Box
                       sx={{
-                        minWidth: '80px',
-                      }}>
-                      <strong>NT$ {grandTotal.toLocaleString()}</strong>
-                    </Typography>
-                  </Box>
-                </Grid>
-              </React.Fragment>
+                        width: '300px',
+                        display: 'flex',
+                        justifyContent: 'start',
+                        alignItems: 'center',
+                      }}
+                    >
+                      <Typography
+                        color='primary'
+                        variant='h6'
+                        fontWeight='bold'
+                        sx={{
+                          minWidth: '80px',
+                        }}
+                      >
+                        <strong>NT$ {grandTotal.toLocaleString()}</strong>
+                      </Typography>
+                    </Box>
+                  </Grid>
+                </React.Fragment>
+              </Box>
             </Box>
           </Box>
-        </Box>
-      )}
+        )}
 
-      <Button
-        fullWidth
-        variant="contained"
-        sx={{
-          mt: 3,
-          py: 1.3,
-          fontWeight: 600,
-        }}
-        onClick={handleNext}
-        disabled={totalQty === 0}>
-        下一步
-      </Button>
-    </Box>
+        <Button
+          fullWidth
+          variant='contained'
+          sx={{
+            mt: 3,
+            py: 1.3,
+            fontWeight: 600,
+          }}
+          onClick={handleNext}
+          disabled={totalQty === 0}
+        >
+          下一步
+        </Button>
+      </Box>
+    </>
   );
 }
