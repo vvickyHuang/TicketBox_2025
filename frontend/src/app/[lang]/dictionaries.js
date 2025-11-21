@@ -1,8 +1,58 @@
-import 'server-only';
-
-const dictionaries = {
-  en: () => import('./dictionaries/en.json').then((module) => module.default),
-  tw: () => import('./dictionaries/tw.json').then((module) => module.default),
+export const dictionaries = {
+  en: {
+    main: {
+      title: 'hihi',
+      AllEvents: 'All Events',
+      PopularEvents: 'Popular Events',
+      ViewAll: 'View All',
+      Buyticketsnow: 'Buy tickets now',
+      熱賣中: 'Hot Sale',
+      即將開賣: 'Coming Soon',
+      臺北大巨蛋: 'Taipei Dome',
+      'Hana Space 花漾展演空間': 'Hana Space',
+      '國立體育大學綜合體育館（林口體育館)': 'NTSU Linkou Gymnasium',
+      臺中洲際棒球場: 'Taichung Intercontinental Baseball Stadium',
+      '2025/12/20(六) ~ 2025/12/21(日)': 'Dec 20 (Sat) – Dec 21 (Sun), 2025',
+      '2025/11/14 (五) ~ 2025/11/16 (日)': 'Nov 14 (Fri) – Nov 16 (Sun), 2025',
+      '2026/01/31 (六) - 2026/02/01 (日)': 'Jan 31 (Sat) – Feb 1 (Sun), 2026',
+      '2025/11/14 (五)': 'Nov 14 (Fri), 2025',
+      '2026/03/28 (六)': 'Mar 28 (Sat), 2026',
+      TicketBox: 'TicketBox',
+      Contact: 'Contact Us',
+      phone: 'Customer Service Phone:+886 (2) 1234-5678',
+      email: 'Email:',
+      time: 'Business Hours: Monday – Friday, 09:00 – 18:00 (Closed on public holidays)',
+      tickets: 'Tickets',
+    },
+  },
+  tw: {
+    main: {
+      title: '嗨嗨',
+      AllEvents: '全部活動',
+      PopularEvents: '熱門活動',
+      ViewAll: '查看全部',
+      Buyticketsnow: '立即購票',
+      熱賣中: '熱賣中',
+      即將開賣: '即將開賣',
+      臺北大巨蛋: '臺北大巨蛋',
+      'Hana Space 花漾展演空間': 'Hana Space 花漾展演空間',
+      '國立體育大學綜合體育館（林口體育館)': '國立體育大學綜合體育館（林口體育館）',
+      臺中洲際棒球場: '臺中洲際棒球場',
+      '2025/12/20(六) ~ 2025/12/21(日)': '2025/12/20 (六) ~ 2025/12/21 (日)',
+      '2025/11/14 (五) ~ 2025/11/16 (日)': '2025/11/14 (五) ~ 2025/11/16 (日)',
+      '2026/01/31 (六) - 2026/02/01 (日)': '2026/01/31 (六) ~ 2026/02/01 (日)',
+      '2025/11/14 (五)': '2025/11/14 (五)',
+      '2026/03/28 (六)': '2026/03/28 (六)',
+      TicketBox: '票票盒',
+      Contact: '聯絡我們',
+      phone: '客服電話：+886 (02) 1234-5678',
+      email: '客服信箱：',
+      time: '營業時間：週一至週五 09:00 - 18:00（例假日休息）',
+      tickets: '票券',
+    },
+  },
 };
 
-export const getDictionary = async (locale) => dictionaries[locale]();
+export function getDictionary(lang) {
+  return dictionaries[lang] || dictionaries.tw;
+}
