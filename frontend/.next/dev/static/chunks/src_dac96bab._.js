@@ -1285,7 +1285,7 @@ function TicketQRCodeDialog({ dialogType, oriTicketList, handleSearch }) {
                             }
                         }, void 0, false, {
                             fileName: "[project]/src/components/VPQRNew/index.jsx",
-                            lineNumber: 125,
+                            lineNumber: 126,
                             columnNumber: 31
                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$WarningAmber$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                             sx: {
@@ -1293,7 +1293,7 @@ function TicketQRCodeDialog({ dialogType, oriTicketList, handleSearch }) {
                             }
                         }, void 0, false, {
                             fileName: "[project]/src/components/VPQRNew/index.jsx",
-                            lineNumber: 125,
+                            lineNumber: 126,
                             columnNumber: 62
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Typography$2f$Typography$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Typography$3e$__["Typography"], {
@@ -1302,7 +1302,7 @@ function TicketQRCodeDialog({ dialogType, oriTicketList, handleSearch }) {
                             children: time === '00:00' ? '您未在 5 分鐘內完成綁定，連結已失效。' : '請於 5 分鐘內完成綁定，否則連結將失效。'
                         }, void 0, false, {
                             fileName: "[project]/src/components/VPQRNew/index.jsx",
-                            lineNumber: 126,
+                            lineNumber: 127,
                             columnNumber: 11
                         }, this)
                     ]
@@ -1315,7 +1315,7 @@ function TicketQRCodeDialog({ dialogType, oriTicketList, handleSearch }) {
                     onTimeChange: setTime
                 }, void 0, false, {
                     fileName: "[project]/src/components/VPQRNew/index.jsx",
-                    lineNumber: 133,
+                    lineNumber: 134,
                     columnNumber: 37
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Stack$2f$Stack$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Stack$3e$__["Stack"], {
@@ -1338,7 +1338,7 @@ function TicketQRCodeDialog({ dialogType, oriTicketList, handleSearch }) {
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/VPQRNew/index.jsx",
-                                    lineNumber: 137,
+                                    lineNumber: 138,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Typography$2f$Typography$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Typography$3e$__["Typography"], {
@@ -1353,13 +1353,13 @@ function TicketQRCodeDialog({ dialogType, oriTicketList, handleSearch }) {
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/VPQRNew/index.jsx",
-                                    lineNumber: 141,
+                                    lineNumber: 142,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/VPQRNew/index.jsx",
-                            lineNumber: 136,
+                            lineNumber: 137,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Typography$2f$Typography$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Typography$3e$__["Typography"], {
@@ -1374,13 +1374,13 @@ function TicketQRCodeDialog({ dialogType, oriTicketList, handleSearch }) {
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/VPQRNew/index.jsx",
-                            lineNumber: 147,
+                            lineNumber: 148,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/VPQRNew/index.jsx",
-                    lineNumber: 135,
+                    lineNumber: 136,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Box$2f$Box$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Box$3e$__["Box"], {
@@ -1419,7 +1419,7 @@ function TicketQRCodeDialog({ dialogType, oriTicketList, handleSearch }) {
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/VPQRNew/index.jsx",
-                                lineNumber: 168,
+                                lineNumber: 171,
                                 columnNumber: 13
                             }, this),
                             ticketVcList?.isScanned && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Box$2f$Box$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Box$3e$__["Box"], {
@@ -1460,28 +1460,28 @@ function TicketQRCodeDialog({ dialogType, oriTicketList, handleSearch }) {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/VPQRNew/index.jsx",
-                                        lineNumber: 209,
+                                        lineNumber: 215,
                                         columnNumber: 19
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/VPQRNew/index.jsx",
-                                    lineNumber: 197,
+                                    lineNumber: 202,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/VPQRNew/index.jsx",
-                                lineNumber: 184,
+                                lineNumber: 188,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/VPQRNew/index.jsx",
-                        lineNumber: 159,
+                        lineNumber: 161,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/VPQRNew/index.jsx",
-                    lineNumber: 151,
+                    lineNumber: 152,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Box$2f$Box$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Box$3e$__["Box"], {
@@ -1494,7 +1494,7 @@ function TicketQRCodeDialog({ dialogType, oriTicketList, handleSearch }) {
                     }
                 }, void 0, false, {
                     fileName: "[project]/src/components/VPQRNew/index.jsx",
-                    lineNumber: 224,
+                    lineNumber: 231,
                     columnNumber: 9
                 }, this)
             ]
@@ -1518,7 +1518,7 @@ function TicketQRCodeDialog({ dialogType, oriTicketList, handleSearch }) {
                     children: "您的憑證已準備好！"
                 }, void 0, false, {
                     fileName: "[project]/src/components/VPQRNew/index.jsx",
-                    lineNumber: 237,
+                    lineNumber: 245,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Typography$2f$Typography$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Typography$3e$__["Typography"], {
@@ -1530,7 +1530,7 @@ function TicketQRCodeDialog({ dialogType, oriTicketList, handleSearch }) {
                     children: "請使用數位憑證皮夾 App 掃描 QR Code 完成販售我的票券"
                 }, void 0, false, {
                     fileName: "[project]/src/components/VPQRNew/index.jsx",
-                    lineNumber: 241,
+                    lineNumber: 249,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Box$2f$Box$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Box$3e$__["Box"], {
@@ -1538,35 +1538,118 @@ function TicketQRCodeDialog({ dialogType, oriTicketList, handleSearch }) {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        bgcolor: '#fff8e1',
-                        color: '#b26a00',
+                        bgcolor: time === '00:00' ? '#fff1f0' : '#fff8e1',
+                        color: time === '00:00' ? '#ff4d4f' : '#b26a00',
                         borderRadius: 2,
                         p: 1,
                         mb: 2
                     },
                     children: [
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$WarningAmber$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                        time === '00:00' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(ErrorIcon, {
                             sx: {
                                 mr: 1
                             }
                         }, void 0, false, {
                             fileName: "[project]/src/components/VPQRNew/index.jsx",
-                            lineNumber: 256,
-                            columnNumber: 11
+                            lineNumber: 265,
+                            columnNumber: 31
+                        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$WarningAmber$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                            sx: {
+                                mr: 1
+                            }
+                        }, void 0, false, {
+                            fileName: "[project]/src/components/VPQRNew/index.jsx",
+                            lineNumber: 265,
+                            columnNumber: 62
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Typography$2f$Typography$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Typography$3e$__["Typography"], {
                             variant: "body2",
                             fontWeight: 600,
-                            children: "請於 5 分鐘內完成掃描，否則 QR Code 將失效"
+                            children: time === '00:00' ? '您未在 5 分鐘內完成綁定，QR Code已失效。' : '請於 5 分鐘內完成掃描，否則 QR Code 將失效。'
                         }, void 0, false, {
                             fileName: "[project]/src/components/VPQRNew/index.jsx",
-                            lineNumber: 257,
+                            lineNumber: 266,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/VPQRNew/index.jsx",
-                    lineNumber: 245,
+                    lineNumber: 253,
+                    columnNumber: 9
+                }, this),
+                !ticketVcList.isScanned && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$CountdownTimer$2f$index$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                    onTimeChange: setTime
+                }, void 0, false, {
+                    fileName: "[project]/src/components/VPQRNew/index.jsx",
+                    lineNumber: 273,
+                    columnNumber: 37
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Stack$2f$Stack$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Stack$3e$__["Stack"], {
+                    spacing: 0.5,
+                    alignItems: "center",
+                    textAlign: "center",
+                    sx: {
+                        my: 2
+                    },
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Stack$2f$Stack$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Stack$3e$__["Stack"], {
+                            direction: "row",
+                            spacing: 2,
+                            alignItems: "center",
+                            justifyContent: "center",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Typography$2f$Typography$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Typography$3e$__["Typography"], {
+                                    variant: "subtitle2",
+                                    fontWeight: 600,
+                                    children: [
+                                        "區域：",
+                                        ticketVcList?.area
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/src/components/VPQRNew/index.jsx",
+                                    lineNumber: 277,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Typography$2f$Typography$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Typography$3e$__["Typography"], {
+                                    variant: "subtitle2",
+                                    fontWeight: 600,
+                                    children: [
+                                        "座位：",
+                                        ticketVcList?.line,
+                                        "排",
+                                        ticketVcList?.seat,
+                                        "號"
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/src/components/VPQRNew/index.jsx",
+                                    lineNumber: 281,
+                                    columnNumber: 13
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/components/VPQRNew/index.jsx",
+                            lineNumber: 276,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Typography$2f$Typography$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Typography$3e$__["Typography"], {
+                            variant: "subtitle1",
+                            fontWeight: 700,
+                            sx: {
+                                textTransform: 'none'
+                            },
+                            children: [
+                                "姓名：",
+                                ticketVcList?.name
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/components/VPQRNew/index.jsx",
+                            lineNumber: 287,
+                            columnNumber: 11
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/src/components/VPQRNew/index.jsx",
+                    lineNumber: 275,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Box$2f$Box$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Box$3e$__["Box"], {
@@ -1576,6 +1659,7 @@ function TicketQRCodeDialog({ dialogType, oriTicketList, handleSearch }) {
                     },
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                            id: "ticketQRCode",
                             src: ticketVcList?.qrcodeImage,
                             alt: "QR Code",
                             style: {
@@ -1586,7 +1670,7 @@ function TicketQRCodeDialog({ dialogType, oriTicketList, handleSearch }) {
                             }
                         }, void 0, false, {
                             fileName: "[project]/src/components/VPQRNew/index.jsx",
-                            lineNumber: 267,
+                            lineNumber: 298,
                             columnNumber: 11
                         }, this),
                         ticketVcList?.isScanned && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Box$2f$Box$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Box$3e$__["Box"], {
@@ -1624,23 +1708,23 @@ function TicketQRCodeDialog({ dialogType, oriTicketList, handleSearch }) {
                                     children: "已掃描"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/VPQRNew/index.jsx",
-                                    lineNumber: 304,
+                                    lineNumber: 338,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/VPQRNew/index.jsx",
-                                lineNumber: 292,
+                                lineNumber: 325,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/components/VPQRNew/index.jsx",
-                            lineNumber: 279,
+                            lineNumber: 311,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/VPQRNew/index.jsx",
-                    lineNumber: 262,
+                    lineNumber: 292,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Box$2f$Box$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Box$3e$__["Box"], {
@@ -1653,13 +1737,13 @@ function TicketQRCodeDialog({ dialogType, oriTicketList, handleSearch }) {
                     }
                 }, void 0, false, {
                     fileName: "[project]/src/components/VPQRNew/index.jsx",
-                    lineNumber: 318,
+                    lineNumber: 353,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/VPQRNew/index.jsx",
-            lineNumber: 236,
+            lineNumber: 244,
             columnNumber: 7
         }, this)
     }, void 0, false);
@@ -1953,12 +2037,14 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$mat
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$TestQR$2f$index$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/TestQR/index.jsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$WarningAmber$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@mui/icons-material/esm/WarningAmber.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$Tour$2f$BubbleTour$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/Tour/BubbleTour.jsx [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$CountdownTimer$2f$index$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/CountdownTimer/index.jsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$VPQRNew$2f$index$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/VPQRNew/index.jsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f5b$lang$5d2f$orderInquiry$2f$sections$2f$OrderCard$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/app/[lang]/orderInquiry/sections/OrderCard.jsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$lu$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react-icons/lu/index.mjs [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 'use client';
+;
 ;
 ;
 ;
@@ -2183,7 +2269,7 @@ function OrderQueryPage() {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Dialog$2f$Dialog$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                 open: dialogIsOpen,
-                maxWidth: dialogType === 'get' ? 'md' : 'sm',
+                maxWidth: dialogType === 'get' && !isReceive ? 'md' : 'sm',
                 fullWidth: true,
                 slotProps: {
                     paper: {
@@ -2224,7 +2310,7 @@ function OrderQueryPage() {
                                                         children: "請輸入信箱驗證碼"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                                                        lineNumber: 272,
+                                                        lineNumber: 274,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Box$2f$Box$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Box$3e$__["Box"], {
@@ -2232,35 +2318,59 @@ function OrderQueryPage() {
                                                             display: 'flex',
                                                             alignItems: 'center',
                                                             justifyContent: 'center',
-                                                            bgcolor: '#fff8e1',
-                                                            color: '#b26a00',
+                                                            bgcolor: time === '00:00' ? '#fff1f0' : '#fff8e1',
+                                                            color: time === '00:00' ? '#ff4d4f' : '#b26a00',
                                                             borderRadius: 2,
                                                             p: 1,
                                                             mb: 2
                                                         },
                                                         children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$WarningAmber$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                                            time === '00:00' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(ErrorIcon, {
                                                                 sx: {
                                                                     mr: 1
                                                                 }
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                                                                lineNumber: 286,
-                                                                columnNumber: 25
+                                                                lineNumber: 291,
+                                                                columnNumber: 27
+                                                            }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$icons$2d$material$2f$esm$2f$WarningAmber$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                                                sx: {
+                                                                    mr: 1
+                                                                }
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
+                                                                lineNumber: 293,
+                                                                columnNumber: 27
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Typography$2f$Typography$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Typography$3e$__["Typography"], {
                                                                 variant: "body2",
                                                                 fontWeight: 600,
-                                                                children: "請於 5 分鐘內完成驗證碼驗證，否則將重新查詢訂單"
+                                                                children: time === '00:00' ? '請重新申請驗證碼。' : '請於 5 分鐘內完成驗證碼驗證，否則將重新查詢訂單。'
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                                                                lineNumber: 287,
+                                                                lineNumber: 295,
                                                                 columnNumber: 25
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                                                        lineNumber: 275,
+                                                        lineNumber: 278,
+                                                        columnNumber: 23
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Box$2f$Box$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Box$3e$__["Box"], {
+                                                        sx: {
+                                                            my: 1
+                                                        },
+                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$CountdownTimer$2f$index$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                                            onTimeChange: setTime
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
+                                                            lineNumber: 303,
+                                                            columnNumber: 25
+                                                        }, this)
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
+                                                        lineNumber: 302,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$TextField$2f$TextField$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__TextField$3e$__["TextField"], {
@@ -2275,7 +2385,7 @@ function OrderQueryPage() {
                                                         }
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                                                        lineNumber: 291,
+                                                        lineNumber: 306,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Button$2f$Button$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Button$3e$__["Button"], {
@@ -2290,7 +2400,7 @@ function OrderQueryPage() {
                                                         children: "發送驗證信"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                                                        lineNumber: 302,
+                                                        lineNumber: 317,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Button$2f$Button$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Button$3e$__["Button"], {
@@ -2307,7 +2417,7 @@ function OrderQueryPage() {
                                                         children: "驗證"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                                                        lineNumber: 310,
+                                                        lineNumber: 326,
                                                         columnNumber: 23
                                                     }, this)
                                                 ]
@@ -2317,18 +2427,18 @@ function OrderQueryPage() {
                                                 handleSearch: initData
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                                                lineNumber: 322,
+                                                lineNumber: 339,
                                                 columnNumber: 21
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                                        lineNumber: 269,
+                                        lineNumber: 271,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                                    lineNumber: 268,
+                                    lineNumber: 270,
                                     columnNumber: 15
                                 }, this),
                                 (dialogType === 'shelves' || dialogType === 'cancel') && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$VPQRNew$2f$index$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -2337,18 +2447,18 @@ function OrderQueryPage() {
                                     handleSearch: initData
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                                    lineNumber: 329,
+                                    lineNumber: 346,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                            lineNumber: 266,
+                            lineNumber: 268,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                        lineNumber: 265,
+                        lineNumber: 267,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$DialogActions$2f$DialogActions$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -2368,7 +2478,7 @@ function OrderQueryPage() {
                                 children: "教學說明"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                                lineNumber: 344,
+                                lineNumber: 362,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Button$2f$Button$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Button$3e$__["Button"], {
@@ -2376,13 +2486,13 @@ function OrderQueryPage() {
                                 children: "關閉"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                                lineNumber: 351,
+                                lineNumber: 370,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                        lineNumber: 338,
+                        lineNumber: 355,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$Tour$2f$BubbleTour$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -2391,13 +2501,13 @@ function OrderQueryPage() {
                         onClose: ()=>setTourOpen(false)
                     }, void 0, false, {
                         fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                        lineNumber: 353,
+                        lineNumber: 372,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                lineNumber: 253,
+                lineNumber: 254,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Box$2f$Box$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Box$3e$__["Box"], {
@@ -2423,18 +2533,18 @@ function OrderQueryPage() {
                                     children: label
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                                    lineNumber: 367,
+                                    lineNumber: 386,
                                     columnNumber: 17
                                 }, this)
                             }, label, false, {
                                 fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                                lineNumber: 366,
+                                lineNumber: 385,
                                 columnNumber: 15
                             }, this);
                         })
                     }, void 0, false, {
                         fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                        lineNumber: 356,
+                        lineNumber: 375,
                         columnNumber: 9
                     }, this),
                     activeStep === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Box$2f$Box$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Box$3e$__["Box"], {
@@ -2454,7 +2564,7 @@ function OrderQueryPage() {
                                 children: "訂單查詢"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                                lineNumber: 382,
+                                lineNumber: 402,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Typography$2f$Typography$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Typography$3e$__["Typography"], {
@@ -2464,7 +2574,7 @@ function OrderQueryPage() {
                                 children: "輸入您的訂單編號，即可立即取票"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                                lineNumber: 385,
+                                lineNumber: 405,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Card$2f$Card$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Card$3e$__["Card"], {
@@ -2503,12 +2613,12 @@ function OrderQueryPage() {
                                                     size: 30
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                                                    lineNumber: 408,
+                                                    lineNumber: 431,
                                                     columnNumber: 21
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                                                lineNumber: 405,
+                                                lineNumber: 427,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Typography$2f$Typography$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Typography$3e$__["Typography"], {
@@ -2518,7 +2628,7 @@ function OrderQueryPage() {
                                                 children: "步驟一：查詢您的訂單"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                                                lineNumber: 410,
+                                                lineNumber: 433,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Typography$2f$Typography$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Typography$3e$__["Typography"], {
@@ -2527,7 +2637,7 @@ function OrderQueryPage() {
                                                 children: "請輸入完整的訂單編號進行查詢"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                                                lineNumber: 414,
+                                                lineNumber: 437,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Stack$2f$Stack$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Stack$3e$__["Stack"], {
@@ -2547,7 +2657,7 @@ function OrderQueryPage() {
                                                         }
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                                                        lineNumber: 419,
+                                                        lineNumber: 442,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$TextField$2f$TextField$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__TextField$3e$__["TextField"], {
@@ -2561,7 +2671,7 @@ function OrderQueryPage() {
                                                         }
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                                                        lineNumber: 428,
+                                                        lineNumber: 451,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Button$2f$Button$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Button$3e$__["Button"], {
@@ -2572,13 +2682,13 @@ function OrderQueryPage() {
                                                         children: "查詢訂單"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                                                        lineNumber: 437,
+                                                        lineNumber: 460,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                                                lineNumber: 418,
+                                                lineNumber: 441,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Typography$2f$Typography$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Typography$3e$__["Typography"], {
@@ -2589,29 +2699,29 @@ function OrderQueryPage() {
                                                 children: "找不到訂單編號？請確認您的購票確認信箱"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                                                lineNumber: 442,
+                                                lineNumber: 465,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                                        lineNumber: 398,
+                                        lineNumber: 419,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                                    lineNumber: 397,
+                                    lineNumber: 418,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                                lineNumber: 389,
+                                lineNumber: 409,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                        lineNumber: 373,
+                        lineNumber: 392,
                         columnNumber: 11
                     }, this),
                     activeStep === 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Box$2f$Box$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Box$3e$__["Box"], {
@@ -2659,12 +2769,12 @@ function OrderQueryPage() {
                                                 size: 30
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                                                lineNumber: 479,
+                                                lineNumber: 506,
                                                 columnNumber: 21
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                                            lineNumber: 476,
+                                            lineNumber: 502,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Typography$2f$Typography$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Typography$3e$__["Typography"], {
@@ -2677,7 +2787,7 @@ function OrderQueryPage() {
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                                            lineNumber: 481,
+                                            lineNumber: 508,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Stack$2f$Stack$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Stack$3e$__["Stack"], {
@@ -2692,7 +2802,7 @@ function OrderQueryPage() {
                                                     handleSearchold: handleSearchold
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                                                    lineNumber: 486,
+                                                    lineNumber: 513,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Button$2f$Button$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Button$3e$__["Button"], {
@@ -2702,40 +2812,40 @@ function OrderQueryPage() {
                                                     children: "返回查詢頁面"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                                                    lineNumber: 492,
+                                                    lineNumber: 520,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                                            lineNumber: 485,
+                                            lineNumber: 512,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                                    lineNumber: 469,
+                                    lineNumber: 494,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                                lineNumber: 468,
+                                lineNumber: 493,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                            lineNumber: 460,
+                            lineNumber: 484,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                        lineNumber: 451,
+                        lineNumber: 474,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/[lang]/orderInquiry/page.jsx",
-                lineNumber: 355,
+                lineNumber: 374,
                 columnNumber: 7
             }, this)
         ]
